@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Spartan Race Weekend | Misano 2026</title>
+
+        <!-- Font Awesome CDN -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <!-- OVERLAY NAVIGAZIONE MOBILE -->
+        <div class="nav-overlay" id="navOverlay"></div>
+
+        <!-- HEADER / NAVIGATION -->
+        <header>
+            <div class="container nav-container">
+                <a href="#" class="logo">
+                    <i class="fa-solid fa-shield-halved"></i> SPARTAN<span
+                        >WEEK-END</span
+                    >
+                </a>
+
+                <button
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Apri Menu"
+                >
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+
+                <nav class="nav-drawer" id="navDrawer">
+                    <div class="drawer-header">
+                        <span class="drawer-title">MENU</span>
+                    </div>
+                    <ul class="nav-links">
+                        <li>
+                            <a href="#itinerario"
+                                ><i class="fa-solid fa-route"></i> Viaggio &
+                                Calcolatore</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#alloggi"
+                                ><i class="fa-solid fa-hotel"></i> Alloggi
+                                Disponibili</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#gara"
+                                ><i class="fa-solid fa-trophy"></i> Dettagli
+                                Spartan Race</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#checklist"
+                                ><i class="fa-solid fa-list-check"></i>
+                                Checklist Zaino</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container hero-content">
+                <span class="hero-badge"
+                    ><i class="fa-regular fa-calendar-days"></i> 19-20 Settembre
+                    2026</span
+                >
+                <h1>SPARTAN<br />MISANO 2026</h1>
+                <p>
+                    Pianificazione strategica per la trasferta. <br />
+                    Viaggio A/R, alloggi e dettagli gara.
+                </p>
+
+                <!-- Countdown -->
+                <div class="countdown-container">
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="cd-days">00</div>
+                        <div class="countdown-label">Giorni</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="cd-hours">00</div>
+                        <div class="countdown-label">Ore</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="cd-mins">00</div>
+                        <div class="countdown-label">Min</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="cd-secs">00</div>
+                        <div class="countdown-label">Sec</div>
+                    </div>
+                </div>
+
+                <a href="#gara" class="btn btn-primary"
+                    ><i class="fa-solid fa-bolt"></i> Dettagli Gara</a
+                >
+            </div>
+        </section>
+
+        <!-- METRICS OVERVIEW SECTION -->
+        <section id="metriche" class="metrics-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">INFO <span>CHIAVE</span></h2>
+                    <p class="section-subtitle">
+                        Panoramica dettagliata dei costi di viaggio per singola
+                        tratta
+                    </p>
+                </div>
+
+                <div class="metrics-grid reveal">
+                    <!-- Distanza a Tratta -->
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fa-solid fa-car-side"></i>
+                        </div>
+                        <div class="metric-data">
+                            <h4>502 km</h4>
+                            <p>Distanza</p>
+                        </div>
+                    </div>
+
+                    <!-- Tempo Stimato a Tratta -->
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="metric-data">
+                            <h4>5h 40m</h4>
+                            <p>Tempo Stimato</p>
+                        </div>
+                    </div>
+
+                    <!-- Carburante a Tratta -->
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fa-solid fa-gas-pump"></i>
+                        </div>
+                        <div class="metric-data">
+                            <h4>60,30 €</h4>
+                            <p>Carburante</p>
+                        </div>
+                    </div>
+
+                    <!-- Pedaggio Autostrada a Tratta -->
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fa-solid fa-road"></i>
+                        </div>
+                        <div class="metric-data">
+                            <h4>34,10 €</h4>
+                            <p>Pedaggio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ITINERARIO & CALCOLATORE -->
+        <section id="itinerario">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">VIAGGIO <span>& SPESE</span></h2>
+                    <p class="section-subtitle">
+                        Piano di viaggio Napoli (Piazza Europa) ↔ Misano
+                        Adriatico
+                    </p>
+                </div>
+
+                <div class="route-layout">
+                    <!-- Dettagli del Percorso -->
+                    <div class="route-info-card reveal">
+                        <div class="route-header">
+                            <h3>
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                Dettagli Tragitto
+                            </h3>
+                            <span class="badge-ar">Andata e Ritorno</span>
+                        </div>
+
+                        <div class="location-step">
+                            <div class="step-icon">A</div>
+                            <div>
+                                <h4>Napoli</h4>
+                                <p class="text-muted">
+                                    Partenza: Piazza Europa
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="location-step">
+                            <div class="step-icon">B</div>
+                            <div>
+                                <h4>Misano Adriatico</h4>
+                                <p class="text-muted">
+                                    Destinazione: Campo Gara Spartan
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="costs-breakdown">
+                            <h4>
+                                <i class="fa-solid fa-receipt"></i> Stima Costi
+                                Auto A/R
+                            </h4>
+                            <div class="cost-row">
+                                <span
+                                    ><i class="fa-solid fa-gas-pump"></i>
+                                    Carburante (A/R)</span
+                                >
+                                <span>120,60 €</span>
+                            </div>
+                            <div class="cost-row">
+                                <span
+                                    ><i class="fa-solid fa-road"></i> Pedaggi
+                                    Autostrada (A/R)</span
+                                >
+                                <span>68,20 €</span>
+                            </div>
+                            <div class="cost-row total">
+                                <span>Totale Spesa Auto (A/R)</span>
+                                <span>188,80 €</span>
+                            </div>
+                        </div>
+
+                        <a
+                            href="https://www.google.com/maps/dir/Piazza+Europa,+Napoli/Misano+Adriatico"
+                            target="_blank"
+                            class="btn btn-outline"
+                            style="width: 100%; margin-top: 20px"
+                        >
+                            <i class="fa-solid fa-map"></i> Mappa Percorso
+                        </a>
+                    </div>
+
+                    <!-- Calcolatore Dividi Spese -->
+                    <div class="calculator-box reveal">
+                        <h3>
+                            <i class="fa-solid fa-calculator"></i> Calcolatore
+                            Quota A/R
+                        </h3>
+                        <p class="text-muted" style="margin-bottom: 20px">
+                            Seleziona il numero di partecipanti per dividere le
+                            spese del viaggio e filtrare gli alloggi idonei:
+                        </p>
+
+                        <div class="calc-input-group">
+                            <label
+                                ><i class="fa-solid fa-users"></i> Numero
+                                Partecipanti:</label
+                            >
+                            <div class="counter-control">
+                                <button
+                                    type="button"
+                                    class="btn-counter"
+                                    id="btnMinus"
+                                    aria-label="Riduci"
+                                >
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <input
+                                    type="number"
+                                    id="passengers"
+                                    value="4"
+                                    min="1"
+                                    max="8"
+                                    readonly
+                                />
+                                <button
+                                    type="button"
+                                    class="btn-counter"
+                                    id="btnPlus"
+                                    aria-label="Aumenta"
+                                >
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="calc-result">
+                            <div class="calc-label">
+                                Quota per Persona (A/R Completo):
+                            </div>
+                            <div class="calc-result-val" id="perPersonCost">
+                                47,20 €
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE ALLOGGI -->
+        <section id="alloggi">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">
+                        ALLOGGI <span>DISPONIBILI</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Mostrando alloggi idonei per
+                        <span
+                            id="capacityFilterCount"
+                            style="color: var(--accent-gold); font-weight: bold"
+                            >4</span
+                        >
+                        o più persone
+                    </p>
+                </div>
+
+                <div class="cards-grid" id="accommodationGrid">
+                    <!-- Airbnb Misano (Capacità 4) -->
+                    <div
+                        class="card accommodation-card reveal"
+                        data-capacity="4"
+                    >
+                        <span class="card-badge"
+                            ><i class="fa-solid fa-star"></i> Scelta
+                            Principale</span
+                        >
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <i class="fa-brands fa-airbnb"></i> Relax in
+                                Misano (Fronte Mare)
+                            </h3>
+                            <div class="card-capacity">
+                                <i class="fa-solid fa-user-group"></i> Capienza:
+                                fino a 4 persone
+                            </div>
+                            <div class="card-price">
+                                Trattativa Airbnb <span>/ notte</span>
+                            </div>
+                            <p class="text-muted">
+                                Appartamento intero a 20m dalla spiaggia. Ideale
+                                per il gruppo con cucina e servizi inclusi.
+                            </p>
+
+                            <ul class="pro-contra-list">
+                                <li class="pro">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Vicinissimo al lungomare e al campo gara
+                                </li>
+                                <li class="pro">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Spazio intero e cucina a disposizione
+                                </li>
+                                <li class="contra">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                    Richiede check-out la domenica mattina
+                                </li>
+                            </ul>
+
+                            <div class="card-footer">
+                                <a
+                                    href="https://www.airbnb.it/rooms/1397817967441510033?adults=4&check_in=2026-09-19&check_out=2026-09-20"
+                                    target="_blank"
+                                    class="btn btn-primary"
+                                    style="width: 100%"
+                                >
+                                    Apri su Airbnb
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"
+                                    ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hotel Athlete (Capacità 2) -->
+                    <div
+                        class="card accommodation-card reveal"
+                        data-capacity="2"
+                    >
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <i class="fa-solid fa-hotel"></i> Hotel Athlete
+                                Friendly
+                            </h3>
+                            <div class="card-capacity">
+                                <i class="fa-solid fa-user-group"></i> Capienza:
+                                fino a 2 persone
+                            </div>
+                            <div class="card-price">
+                                ~80 € <span>/ notte camera doppia</span>
+                            </div>
+                            <p class="text-muted">
+                                Camera doppia hotel con colazione e servizi
+                                sportivi inclusi.
+                            </p>
+
+                            <ul class="pro-contra-list">
+                                <li class="pro">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Colazione abbondante inclusa
+                                </li>
+                                <li class="pro">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Check-out flessibile post gara
+                                </li>
+                                <li class="contra">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                    Spazio limitato per grandi gruppi
+                                </li>
+                            </ul>
+
+                            <div class="card-footer">
+                                <a
+                                    href="https://www.booking.com/searchresults.it.html?ss=Misano+Adriatico"
+                                    target="_blank"
+                                    class="btn btn-outline"
+                                    style="width: 100%"
+                                >
+                                    Cerca su Booking
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"
+                                    ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Villa Spartan Group (Capacità 6) -->
+                    <div
+                        class="card accommodation-card reveal"
+                        data-capacity="6"
+                    >
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <i class="fa-solid fa-house-user"></i> Villa
+                                Spartan Group
+                            </h3>
+                            <div class="card-capacity">
+                                <i class="fa-solid fa-user-group"></i> Capienza:
+                                fino a 6 persone
+                            </div>
+                            <div class="card-price">
+                                ~180 € <span>/ notte totale</span>
+                            </div>
+                            <p class="text-muted">
+                                Ampia villa indipendente ideale per gruppi
+                                numerosi di atleti.
+                            </p>
+
+                            <ul class="pro-contra-list">
+                                <li class="pro">
+                                    <i class="fa-solid fa-circle-check"></i> Può
+                                    ospitare fino a 6 persone
+                                </li>
+                                <li class="pro">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Giardino privato per riposo e attrezzatura
+                                </li>
+                                <li class="contra">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                    Necessario breve spostamento in auto
+                                </li>
+                            </ul>
+
+                            <div class="card-footer">
+                                <a
+                                    href="https://www.google.com/maps/search/hotels+misano+adriatico"
+                                    target="_blank"
+                                    class="btn btn-outline"
+                                    style="width: 100%"
+                                >
+                                    Cerca su Maps
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"
+                                    ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p id="noAccommodationMsg" class="no-results-msg hidden">
+                    <i class="fa-solid fa-circle-exclamation"></i> Nessun
+                    alloggio attualmente salvato per gruppi superiori a questa
+                    capienza. Prova a ridurre il numero di persone o seleziona
+                    più alloggi distinti.
+                </p>
+            </div>
+        </section>
+
+        <!-- DETTAGLI SPARTAN RACE -->
+        <section id="gara" class="spartan-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">
+                        GARA: <span>SPARTAN SUPER</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Domenica 20 Settembre 2026 • Misano Adriatico
+                    </p>
+                </div>
+
+                <div class="spartan-grid reveal">
+                    <div class="info-box">
+                        <h3>
+                            <i class="fa-solid fa-circle-info"></i> Formato
+                            Super
+                        </h3>
+                        <p><strong>Distanza:</strong> 10 KM</p>
+                        <p><strong>Ostacoli:</strong> 25 Ostacoli</p>
+                        <p><strong>Location:</strong> Misano World Circuit</p>
+                        <p>
+                            <strong>Pacco Gara:</strong> Ritiro 1h30m prima
+                            dello slot
+                        </p>
+                    </div>
+
+                    <div class="info-box border-gold">
+                        <h3><i class="fa-solid fa-ticket"></i> Ticket Gara</h3>
+                        <p><strong>Prezzo Medio:</strong> ~90€ - 110€</p>
+                        <p>
+                            <strong>Incluso:</strong> T-shirt Finisher,
+                            Medaglia, Chip Crono e Assicurazione.
+                        </p>
+                        <a
+                            href="https://it.spartan.com/"
+                            target="_blank"
+                            class="btn btn-primary"
+                            style="margin-top: 15px; width: 100%"
+                        >
+                            Sito Spartan
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Selezione Onde di Partenza -->
+                <div style="margin-top: 40px" class="reveal">
+                    <h3
+                        style="
+                            text-align: center;
+                            margin-bottom: 8px;
+                            font-size: 1.3rem;
+                        "
+                    >
+                        <i class="fa-solid fa-stopwatch"></i> Batterie
+                        Disponibili
+                    </h3>
+                    <p
+                        style="
+                            text-align: center;
+                            color: var(--text-muted);
+                            font-size: 0.85rem;
+                        "
+                    >
+                        Seleziona lo slot orario desiderato:
+                    </p>
+
+                    <div class="wave-times-grid">
+                        <div class="wave-time-slot selected">
+                            <div class="wave-time">10:15</div>
+                            <div class="wave-status">Wave 1</div>
+                        </div>
+                        <div class="wave-time-slot">
+                            <div class="wave-time">10:45</div>
+                            <div class="wave-status">Wave 2</div>
+                        </div>
+                        <div class="wave-time-slot">
+                            <div class="wave-time">11:15</div>
+                            <div class="wave-status">Wave 3</div>
+                        </div>
+                        <div class="wave-time-slot">
+                            <div class="wave-time">11:45</div>
+                            <div class="wave-status">Wave 4</div>
+                        </div>
+                        <div class="wave-time-slot">
+                            <div class="wave-time">12:15</div>
+                            <div class="wave-status">Wave 5</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checklist Equipaggiamento -->
+                <div class="checklist-container reveal" id="checklist">
+                    <h3>
+                        <i class="fa-solid fa-clipboard-check"></i> Checklist
+                        Zaino
+                    </h3>
+                    <p class="text-muted" style="margin-bottom: 15px">
+                        Spunta gli oggetti pronti:
+                    </p>
+
+                    <div class="checklist-grid">
+                        <label class="check-item"
+                            ><input type="checkbox" />
+                            <i class="fa-solid fa-shoe-prints"></i> Scarpe
+                            Trail</label
+                        >
+                        <label class="check-item"
+                            ><input type="checkbox" />
+                            <i class="fa-solid fa-id-card"></i> Carta
+                            D'Identità</label
+                        >
+                        <label class="check-item"
+                            ><input type="checkbox" />
+                            <i class="fa-solid fa-file-medical"></i> Certificato
+                            Agonistico</label
+                        >
+                        <label class="check-item"
+                            ><input type="checkbox" />
+                            <i class="fa-solid fa-qrcode"></i> QR Code
+                            Ticket</label
+                        >
+                        <label class="check-item"
+                            ><input type="checkbox" />
+                            <i class="fa-solid fa-shirt"></i> Maglia
+                            Tecnica</label
+                        >
+                        <label class="check-item"
+                            ><input type="checkbox" />
+                            <i class="fa-solid fa-bath"></i> Cambio &
+                            Asciugamano</label
+                        >
+                        <label class="check-item"
+                            ><input type="checkbox" />
+                            <i class="fa-solid fa-bag-shopping"></i> Sacchi
+                            Indumenti Sporchi</label
+                        >
+                        <label class="check-item"
+                            ><input type="checkbox" />
+                            <i class="fa-solid fa-bolt-lightning"></i> Gel &
+                            Sali</label
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="container">
+                <p>AROO! • Spartan Race Misano Weekend Planner 2026</p>
+            </div>
+        </footer>
+
+        <!-- Custom JS -->
+        <script src="script.js"></script>
+    </body>
+</html>
