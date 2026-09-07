@@ -1,28 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
     /* ==========================================
-       1. NAVIGATION DRAWER MOBILE (MODERNA)
-       ========================================== */
+   1. NAVIGATION DRAWER MOBILE (MODERNA)
+   ========================================== */
     const menuToggle = document.getElementById("menuToggle");
     const navDrawer = document.getElementById("navDrawer");
     const navOverlay = document.getElementById("navOverlay");
     const navLinks = document.querySelectorAll(".nav-links a");
 
+    function closeMenu() {
+        menuToggle.classList.remove("active");
+        navDrawer.classList.remove("open");
+        navOverlay.classList.remove("active");
+        document.body.style.overflow = ""; // Ripristina subito lo scroll
+    }
+
     function toggleMenu() {
-        menuToggle.classList.toggle("active");
-        navDrawer.classList.toggle("open");
-        navOverlay.classList.toggle("active");
-        document.body.style.overflow = navDrawer.classList.contains("open")
-            ? "hidden"
-            : "";
+        if (navDrawer.classList.contains("open")) {
+            closeMenu();
+        } else {
+            menuToggle.classList.add("active");
+            navDrawer.classList.add("open");
+            navOverlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
     }
 
     menuToggle.addEventListener("click", toggleMenu);
-    navOverlay.addEventListener("click", toggleMenu);
+    navOverlay.addEventListener("click", closeMenu);
 
+    // Gestione clic sui link del menu
     navLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-            if (navDrawer.classList.contains("open")) {
-                toggleMenu();
+        link.addEventListener("click", (e) => {
+            // Chiudi il menu
+            closeMenu();
+
+            // Gestione pulita dell'ancoraggio manuale per evitare tagli visivi
+            const targetId = link.getAttribute("href");
+            if (targetId.startsWith("#")) {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    // Calcola la posizione compensando l'header di 60px + 20px extra di margine
+                    const headerOffset = 30;
+                    const elementPosition =
+                        targetElement.getBoundingClientRect().top;
+                    const offsetPosition =
+                        elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth",
+                    });
+                }
             }
         });
     });
