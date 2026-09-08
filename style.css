@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. VARIABLES & RESET (AGGIORNATE)
+   1. VARIABLES & RESET
    ========================================================================== */
 :root {
     --bg-main: #0c0d0e;
@@ -12,7 +12,6 @@
     --text-muted: #9aa0a6;
     --border-color: #282c30;
 
-    /* Font aggiornato: 'Teko' come primario, con fallback ben spaziati */
     --font-title: "Teko", "Arial Black", "Trebuchet MS", sans-serif;
     --font-body:
         system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -39,18 +38,18 @@ body {
     overflow-x: hidden;
 }
 
-/* Typography Fluid Scaling - Aumentato letter-spacing per migliorare la leggibilità */
+/* Typography Fluid Scaling */
 h1 {
-    font-size: clamp(2.4rem, 7vw, 4.2rem);
+    font-size: clamp(2.2rem, 7vw, 4.2rem);
 }
 h2 {
-    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-size: clamp(1.7rem, 5vw, 3rem);
 }
 h3 {
-    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-size: clamp(1.3rem, 4vw, 2rem);
 }
 h4 {
-    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+    font-size: clamp(1.05rem, 3.5vw, 1.5rem);
 }
 
 h1,
@@ -59,7 +58,7 @@ h3,
 h4 {
     font-family: var(--font-title);
     text-transform: uppercase;
-    letter-spacing: 2px; /* Incrementato la spaziatura tra i caratteri */
+    letter-spacing: 1.5px;
     font-weight: 700;
     line-height: 1.1;
 }
@@ -81,14 +80,18 @@ a {
     padding: 0 10px;
 }
 
+.hidden {
+    display: none !important;
+}
+
 section {
-    padding: 70px 0 50px 0; /* Aumentato il padding superiore */
+    padding: 60px 0 40px 0;
     border-bottom: 1px solid var(--border-color);
-    scroll-margin-top: 60px; /* Offset esatto pari all'altezza del tuo header fisso */
+    scroll-margin-top: 60px;
 }
 
 [id] {
-    scroll-margin-top: 30px;
+    scroll-margin-top: 60px;
 }
 
 .section-title {
@@ -103,7 +106,7 @@ section {
 
 .section-header {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 .section-subtitle {
@@ -125,6 +128,7 @@ section {
     cursor: pointer;
     transition: var(--transition-smooth);
     gap: 8px;
+    word-break: break-word;
 }
 
 .btn-primary {
@@ -149,7 +153,7 @@ section {
 }
 
 /* ==========================================================================
-   2. MODERN NAVIGATION (RETTOTTA DRAWER MOBILE)
+   2. NAVIGATION (MOBILE DRAWER)
    ========================================================================== */
 header {
     position: fixed;
@@ -171,7 +175,7 @@ header {
 }
 
 .logo {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-family: var(--font-title);
     color: var(--text-light);
     display: flex;
@@ -183,7 +187,6 @@ header {
     color: var(--primary-red);
 }
 
-/* Animated Hamburger Button */
 .menu-toggle {
     background: none;
     border: none;
@@ -206,7 +209,6 @@ header {
     transition: var(--transition-smooth);
 }
 
-/* Transform to 'X' when open */
 .menu-toggle.active .bar:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
     background-color: var(--primary-red);
@@ -221,7 +223,6 @@ header {
     background-color: var(--primary-red);
 }
 
-/* Drawer Side Menu */
 .nav-drawer {
     position: fixed;
     top: 0;
@@ -305,7 +306,7 @@ header {
    3. HERO SECTION
    ========================================================================== */
 .hero {
-    min-height: 90vh;
+    min-height: 85vh;
     padding-top: 90px;
     padding-bottom: 40px;
     background:
@@ -349,12 +350,12 @@ header {
     margin-right: auto;
 }
 
-/* Countdown Compact & Scalabile */
 .countdown-container {
     display: flex;
     justify-content: center;
     gap: 8px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .countdown-box {
@@ -380,24 +381,24 @@ header {
 }
 
 /* ==========================================================================
-   METRICS SECTION (SEZIONE UNIFORMATA)
+   4. METRICS SECTION
    ========================================================================== */
 .metrics-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 12px;
 }
 
 .metric-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    padding: 18px 15px;
+    padding: 15px 12px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: var(--transition-smooth);
 }
@@ -408,11 +409,11 @@ header {
 }
 
 .metric-icon {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     background: rgba(255, 179, 0, 0.1);
     color: var(--accent-gold);
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -425,7 +426,7 @@ header {
 }
 
 .metric-data h4 {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     line-height: 1.1;
     color: var(--text-light);
 }
@@ -438,12 +439,12 @@ header {
 }
 
 /* ==========================================================================
-   5. ITINERARIO & CALCOLATORE STILIZZATO
+   5. ITINERARIO & CALCOLATORE
    ========================================================================== */
 .route-layout {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 20px;
 }
 
 .route-info-card,
@@ -451,16 +452,33 @@ header {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 10px;
-    padding: 20px;
+    padding: 18px;
+}
+
+.calculator-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.calculator-box h3,
+.calculator-box p {
+    text-align: center;
 }
 
 .route-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 12px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.route-info-card .metrics-grid {
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .badge-ar {
@@ -472,6 +490,13 @@ header {
     font-size: 0.7rem;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+.calc-input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .location-step {
@@ -508,7 +533,7 @@ header {
 .costs-breakdown {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 6px;
-    padding: 15px;
+    padding: 12px;
     margin-top: 15px;
 }
 
@@ -517,6 +542,7 @@ header {
     justify-content: space-between;
     font-size: 0.85rem;
     margin-bottom: 8px;
+    gap: 10px;
 }
 
 .cost-row.total {
@@ -528,26 +554,23 @@ header {
     color: var(--accent-gold);
 }
 
-/* Stylish Counter Control (+ / -) */
 .counter-control {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: var(--bg-main);
+    justify-content: flex-start;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 5px;
+    padding: 4px;
     margin-top: 8px;
-    width: 100%;
-    max-width: 220px;
+    width: fit-content;
 }
 
 .btn-counter {
-    width: 42px;
-    height: 42px;
-    background: var(--bg-card);
+    width: 40px;
+    height: 40px;
+    background: var(--accent-gold);
     border: 1px solid var(--border-color);
-    color: var(--text-light);
+    color: var(--bg-card);
     border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
@@ -560,10 +583,11 @@ header {
 .btn-counter:hover {
     background: var(--primary-red);
     border-color: var(--primary-red);
+    color: var(--text-light);
 }
 
 .counter-control input {
-    width: 60px;
+    width: 50px;
     background: transparent;
     border: none;
     color: var(--accent-gold);
@@ -573,13 +597,55 @@ header {
     outline: none;
 }
 
+.quota-breakdown-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 1;
+}
+
+.quota-breakdown {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.quota-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    gap: 8px;
+}
+
+.quota-row:last-child {
+    border-bottom: none;
+}
+
+.quick-link {
+    display: block;
+    color: var(--accent-gold);
+    font-size: 0.72rem;
+    margin-left: 4px;
+    text-decoration: underline;
+}
+
+.quick-link:hover {
+    color: #fff;
+}
+
 .calc-result {
     background: rgba(255, 179, 0, 0.05);
     border: 1px solid var(--accent-gold);
     padding: 15px;
     border-radius: 8px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .calc-label {
@@ -594,12 +660,207 @@ header {
 }
 
 /* ==========================================================================
-   6. ALLOGGI & CARDS
+   6. SPARTAN RACE DETAILS
+   ========================================================================== */
+.spartan-section {
+    background: linear-gradient(
+        180deg,
+        var(--bg-main) 0%,
+        rgba(211, 47, 47, 0.06) 50%,
+        var(--bg-main) 100%
+    );
+}
+
+/* Selettore Formato Gara Responsive */
+.race-selector-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.race-tab-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: var(--font-title);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1 1 180px;
+    max-width: 280px;
+    text-align: center;
+}
+
+.race-tab-btn.super {
+    color: #3b82f6;
+}
+.race-tab-btn.sprint {
+    color: #ef4444;
+}
+
+.race-tab-btn.super.active {
+    background: #0047bb;
+    color: #fff;
+    border-color: #0047bb;
+}
+
+.race-tab-btn.sprint.active {
+    background: #cb092f;
+    color: #fff;
+    border-color: #cb092f;
+}
+
+.single-race-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.single-race-card.border-sprint {
+    border: 2px solid #cb092f;
+}
+.single-race-card.border-super {
+    border: 2px solid #0047bb;
+}
+
+.race-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.race-card-header.sprint span {
+    color: var(--primary-red);
+}
+.race-card-header.super span {
+    color: #3b82f6;
+}
+
+.race-price-tag {
+    color: #fff !important;
+    border: 1.5px solid;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.race-price-tag.sprint {
+    border-color: var(--primary-red);
+}
+.race-price-tag.super {
+    border-color: #0047bb;
+}
+
+.race-card-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.race-detail-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.race-detail-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.wave-section {
+    border-top: 1px dashed var(--border-color);
+    padding-top: 18px;
+}
+
+.wave-section h4 {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.wave-times-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.wave-time-slot {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    flex: 0 1 calc(33.33% - 8px);
+    min-width: 80px;
+}
+
+.wave-time-slot.selected {
+    border-color: var(--primary-red);
+    background: rgba(211, 47, 47, 0.2);
+}
+
+.wave-time {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.wave-status {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+/* Bottoni Acquisto Biglietto */
+.btn-buy-sprint {
+    background-color: var(--primary-red) !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+}
+
+.btn-buy-sprint:hover {
+    background-color: var(--primary-red-hover) !important;
+}
+
+.btn-buy-super {
+    background-color: #0047bb !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 71, 187, 0.4);
+}
+
+.btn-buy-super:hover {
+    background-color: #003690 !important;
+}
+
+/* ==========================================================================
+   7. ALLOGGI & CARDS
    ========================================================================== */
 .cards-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 18px;
 }
 
 .card {
@@ -611,8 +872,8 @@ header {
     transition: var(--transition-smooth);
 }
 
-.card.hidden {
-    display: none !important;
+.card.selected-hotel {
+    border-color: var(--accent-gold);
 }
 
 .card-badge {
@@ -621,20 +882,21 @@ header {
     right: 12px;
     background: var(--primary-red);
     color: white;
-    padding: 3px 10px;
+    padding: 3px 8px;
     border-radius: 20px;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 .card-content {
-    padding: 20px;
+    padding: 18px;
 }
 
 .card-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 4px;
+    padding-right: 70px;
 }
 
 .card-capacity {
@@ -648,7 +910,7 @@ header {
     font-size: 1.1rem;
     color: var(--text-light);
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .card-price span {
@@ -659,7 +921,7 @@ header {
 
 .pro-contra-list {
     list-style: none;
-    margin: 12px 0 20px 0;
+    margin: 12px 0 15px 0;
     font-size: 0.82rem;
 }
 
@@ -677,129 +939,31 @@ header {
     color: #f44336;
 }
 
+.btn-select-hotel.active {
+    background: rgba(255, 179, 0, 0.15);
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+}
+
 .no-results-msg {
     text-align: center;
-    padding: 30px 15px;
+    padding: 25px 15px;
     background: var(--bg-card);
     border: 1px dashed var(--border-color);
     border-radius: 8px;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     margin-top: 10px;
 }
 
-.no-results-msg.hidden {
-    display: none;
-}
-
 /* ==========================================================================
-   7. SPARTAN RACE DETAILS
+   8. FOOTER & REVEAL
    ========================================================================== */
-.spartan-section {
-    background: linear-gradient(
-        180deg,
-        var(--bg-main) 0%,
-        rgba(211, 47, 47, 0.06) 50%,
-        var(--bg-main) 100%
-    );
-}
-
-.spartan-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-}
-
-.info-box {
-    background: var(--bg-card);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    font-size: 0.9rem;
-}
-
-.info-box.border-gold {
-    border-color: rgba(255, 179, 0, 0.4);
-}
-
-.info-box h3 {
-    margin-bottom: 10px;
-}
-
-.wave-times-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.wave-time-slot {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 10px;
-    text-align: center;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-}
-
-.wave-time-slot.selected {
-    border-color: var(--primary-red);
-    background: rgba(211, 47, 47, 0.2);
-}
-
-.wave-time {
-    font-family: var(--font-title);
-    font-size: 1.1rem;
-}
-
-.wave-status {
-    font-size: 0.65rem;
-    color: var(--text-muted);
-}
-
-/* Checklist */
-.checklist-container {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 30px;
-}
-
-.checklist-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-}
-
-.check-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--bg-main);
-    padding: 10px 12px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    cursor: pointer;
-}
-
-.check-item input[type="checkbox"] {
-    accent-color: var(--primary-red);
-    width: 16px;
-    height: 16px;
-}
-
-.check-item.completed {
-    text-decoration: line-through;
-    opacity: 0.5;
-}
-
 footer {
-    padding: 30px 0;
+    padding: 25px 0;
     text-align: center;
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: 0.95rem;
     background: #060707;
 }
 
@@ -807,11 +971,10 @@ footer span {
     color: var(--primary-red);
 }
 
-/* Animations Scroll */
 .reveal {
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.6s ease;
+    transition: all 0.5s ease;
 }
 
 .reveal.active {
@@ -820,11 +983,50 @@ footer span {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERIES (DESKTOP & TABLET ADAPTATION)
+   9. MEDIA QUERIES (BREAKPOINTS RESPONSIVE)
    ========================================================================== */
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: 0 6px;
+    }
+
+    .single-race-card,
+    .route-info-card,
+    .calculator-box,
+    .card-content {
+        padding: 14px;
+    }
+
+    .race-tab-btn {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .wave-time-slot {
+        flex: 0 1 calc(50% - 8px);
+    }
+
+    .card-title {
+        padding-right: 0;
+        margin-top: 15px;
+    }
+
+    .card-badge {
+        position: relative;
+        top: 0;
+        right: 0;
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+}
+
 @media (min-width: 600px) {
+    .quick-link {
+        display: inline;
+    }
+
     .metrics-grid {
-        grid-template-columns: repeat(4, 1fr);
         gap: 20px;
     }
 
@@ -833,24 +1035,16 @@ footer span {
     }
 
     .cards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
-    .spartan-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .checklist-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .wave-time-slot {
+        flex: 0 1 auto;
     }
 }
 
 @media (min-width: 900px) {
     .route-layout {
         grid-template-columns: 1fr 1fr;
-    }
-
-    .checklist-grid {
-        grid-template-columns: repeat(3, 1fr);
     }
 }
