@@ -4,14 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Spartan Planner</title>
+        <link rel="icon" type="image/png" href="./assets/logo.png" />
 
-        <!-- Font Awesome CDN -->
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
 
-        <!-- Font -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -19,14 +18,11 @@
             rel="stylesheet"
         />
 
-        <!-- Custom CSS -->
         <link rel="stylesheet" href="./style.css" />
     </head>
     <body>
-        <!-- OVERLAY NAVIGAZIONE MOBILE -->
         <div class="nav-overlay" id="navOverlay"></div>
 
-        <!-- HEADER / NAVIGATION -->
         <header>
             <div class="container nav-container">
                 <a href="#" class="logo" id="logoLink">
@@ -102,7 +98,6 @@
             </div>
         </header>
 
-        <!-- HERO SECTION -->
         <section class="hero">
             <div class="container hero-content">
                 <span class="hero-badge"
@@ -115,7 +110,6 @@
                     Viaggio A/R, alloggi e dettagli gara.
                 </p>
 
-                <!-- Countdown -->
                 <div class="countdown-container">
                     <div class="countdown-box">
                         <div class="countdown-number" id="cd-days">00</div>
@@ -141,7 +135,6 @@
             </div>
         </section>
 
-        <!-- ITINERARIO & CALCOLATORE AVANZATO -->
         <section id="itinerario">
             <div class="container">
                 <div class="section-header reveal">
@@ -153,7 +146,6 @@
                 </div>
 
                 <div class="route-layout">
-                    <!-- Dettagli del Percorso -->
                     <div class="route-info-card reveal">
                         <div class="route-header">
                             <h3>
@@ -163,7 +155,6 @@
                             <span class="badge-ar">A Tratta</span>
                         </div>
 
-                        <!-- METRICS GRID TRASFERITA QUI -->
                         <div class="metrics-grid reveal">
                             <div class="metric-card">
                                 <div class="metric-icon">
@@ -264,7 +255,6 @@
             </div>
         </section>
 
-        <!-- SEZIONE CALCOLATORE -->
         <section id="calcolatore">
             <div class="container">
                 <div class="section-header reveal">
@@ -318,7 +308,6 @@
                             </div>
                         </div>
 
-                        <!-- Dettaglio Quota Singola Persona (A/R) -->
                         <div class="quota-breakdown-wrapper">
                             <div class="quota-breakdown">
                                 <div class="quota-row">
@@ -397,7 +386,6 @@
             </div>
         </section>
 
-        <!-- SEZIONE ALLOGGI -->
         <section id="alloggi">
             <div class="container">
                 <div class="section-header reveal">
@@ -416,7 +404,6 @@
                 </div>
 
                 <div class="cards-grid" id="accommodationGrid">
-                    <!-- HoY VILLAGE -->
                     <div
                         class="card accommodation-card reveal"
                         data-capacity="2"
@@ -434,9 +421,6 @@
                                 <span class="dynamic-price">66 €</span>
                                 <span></span>
                             </div>
-                            <!-- <p class="text-muted">
-                                Hotel 3 stelle
-                            </p> -->
 
                             <ul class="pro-contra-list">
                                 <li class="pro">
@@ -480,7 +464,6 @@
                         </div>
                     </div>
 
-                    <!-- Hotel Onda Marina -->
                     <div
                         class="card accommodation-card reveal"
                         data-capacity="4"
@@ -488,7 +471,8 @@
                     >
                         <div class="card-content">
                             <h3 class="card-title">
-                                <i class="fa-solid fa-hotel"></i> Hotel Onda Marina
+                                <i class="fa-solid fa-hotel"></i> Hotel Onda
+                                Marina
                             </h3>
                             <div class="card-capacity">
                                 <i class="fa-solid fa-user-group"></i> Capienza:
@@ -497,10 +481,6 @@
                             <div class="card-price">
                                 <span class="dynamic-price">166 €</span>
                             </div>
-                            <!-- <p class="text-muted">
-                                Hotel strategico con tariffe flessibili in base
-                                agli ospiti.
-                            </p> -->
 
                             <ul class="pro-contra-list">
                                 <li class="pro">
@@ -543,7 +523,6 @@
                         </div>
                     </div>
 
-                    <!-- Park Hotel Kursaal -->
                     <div
                         class="card accommodation-card reveal"
                         data-capacity="2"
@@ -562,10 +541,6 @@
                                 <span class="dynamic-price">108 €</span>
                                 <span></span>
                             </div>
-                            <!-- <p class="text-muted">
-                                Ottima sistemazione con tutti i comfort
-                                alberghieri inclusi per un weekend di gara.
-                            </p> -->
 
                             <ul class="pro-contra-list">
                                 <li class="pro">
@@ -611,7 +586,6 @@
                         </div>
                     </div>
 
-                    <!-- Albergo Nadia -->
                     <div
                         class="card accommodation-card reveal"
                         data-capacity="4"
@@ -630,10 +604,7 @@
                                 <span class="dynamic-price">142 €</span>
                                 <span></span>
                             </div>
-                            <p class="text-muted">
-                                <!-- Appartamento privato comodo, perfetto per
-                                piccoli gruppi o coppie. -->
-                            </p>
+                            <p class="text-muted"></p>
 
                             <ul class="pro-contra-list">
                                 <li class="contra">
@@ -685,7 +656,6 @@
             </div>
         </section>
 
-        <!-- DETTAGLI SPARTAN RACE -->
         <section id="gara" class="spartan-section">
             <div class="container">
                 <div class="section-header reveal">
@@ -695,7 +665,6 @@
                     </p>
                 </div>
 
-                <!-- Selettore Formato Gara -->
                 <div class="race-selector-container reveal">
                     <button
                         type="button"
@@ -715,7 +684,6 @@
                     </button>
                 </div>
 
-                <!-- Card SPRINT -->
                 <div id="race-sprint-info" class="race-info-block reveal">
                     <div class="single-race-card border-sprint">
                         <div class="race-card-header sprint">
@@ -728,7 +696,6 @@
                             >
                         </div>
                         <div class="race-card-body sprint">
-                            <!-- Item 1: Distanza -->
                             <div class="race-detail-item">
                                 <div class="race-detail-value">5 KM</div>
                                 <div class="race-detail-label-group">
@@ -737,7 +704,6 @@
                                 </div>
                             </div>
 
-                            <!-- Item 2: Ostacoli -->
                             <div class="race-detail-item">
                                 <div class="race-detail-value">20</div>
                                 <div class="race-detail-label-group">
@@ -746,7 +712,6 @@
                                 </div>
                             </div>
 
-                            <!-- Item 3: Location (Misano World Circuit) -->
                             <div class="race-detail-item">
                                 <div class="race-detail-value">
                                     <i class="fa-solid fa-location-dot"></i>
@@ -793,7 +758,6 @@
                             </div>
                         </div>
                         <div class="card-footer" style="margin-top: 20px">
-                            <!-- Box Coupon Sconto -->
                             <div
                                 class="coupon-box"
                                 style="
@@ -843,7 +807,6 @@
                     </div>
                 </div>
 
-                <!-- Card SUPER -->
                 <div id="race-super-info" class="race-info-block hidden reveal">
                     <div class="single-race-card border-super">
                         <div class="race-card-header super">
@@ -856,7 +819,6 @@
                             >
                         </div>
                         <div class="race-card-body super">
-                            <!-- Item 1: Distanza -->
                             <div class="race-detail-item">
                                 <div class="race-detail-value">10 KM</div>
                                 <div class="race-detail-label-group">
@@ -865,7 +827,6 @@
                                 </div>
                             </div>
 
-                            <!-- Item 2: Ostacoli -->
                             <div class="race-detail-item">
                                 <div class="race-detail-value">25</div>
                                 <div class="race-detail-label-group">
@@ -874,7 +835,6 @@
                                 </div>
                             </div>
 
-                            <!-- Item 3: Location (Misano World Circuit) -->
                             <div class="race-detail-item">
                                 <div class="race-detail-value">
                                     <i class="fa-solid fa-location-dot"></i>
@@ -925,7 +885,6 @@
                             </div>
                         </div>
                         <div class="card-footer" style="margin-top: 20px">
-                            <!-- Box Coupon Sconto -->
                             <div
                                 class="coupon-box"
                                 style="
@@ -977,7 +936,6 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
         <footer>
             <div class="container">
                 <p>
@@ -987,7 +945,6 @@
             </div>
         </footer>
 
-        <!-- Custom JS -->
         <script src="./script.js"></script>
     </body>
 </html>

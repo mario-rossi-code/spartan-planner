@@ -1,21 +1,11 @@
-/* ==========================================================================
-   SPARTAN PLANNER - MAIN SCRIPT
-   ========================================================================== */
-
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
-    // ==========================================================================
-    // 1. MENU MOBILE TOGGLE
-    // ==========================================================================
     const menuToggle = document.getElementById("menuToggle");
     const navDrawer = document.getElementById("navDrawer");
     const navOverlay = document.getElementById("navOverlay");
 
     if (menuToggle && navDrawer && navOverlay) {
-        /**
-         * Apre o chiude il menu di navigazione mobile
-         */
         function toggleMenu() {
             const isOpen = navDrawer.classList.contains("open");
             menuToggle.classList.toggle("active");
@@ -25,13 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
             menuToggle.setAttribute("aria-expanded", !isOpen);
         }
 
-        // Event listener per il pulsante menu
         menuToggle.addEventListener("click", toggleMenu);
-
-        // Event listener per l'overlay (chiude il menu)
         navOverlay.addEventListener("click", toggleMenu);
 
-        // Event listener per i link del menu (chiude il menu dopo il click)
         document.querySelectorAll(".nav-links a").forEach((link) => {
             link.addEventListener("click", function () {
                 if (navDrawer.classList.contains("open")) {
@@ -40,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-        // Chiudi il menu premendo ESC
         document.addEventListener("keydown", function (e) {
             if (e.key === "Escape" && navDrawer.classList.contains("open")) {
                 toggleMenu();
@@ -48,13 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ==========================================================================
-    // 2. COUNTDOWN TIMER
-    // ==========================================================================
-    /**
-     * Aggiorna il countdown per l'evento Spartan Race
-     * Data target: 19 Settembre 2026
-     */
     function updateCountdown() {
         const targetDate = new Date("2026-09-19T00:00:00").getTime();
         const now = Date.now();
@@ -82,82 +60,59 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cdSecs) cdSecs.textContent = String(secs).padStart(2, "0");
     }
 
-    // Aggiorna il countdown ogni secondo
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // ==========================================================================
-    // 3. LOGO TOGGLE - Alterna tra logo.png e logo-spartan-race.png
-    // ==========================================================================
     const logoImage = document.getElementById("logoImage");
     const logoLink = document.getElementById("logoLink");
 
     if (logoImage && logoLink) {
-        // Imposta il percorso base delle immagini
         const LOGO_PATHS = {
             default: "assets/logo.png",
             alternate: "assets/logo-spartan-race.png",
         };
 
-        // Controlla se c'è uno stato salvato nel localStorage
         let isAlternate = localStorage.getItem("logoState") === "alternate";
-
-        // Imposta l'immagine iniziale
         logoImage.src = isAlternate ? LOGO_PATHS.alternate : LOGO_PATHS.default;
 
-        // Aggiungi la classe per l'animazione iniziale se necessario
         if (isAlternate) {
             logoImage.classList.add("switching");
             setTimeout(() => logoImage.classList.remove("switching"), 300);
         }
 
-        /**
-         * Alterna l'immagine del logo
-         */
         function toggleLogo(event) {
             if (event) event.preventDefault();
 
-            // Alterna lo stato
             isAlternate = !isAlternate;
-
-            // Aggiorna l'immagine
             logoImage.src = isAlternate
                 ? LOGO_PATHS.alternate
                 : LOGO_PATHS.default;
 
-            // Salva lo stato nel localStorage per persistere tra le pagine
             localStorage.setItem(
                 "logoState",
                 isAlternate ? "alternate" : "default",
             );
 
-            // Aggiungi animazione
             logoImage.classList.remove("switching");
-            // Forza il reflow per riavviare l'animazione
             void logoImage.offsetWidth;
             logoImage.classList.add("switching");
 
-            // Rimuovi la classe dopo l'animazione
             setTimeout(() => {
                 logoImage.classList.remove("switching");
             }, 300);
 
-            // Feedback visivo: cambia il colore del testo dell'ultima parola
             const logoText = document.querySelector(".logo span");
             if (logoText) {
                 logoText.style.transition = "color 0.3s ease";
             }
         }
 
-        // Event listener per il click sul logo (sull'immagine o su tutto il link)
         logoImage.addEventListener("click", toggleLogo);
         logoLink.addEventListener("click", function (e) {
-            // Se il click è stato sull'immagine, evita che l'evento venga gestito due volte
             if (e.target === logoImage) return;
             toggleLogo(e);
         });
 
-        // Opzionale: rotella del mouse per cambiare logo (effetto divertente)
         let wheelTimeout;
         logoImage.addEventListener(
             "wheel",
@@ -170,39 +125,25 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             { passive: false },
         );
-
-        console.log("Logo toggler inizializzato!");
     }
 
-    // ==========================================================================
-    // 4. COUNTER CONTROLLI (Numero Partecipanti)
-    // ==========================================================================
     const passengersInput = document.getElementById("passengers");
     const btnMinus = document.getElementById("btnMinus");
     const btnPlus = document.getElementById("btnPlus");
 
     if (passengersInput && btnMinus && btnPlus) {
-        /**
-         * Aggiorna il valore del contatore partecipanti
-         * @param {number} delta - Variazione da applicare (+1 o -1)
-         */
         function updatePassengers(delta) {
             let current = parseInt(passengersInput.value) || 1;
             let newVal = current + delta;
-
-            // Limita il valore tra 1 e 8
             newVal = Math.max(1, Math.min(8, newVal));
 
             if (newVal !== current) {
                 passengersInput.value = newVal;
-                // Aggiorna il filtro capienza alloggi
                 updateAccommodationFilter(newVal);
-                // Ricalcola i costi
                 calculateCosts();
             }
         }
 
-        // Event listeners per i pulsanti
         btnMinus.addEventListener("click", function () {
             updatePassengers(-1);
         });
@@ -211,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
             updatePassengers(1);
         });
 
-        // Event listener per l'input (gestisce anche l'inserimento manuale)
         passengersInput.addEventListener("change", function () {
             let val = parseInt(this.value) || 1;
             val = Math.max(1, Math.min(8, val));
@@ -221,16 +161,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ==========================================================================
-    // 5. CALCOLATORE COSTI AVANZATO
-    // ==========================================================================
     const COSTI_FISSI = {
-        fuel: 60.3, // Carburante (andata)
-        toll: 34.1, // Pedaggio (andata)
-        nights: 1, // Numero di notti
+        fuel: 60.3,
+        toll: 34.1,
+        nights: 1,
     };
 
-    // Stato globale per alloggio e gara selezionati
     let selectedHotel = {
         name: "Hotel Onda Marina",
         pricePerNight: 166,
@@ -244,32 +180,24 @@ document.addEventListener("DOMContentLoaded", function () {
         type: "sprint",
     };
 
-    /**
-     * Calcola e aggiorna tutti i costi nel calcolatore
-     */
     function calculateCosts() {
         const passengers =
             parseInt(passengersInput ? passengersInput.value : 4) || 4;
 
-        // Costi auto (andata e ritorno)
         const fuelTotal = COSTI_FISSI.fuel * 2;
         const tollTotal = COSTI_FISSI.toll * 2;
 
-        // Quota carburante e pedaggio per persona
         const fuelPerPerson = fuelTotal / passengers;
         const tollPerPerson = tollTotal / passengers;
 
-        // Quota alloggio per persona
         let hotelPerPerson = 0;
         if (selectedHotel && selectedHotel.basePriceMap) {
             const priceMap = selectedHotel.basePriceMap;
-            // Trova il prezzo per il numero di ospiti (o il più vicino)
             const guests = Math.min(passengers, selectedHotel.capacity || 4);
             const key = String(guests);
             if (priceMap[key] !== undefined) {
                 hotelPerPerson = priceMap[key] / guests;
             } else {
-                // Fallback: usa il prezzo totale / ospiti
                 hotelPerPerson =
                     (selectedHotel.pricePerNight || 166) / passengers;
             }
@@ -277,14 +205,10 @@ document.addEventListener("DOMContentLoaded", function () {
             hotelPerPerson = (selectedHotel.pricePerNight || 166) / passengers;
         }
 
-        // Costo gara per persona
         const racePerPerson = selectedRace.price || 108;
-
-        // TOTALE per persona
         const totalPerPerson =
             fuelPerPerson + tollPerPerson + hotelPerPerson + racePerPerson;
 
-        // Aggiorna la UI
         const calcFuel = document.getElementById("calcFuel");
         const calcToll = document.getElementById("calcToll");
         const calcHotel = document.getElementById("calcHotel");
@@ -310,56 +234,40 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ==========================================================================
-    // 6. SELEZIONE ALLOGGIO
-    // ==========================================================================
-    /**
-     * Seleziona un hotel per il calcolo dei costi
-     * @param {HTMLElement} card - La card dell'hotel selezionato
-     */
     function selectHotel(card) {
-        // Rimuovi la selezione da tutte le card
         document.querySelectorAll(".accommodation-card").forEach((c) => {
             c.classList.remove("selected-hotel");
             const btn = c.querySelector(".btn-select-hotel");
             if (btn) btn.classList.remove("active");
         });
 
-        // Aggiungi la selezione alla card cliccata
         card.classList.add("selected-hotel");
         const btn = card.querySelector(".btn-select-hotel");
         if (btn) btn.classList.add("active");
 
-        // Estrai i dati dell'hotel
         const title = card.querySelector(".card-title");
         const priceSpan = card.querySelector(".dynamic-price");
         const capacitySpan = card.querySelector(".card-capacity");
 
         if (title && priceSpan) {
             let priceText = priceSpan.textContent.trim();
-            // Rimuovi '€' e spazi
             const price = parseFloat(priceText.replace("€", "").trim()) || 0;
             const name = title.textContent.trim();
 
-            // Estrai la mappa dei prezzi dal data attribute
             let basePriceMap = {};
             const basePriceAttr = card.dataset.basePrice;
             if (basePriceAttr) {
                 try {
                     basePriceMap = JSON.parse(basePriceAttr);
-                } catch (e) {
-                    console.warn("Errore parsing basePriceMap:", e);
-                }
+                } catch (e) {}
             }
 
-            // Estrai la capienza
             let capacity = 4;
             if (capacitySpan) {
                 const match = capacitySpan.textContent.match(/(\d+)/);
                 if (match) capacity = parseInt(match[1]) || 4;
             }
 
-            // Aggiorna l'hotel selezionato
             selectedHotel = {
                 name: name,
                 pricePerNight: price,
@@ -367,12 +275,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 basePriceMap: basePriceMap,
             };
 
-            // Ricalcola i costi
             calculateCosts();
         }
     }
 
-    // Inizializza i bottoni di selezione hotel
     document.querySelectorAll(".btn-select-hotel").forEach((btn) => {
         btn.addEventListener("click", function (e) {
             e.preventDefault();
@@ -383,13 +289,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ==========================================================================
-    // 7. FILTRO ALLOGGI PER CAPACITÀ
-    // ==========================================================================
-    /**
-     * Filtra gli alloggi in base al numero di partecipanti
-     * @param {number} capacity - Numero di persone
-     */
     function updateAccommodationFilter(capacity) {
         const cards = document.querySelectorAll(".accommodation-card");
         const noMsg = document.getElementById("noAccommodationMsg");
@@ -408,7 +307,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (isVisible) visibleCount++;
         });
 
-        // Mostra/nascondi il messaggio di nessun risultato
         if (noMsg) {
             if (visibleCount === 0) {
                 noMsg.classList.remove("hidden");
@@ -418,9 +316,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ==========================================================================
-    // 8. SELEZIONE TIPO GARA (SPRINT / SUPER)
-    // ==========================================================================
     const raceTabs = document.querySelectorAll(".race-tab-btn");
     const sprintInfo = document.getElementById("race-sprint-info");
     const superInfo = document.getElementById("race-super-info");
@@ -428,11 +323,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (raceTabs.length > 0) {
         raceTabs.forEach((tab) => {
             tab.addEventListener("click", function () {
-                // Rimuovi la classe active da tutti i tab
                 raceTabs.forEach((t) => t.classList.remove("active"));
                 this.classList.add("active");
 
-                // Mostra la card della gara corrispondente
                 const raceType = this.dataset.race;
                 const price = parseFloat(this.dataset.price) || 108;
 
@@ -454,15 +347,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     };
                 }
 
-                // Ricalcola i costi
                 calculateCosts();
             });
         });
     }
 
-    // ==========================================================================
-    // 9. SELEZIONE BATTERIA (WAVE TIME)
-    // ==========================================================================
     document.querySelectorAll(".wave-time-slot").forEach((slot) => {
         slot.addEventListener("click", function () {
             const parent = this.closest(".wave-section");
@@ -475,9 +364,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ==========================================================================
-    // 10. REVEAL ANIMATION ON SCROLL (Intersection Observer)
-    // ==========================================================================
     if ("IntersectionObserver" in window) {
         const revealElements = document.querySelectorAll(".reveal");
 
@@ -486,8 +372,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
-                        // Opzionale: rimuovi l'osservatore dopo l'animazione
-                        // revealObserver.unobserve(entry.target);
                     }
                 });
             },
@@ -501,20 +385,15 @@ document.addEventListener("DOMContentLoaded", function () {
             revealObserver.observe(el);
         });
     } else {
-        // Fallback per browser che non supportano IntersectionObserver
         document.querySelectorAll(".reveal").forEach((el) => {
             el.classList.add("active");
         });
     }
 
-    // ==========================================================================
-    // 11. SMOOTH SCROLL PER I LINK INTERNI
-    // ==========================================================================
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
             const targetId = this.getAttribute("href");
 
-            // Salta se è solo "#" o vuoto
             if (targetId === "#" || !targetId) return;
 
             const targetElement = document.querySelector(targetId);
@@ -534,22 +413,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ==========================================================================
-    // 12. INIZIALIZZAZIONE FINALE
-    // ==========================================================================
-    /**
-     * Inizializza tutti i componenti all'avvio
-     */
     function init() {
-        // Imposta il valore iniziale del contatore partecipanti
         const passengers =
             parseInt(passengersInput ? passengersInput.value : 4) || 4;
         updateAccommodationFilter(passengers);
 
-        // Calcola i costi iniziali
         calculateCosts();
 
-        // Se c'è un hotel selezionato di default, segnalalo visivamente
         document.querySelectorAll(".accommodation-card").forEach((card) => {
             const title = card.querySelector(".card-title");
             if (
@@ -563,17 +433,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (btn) btn.classList.add("active");
             }
         });
-
-        console.log("✅ Spartan Planner inizializzato!");
-        console.log("📊 Partecipanti:", passengers);
-        console.log("🏨 Hotel selezionato:", selectedHotel.name);
-        console.log("🏃 Gara selezionata:", selectedRace.name);
     }
 
-    // Avvia l'inizializzazione
     init();
 
-    // Ricalcola i costi quando la finestra viene ridimensionata (per sicurezza)
     let resizeTimeout;
     window.addEventListener("resize", function () {
         clearTimeout(resizeTimeout);
