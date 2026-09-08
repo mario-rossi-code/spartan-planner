@@ -705,7 +705,6 @@ header {
    CALCOLATORE - SEZIONE COMPLETA
    ========================================================================== */
 .calculator-full {
-    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -919,9 +918,9 @@ header {
 }
 
 .race-tab-btn.sprint.active {
-    background: #cb092f;
+    background: var(--primary-red);
     color: #fff;
-    border-color: #cb092f;
+    border-color: var(--primary-red);
 }
 
 .single-race-card {
@@ -933,7 +932,7 @@ header {
 }
 
 .single-race-card.border-sprint {
-    border: 2px solid #cb092f;
+    border: 2px solid var(--primary-red);
 }
 .single-race-card.border-super {
     border: 2px solid #0047bb;
@@ -941,7 +940,7 @@ header {
 
 .race-card-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 12px;
@@ -988,20 +987,35 @@ header {
     text-align: center;
     width: 100%;
     padding: 16px;
-    background-color: #1a1a1a; /* Sfondo scuro */
-    border: 2px solid var(--primary-red); /* Bordo rosso primario */
+    background-color: #1a1a1a;
+    border: 2px solid;
     border-radius: 10px;
     box-sizing: border-box;
-    color: #ffffff; /* Scritta bianca */
+    color: #ffffff;
+}
+
+.race-card-body.sprint .race-detail-item {
+    border-color: var(--primary-red);
+}
+
+.race-card-body.super .race-detail-item {
+    border-color: #0047bb;
 }
 
 /* Valore grande in evidenza */
 .race-detail-value {
     font-size: 1.8rem;
     font-weight: bold;
-    color: var(--primary-red);
     line-height: 1.2;
     margin-bottom: 4px;
+}
+
+.race-card-body.super .race-detail-value {
+    color: #0047bb;
+}
+
+.race-card-body.sprint .race-detail-value {
+    color: var(--primary-red);
 }
 
 /* Contenitore per icona e label piccola sotto */
@@ -1043,9 +1057,14 @@ header {
     min-width: 80px;
 }
 
-.wave-time-slot.selected {
+.wave-times-grid.sprint .wave-time-slot.selected {
     border-color: var(--primary-red);
     background: rgba(211, 47, 47, 0.2);
+}
+
+.wave-times-grid.super .wave-time-slot.selected {
+    border-color: #0047bb;
+    background: rgba(0, 71, 187, 0.2);
 }
 
 .wave-time {
@@ -1149,21 +1168,20 @@ header {
 }
 
 .card-price {
-    font-size: 1.1rem;
     color: var(--text-light);
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .card-price span {
-    font-size: 0.75rem;
-    color: var(--text-muted);
+    font-size: 1rem;
+    color: var(--text-light);
     font-weight: normal;
 }
 
 .pro-contra-list {
     list-style: none;
-    margin: 12px 0 15px 0;
+    margin: 0 0 15px 0;
     font-size: 0.82rem;
 }
 
@@ -1172,6 +1190,10 @@ header {
     display: flex;
     align-items: flex-start;
     gap: 8px;
+}
+
+.pro-contra-list li span{
+    color: var(--primary-red);
 }
 
 .pro-contra-list .pro i {
@@ -1292,6 +1314,10 @@ footer span {
 
     .metric-card {
         flex-direction: row;
+    }
+
+    .race-card-header {
+        justify-content: space-between;
     }
 
     .wave-time-slot {
