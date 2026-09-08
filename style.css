@@ -1057,12 +1057,12 @@ header {
     min-width: 80px;
 }
 
-.wave-times-grid.sprint .wave-time-slot.selected {
+.wave-times-grid.sprint .wave-time-slot {
     border-color: var(--primary-red);
     background: rgba(211, 47, 47, 0.2);
 }
 
-.wave-times-grid.super .wave-time-slot.selected {
+.wave-times-grid.super .wave-time-slot {
     border-color: #0047bb;
     background: rgba(0, 71, 187, 0.2);
 }
