@@ -555,7 +555,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (
                 title &&
                 selectedHotel &&
-                title.textContent.trim() === selectedHotel.name
+                title.textContent.trim().replace(/\s+/g, " ") ===
+                    selectedHotel.name
             ) {
                 card.classList.add("selected-hotel");
                 const btn = card.querySelector(".btn-select-hotel");
