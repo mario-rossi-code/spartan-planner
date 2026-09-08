@@ -175,16 +175,71 @@ header {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 3px;
     font-size: 1.3rem;
     font-family: var(--font-title);
     color: var(--text-light);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    text-decoration: none;
+}
+
+.logo-icon {
+    height: 32px;
+    width: auto;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.logo-icon:hover {
+    transform: scale(1.03);
+}
+
+.logo-icon.switching {
+    animation: logoSwitch 0.3s ease;
+}
+
+@keyframes logoSwitch {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .logo span {
     color: var(--primary-red);
+}
+
+.navbar {
+    display: none;
+}
+
+.navbar .navbar-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-right: 62px;
+    font-weight: bold;
+}
+
+.navbar .navbar-links a:hover {
+    color: var(--primary-red);
+    transition: color 0.3s ease;
+}
+
+.toggle-wrapper {
+    min-width: 38px;
+    z-index: 1002;
 }
 
 .menu-toggle {
@@ -193,12 +248,11 @@ header {
     cursor: pointer;
     width: 38px;
     height: 38px;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    z-index: 1002;
 }
 
 .menu-toggle .bar {
@@ -298,7 +352,6 @@ header {
 }
 
 .nav-links a:hover {
-    background: rgba(211, 47, 47, 0.15);
     color: var(--accent-gold);
 }
 
@@ -306,20 +359,9 @@ header {
    3. HERO SECTION
    ========================================================================== */
 .hero {
-    min-height: 85vh;
+    min-height: 100vh;
     padding-top: 90px;
     padding-bottom: 40px;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(12, 13, 14, 0.3) 0%,
-            rgba(12, 13, 14, 1) 100%
-        ),
-        radial-gradient(
-            circle,
-            rgba(211, 47, 47, 0.18) 0%,
-            rgba(0, 0, 0, 0.9) 100%
-        );
     display: flex;
     align-items: center;
     justify-content: center;
@@ -405,7 +447,6 @@ header {
 
 .metric-card:hover {
     border-color: rgba(255, 179, 0, 0.4);
-    transform: translateY(-2px);
 }
 
 .metric-icon {
@@ -439,12 +480,9 @@ header {
 }
 
 /* ==========================================================================
-   5. ITINERARIO & CALCOLATORE
+   5. ITINERARIO
    ========================================================================== */
 .route-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
 }
 
 .route-info-card,
@@ -467,13 +505,13 @@ header {
 
 .route-header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 12px;
     margin-bottom: 15px;
     flex-wrap: wrap;
-    gap: 8px;
 }
 
 .route-info-card .metrics-grid {
@@ -535,6 +573,10 @@ header {
     border-radius: 6px;
     padding: 12px;
     margin-top: 15px;
+}
+
+.costs-breakdown h4 {
+    margin-bottom: 1rem;
 }
 
 .cost-row {
@@ -660,6 +702,170 @@ header {
 }
 
 /* ==========================================================================
+   CALCOLATORE - SEZIONE COMPLETA
+   ========================================================================== */
+.calculator-full {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.calculator-full .calculator-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.calculator-full .calculator-box h3 {
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.calculator-full .calculator-box .text-muted {
+    text-align: center;
+}
+
+.calculator-full .calc-input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.calculator-full .counter-control {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 4px;
+    margin-top: 8px;
+    width: fit-content;
+}
+
+.calculator-full .btn-counter {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-gold);
+    border: 1px solid var(--border-color);
+    color: var(--bg-card);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.calculator-full .btn-counter:hover {
+    background: var(--primary-red);
+    border-color: var(--primary-red);
+    color: var(--text-light);
+}
+
+.calculator-full .counter-control input {
+    width: 50px;
+    background: transparent;
+    border: none;
+    color: var(--accent-gold);
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    text-align: center;
+    outline: none;
+}
+
+.calculator-full .quota-breakdown-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 1;
+}
+
+.calculator-full .quota-breakdown {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.calculator-full .quota-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    gap: 8px;
+}
+
+.calculator-full .quota-row:last-child {
+    border-bottom: none;
+}
+
+.calculator-full .quick-link {
+    display: block;
+    color: var(--accent-gold);
+    font-size: 0.72rem;
+    margin-left: 4px;
+    text-decoration: underline;
+}
+
+.calculator-full .quick-link:hover {
+    color: #fff;
+}
+
+.calculator-full .calc-result {
+    background: rgba(255, 179, 0, 0.05);
+    border: 1px solid var(--accent-gold);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.calculator-full .calc-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.calculator-full .calc-result-val {
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+}
+
+/* Stile per il box "Vai al Calcolatore" nella sezione Itinerario */
+.calculator-box-link {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 200px;
+}
+
+.calculator-box-link .icon-large {
+    font-size: 3rem;
+    color: var(--accent-gold);
+    margin-bottom: 15px;
+}
+
+.calculator-box-link .btn {
+    width: 100%;
+    max-width: 250px;
+}
+
+/* ==========================================================================
    6. SPARTAN RACE DETAILS
    ========================================================================== */
 .spartan-section {
@@ -768,21 +974,43 @@ header {
 }
 
 .race-card-body {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 10px;
-    margin-bottom: 20px;
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    padding: 15px 0;
 }
 
 .race-detail-item {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 10px 12px;
-    border-radius: 6px;
-    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 16px;
+    background-color: #1a1a1a; /* Sfondo scuro */
+    border: 2px solid var(--primary-red); /* Bordo rosso primario */
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #ffffff; /* Scritta bianca */
 }
 
-.race-detail-item.full-width {
-    grid-column: 1 / -1;
+/* Valore grande in evidenza */
+.race-detail-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-red);
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+/* Contenitore per icona e label piccola sotto */
+.race-detail-label-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #ffffff;
 }
 
 .wave-section {
@@ -858,9 +1086,10 @@ header {
    7. ALLOGGI & CARDS
    ========================================================================== */
 .cards-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 18px;
+    align-items: stretch; /* Forza tutte le card della riga ad avere la stessa altezza */
 }
 
 .card {
@@ -870,6 +1099,13 @@ header {
     overflow: hidden;
     position: relative;
     transition: var(--transition-smooth);
+}
+
+.card.accommodation-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 320px; /* Larghezza di base flessibile per le card */
+    box-sizing: border-box;
 }
 
 .card.selected-hotel {
@@ -887,10 +1123,16 @@ header {
     font-size: 0.65rem;
     font-weight: bold;
     text-transform: uppercase;
+    display: none;
 }
 
 .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
     padding: 18px;
+    box-sizing: border-box;
 }
 
 .card-title {
@@ -956,6 +1198,11 @@ header {
     margin-top: 10px;
 }
 
+.card-bottom-actions {
+    margin-top: auto;
+    width: 100%;
+}
+
 /* ==========================================================================
    8. FOOTER & REVEAL
    ========================================================================== */
@@ -991,6 +1238,10 @@ footer span {
         padding: 0 6px;
     }
 
+    .menu-toggle {
+        display: flex;
+    }
+
     .single-race-card,
     .route-info-card,
     .calculator-box,
@@ -1019,14 +1270,23 @@ footer span {
         display: inline-block;
         margin-bottom: 8px;
     }
+
+    .race-card-body {
+        flex-direction: column;
+    }
 }
 
 @media (min-width: 600px) {
+    .navbar {
+        display: flex;
+    }
+
     .quick-link {
         display: inline;
     }
 
     .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
         gap: 20px;
     }
 
@@ -1034,17 +1294,7 @@ footer span {
         flex-direction: row;
     }
 
-    .cards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
     .wave-time-slot {
         flex: 0 1 auto;
-    }
-}
-
-@media (min-width: 900px) {
-    .route-layout {
-        grid-template-columns: 1fr 1fr;
     }
 }

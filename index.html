@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Spartan Weekend</title>
+        <title>Spartan Planner</title>
 
         <!-- Font Awesome CDN -->
         <link
@@ -29,21 +29,46 @@
         <!-- HEADER / NAVIGATION -->
         <header>
             <div class="container nav-container">
-                <a href="#" class="logo">
-                    <i class="fa-solid fa-shield-halved"></i> SPARTAN<span
-                        >WEEK-END</span
-                    >
+                <a href="#" class="logo" id="logoLink">
+                    <img
+                        src="assets/logo.png"
+                        alt="Spartan Planner"
+                        class="logo-icon"
+                        id="logoImage"
+                    />
+                    <div style="padding-top: 6px">
+                        SPARTAN <span>PLANNER</span>
+                    </div>
                 </a>
 
-                <button
-                    class="menu-toggle"
-                    id="menuToggle"
-                    aria-label="Apri Menu"
-                >
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
+                <nav class="navbar" id="navBar">
+                    <ul class="navbar-links">
+                        <li>
+                            <a href="#itinerario">Viaggio</a>
+                        </li>
+                        <li>
+                            <a href="#alloggi">Alloggi</a>
+                        </li>
+                        <li>
+                            <a href="#gara">Spartan Race</a>
+                        </li>
+                        <li>
+                            <a href="#calcolatore">Calcolatore</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="toggle-wrapper">
+                    <button
+                        class="menu-toggle"
+                        id="menuToggle"
+                        aria-label="Apri Menu"
+                    >
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                </div>
 
                 <nav class="nav-drawer" id="navDrawer">
                     <div class="drawer-header">
@@ -52,20 +77,24 @@
                     <ul class="nav-links">
                         <li>
                             <a href="#itinerario"
-                                ><i class="fa-solid fa-route"></i> Viaggio &
-                                Calcolatore</a
-                            >
-                        </li>
-                        <li>
-                            <a href="#gara"
-                                ><i class="fa-solid fa-trophy"></i> Dettagli
-                                Spartan Race</a
+                                ><i class="fa-solid fa-route"></i> Viaggio</a
                             >
                         </li>
                         <li>
                             <a href="#alloggi"
                                 ><i class="fa-solid fa-hotel"></i> Alloggi
-                                Disponibili</a
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#gara"
+                                ><i class="fa-solid fa-trophy"></i> Spartan
+                                Race</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#calcolatore"
+                                ><i class="fa-solid fa-calculator"></i>
+                                Calcolatore</a
                             >
                         </li>
                     </ul>
@@ -131,7 +160,7 @@
                                 <i class="fa-solid fa-map-location-dot"></i>
                                 Dettagli Tragitto
                             </h3>
-                            <span class="badge-ar">Solo Andata</span>
+                            <span class="badge-ar">A Tratta</span>
                         </div>
 
                         <!-- METRICS GRID TRASFERITA QUI -->
@@ -200,7 +229,7 @@
                         <div class="costs-breakdown">
                             <h4>
                                 <i class="fa-solid fa-receipt"></i> Stima Costi
-                                Auto (Solo Andata)
+                                Auto (per Tratta)
                             </h4>
                             <div class="cost-row">
                                 <span
@@ -217,7 +246,7 @@
                                 <span>34,10 €</span>
                             </div>
                             <div class="cost-row total">
-                                <span>Totale Spesa Auto (Andata)</span>
+                                <span>Totale Spesa Auto</span>
                                 <span>94,40 €</span>
                             </div>
                         </div>
@@ -231,9 +260,581 @@
                             <i class="fa-solid fa-map"></i> Mappa Percorso
                         </a>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Calcolatore Dividi Spese Avanzato -->
-                    <div class="calculator-box reveal">
+        <!-- SEZIONE ALLOGGI -->
+        <section id="alloggi">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">
+                        ALLOGGI <span>DISPONIBILI</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Mostrando alloggi idonei per
+                        <span
+                            id="capacityFilterCount"
+                            style="color: var(--accent-gold); font-weight: bold"
+                            >4</span
+                        >
+                        o più persone
+                    </p>
+                </div>
+
+                <div class="cards-grid" id="accommodationGrid">
+                    <!-- HoY VILLAGE -->
+                    <div
+                        class="card accommodation-card reveal"
+                        data-capacity="2"
+                        data-base-price='{"1": 66, "2": 66}'
+                    >
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <i class="fa-solid fa-hotel"></i> HoY VILLAGE
+                            </h3>
+                            <div class="card-capacity">
+                                <i class="fa-solid fa-user-group"></i> Capienza:
+                                fino a 2 persone
+                            </div>
+                            <div class="card-price">
+                                <span class="dynamic-price">66 €</span>
+                                <span>/ giorno totale</span>
+                            </div>
+                            <!-- <p class="text-muted">
+                                Hotel 3 stelle
+                            </p> -->
+
+                            <ul class="pro-contra-list">
+                                <li class="pro">• Colazione inclusa</li>
+                                <li class="pro">
+                                    • Parcheggio pubblico 5€ al giorno
+                                </li>
+                                <li class="pro">
+                                    • Cancellazione gratuita, pagamento in
+                                    struttura
+                                </li>
+                                <li class="pro">
+                                    • Distanza: 950 m dal campo gara
+                                </li>
+                            </ul>
+
+                            <button
+                                class="btn btn-outline btn-select-hotel"
+                                style="width: 100%; margin: 15px 0 10px 0"
+                            >
+                                Seleziona per Calcolo
+                            </button>
+                            <div class="card-footer">
+                                <a
+                                    href="https://www.booking.com/Share-ouWHbH"
+                                    target="_blank"
+                                    class="btn btn-outline"
+                                    style="width: 100%"
+                                >
+                                    Apri su Booking
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"
+                                    ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hotel Onda Marina -->
+                    <div
+                        class="card accommodation-card reveal"
+                        data-capacity="4"
+                        data-base-price='{"1": 72, "2": 102, "3": 135, "4": 166}'
+                    >
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <i class="fa-solid fa-hotel"></i> Hotel Onda
+                                Marina
+                            </h3>
+                            <div class="card-capacity">
+                                <i class="fa-solid fa-user-group"></i> Capienza:
+                                fino a 4 persone
+                            </div>
+                            <div class="card-price">
+                                <span class="dynamic-price">166 €</span>
+                                <span>/ notte totale</span>
+                            </div>
+                            <!-- <p class="text-muted">
+                                Hotel strategico con tariffe flessibili in base
+                                agli ospiti.
+                            </p> -->
+
+                            <ul class="pro-contra-list">
+                                <li class="pro">• Colazione inclusa</li>
+                                <li class="pro">
+                                    • Parcheggio privato gratuito
+                                </li>
+                                <li class="pro">
+                                    • Cancellazione gratuita, pagamento in
+                                    struttura
+                                </li>
+                                <li class="pro">
+                                    • Distanza: 1.2 km dal campo gara
+                                </li>
+                            </ul>
+
+                            <button
+                                class="btn btn-outline btn-select-hotel"
+                                style="width: 100%; margin: 15px 0 10px 0"
+                            >
+                                Seleziona per Calcolo
+                            </button>
+                            <div class="card-footer">
+                                <a
+                                    href="https://www.booking.com/Share-FIpHfWm"
+                                    target="_blank"
+                                    class="btn btn-outline"
+                                    style="width: 100%"
+                                >
+                                    Apri su Booking
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"
+                                    ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Park Hotel Kursaal -->
+                    <div
+                        class="card accommodation-card reveal"
+                        data-capacity="2"
+                        data-base-price='{"1": 117, "2": 108}'
+                    >
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <i class="fa-solid fa-hotel"></i> Park Hotel
+                                Kursaal
+                            </h3>
+                            <div class="card-capacity">
+                                <i class="fa-solid fa-user-group"></i> Capienza:
+                                fino a 2 persone
+                            </div>
+                            <div class="card-price">
+                                <span class="dynamic-price">108 €</span>
+                                <span>/ notte totale</span>
+                            </div>
+                            <!-- <p class="text-muted">
+                                Ottima sistemazione con tutti i comfort
+                                alberghieri inclusi per un weekend di gara.
+                            </p> -->
+
+                            <ul class="pro-contra-list">
+                                <li class="pro">• Colazione inclusa</li>
+                                <li class="pro">• Piscina</li>
+                                <li class="pro">
+                                    • Parcheggio privato 5€ al giorno
+                                </li>
+                                <li class="pro">
+                                    • Cancellazione gratuita (rimborsabile),
+                                    pagamento online
+                                </li>
+                                <li class="pro">
+                                    • Distanza: 1.5 km dal campo gara
+                                </li>
+                            </ul>
+
+                            <button
+                                class="btn btn-outline btn-select-hotel"
+                                style="width: 100%; margin: 15px 0 10px 0"
+                            >
+                                Seleziona per Calcolo
+                            </button>
+                            <div class="card-footer">
+                                <a
+                                    href="https://www.booking.com/Share-0pEUNc"
+                                    target="_blank"
+                                    class="btn btn-outline"
+                                    style="width: 100%"
+                                >
+                                    Apri su booking
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"
+                                    ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Albergo Nadia -->
+                    <div
+                        class="card accommodation-card reveal"
+                        data-capacity="4"
+                        data-base-price='{"1": 71, "2": 71, "3": 142, "4": 142}'
+                    >
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <i class="fa-brands fa-airbnb"></i> Albergo
+                                Nadia
+                            </h3>
+                            <div class="card-capacity">
+                                <i class="fa-solid fa-user-group"></i> Capienza:
+                                fino a 4 persone
+                            </div>
+                            <div class="card-price">
+                                <span class="dynamic-price">142 €</span>
+                                <span>/ notte totale</span>
+                            </div>
+                            <p class="text-muted">
+                                Appartamento privato comodo, perfetto per
+                                piccoli gruppi o coppie.
+                            </p>
+
+                            <ul class="pro-contra-list">
+                                <li class="contra">• Aria condizionata 5€</li>
+                                <li class="pro">
+                                    • Parcheggio pubblico gratuito
+                                </li>
+                                <li class="pro">• Cancellazione gratuita</li>
+                                <li class="pro">
+                                    • Distanza: 3.2 km dal campo gara
+                                </li>
+                            </ul>
+
+                            <button
+                                class="btn btn-outline btn-select-hotel"
+                                style="width: 100%; margin: 15px 0 10px 0"
+                            >
+                                Seleziona per Calcolo
+                            </button>
+                            <div class="card-footer">
+                                <a
+                                    href="https://www.airbnb.it/rooms/926108985701397797?check_in=2026-09-19&check_out=2026-09-20&guests=2&adults=2&s=67&unique_share_id=6020326d-103a-4ee9-814c-45155e308e41"
+                                    target="_blank"
+                                    class="btn btn-outline"
+                                    style="width: 100%"
+                                >
+                                    Apri su Airbnb
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"
+                                    ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p id="noAccommodationMsg" class="no-results-msg hidden">
+                    <i class="fa-solid fa-circle-exclamation"></i> Nessun
+                    alloggio attualmente salvato per gruppi superiori a questa
+                    capienza. Prova a ridurre il numero di persone.
+                </p>
+            </div>
+        </section>
+
+        <!-- DETTAGLI SPARTAN RACE -->
+        <section id="gara" class="spartan-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">SPARTAN <span>RACE</span></h2>
+                    <p class="section-subtitle">
+                        Domenica 20 Settembre 2026 • Misano Adriatico
+                    </p>
+                </div>
+
+                <!-- Selettore Formato Gara -->
+                <div class="race-selector-container reveal">
+                    <button
+                        type="button"
+                        class="race-tab-btn sprint active"
+                        data-race="sprint"
+                        data-price="108"
+                    >
+                        SPARTAN SPRINT (5K)
+                    </button>
+                    <button
+                        type="button"
+                        class="race-tab-btn super"
+                        data-race="super"
+                        data-price="135"
+                    >
+                        SPARTAN SUPER (10K)
+                    </button>
+                </div>
+
+                <!-- Card SPRINT -->
+                <div id="race-sprint-info" class="race-info-block reveal">
+                    <div class="single-race-card border-sprint">
+                        <div class="race-card-header sprint">
+                            <h3>
+                                <span>Sprint</span>
+                                (5K) & Ticket
+                            </h3>
+                            <span class="race-price-tag sprint"
+                                >108,00 € / persona</span
+                            >
+                        </div>
+                        <div class="race-card-body">
+                            <!-- Item 1: Distanza -->
+                            <div class="race-detail-item">
+                                <div class="race-detail-value">5 KM</div>
+                                <div class="race-detail-label-group">
+                                    <i class="fa-solid fa-route"></i>
+                                    <span>Distanza</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Ostacoli -->
+                            <div class="race-detail-item">
+                                <div class="race-detail-value">20</div>
+                                <div class="race-detail-label-group">
+                                    <i class="fa-solid fa-flag-checkered"></i>
+                                    <span>Ostacoli</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Location (Misano World Circuit) -->
+                            <div class="race-detail-item">
+                                <div class="race-detail-value">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div
+                                    class="race-detail-label-group"
+                                    style="
+                                        font-size: 1rem;
+                                        font-weight: bold;
+                                        color: #ffffff;
+                                    "
+                                >
+                                    <span>Misano World Circuit</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wave-section">
+                            <h4>
+                                <i class="fa-solid fa-stopwatch"></i> Orari
+                                Batterie SPRINT (20/09)
+                            </h4>
+                            <div class="wave-times-grid">
+                                <div class="wave-time-slot selected">
+                                    <div class="wave-time">13:45</div>
+                                    <div class="wave-status">Batteria 1</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">14:00</div>
+                                    <div class="wave-status">Batteria 2</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">14:15</div>
+                                    <div class="wave-status">Batteria 3</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">14:30</div>
+                                    <div class="wave-status">Batteria 4</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">14:45</div>
+                                    <div class="wave-status">Batteria 5</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" style="margin-top: 20px">
+                            <!-- Box Coupon Sconto -->
+                            <div
+                                class="coupon-box"
+                                style="
+                                    background: rgba(255, 179, 0, 0.1);
+                                    border: 1px dashed var(--accent-gold);
+                                    padding: 8px 12px;
+                                    border-radius: 6px;
+                                    text-align: center;
+                                    margin-bottom: 10px;
+                                "
+                            >
+                                <span
+                                    style="
+                                        font-size: 0.8rem;
+                                        color: var(--text-muted);
+                                        display: block;
+                                    "
+                                    >Codice Sconto 25% da inserire al momento
+                                    dell'acquisto</span
+                                >
+                                <strong
+                                    style="
+                                        color: var(--accent-gold);
+                                        font-family: var(--font-title);
+                                        font-size: 1.2rem;
+                                        letter-spacing: 1px;
+                                    "
+                                >
+                                    <i class="fa-solid fa-ticket-simple"></i>
+                                    HARDWORK
+                                </strong>
+                            </div>
+
+                            <a
+                                href="https://it.spartan.com/it/races/misano-adriatico?index=0"
+                                target="_blank"
+                                class="btn btn-buy-sprint"
+                                style="width: 100%"
+                            >
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Acquista Biglietto Sprint
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square"
+                                ></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card SUPER -->
+                <div id="race-super-info" class="race-info-block hidden reveal">
+                    <div class="single-race-card border-super">
+                        <div class="race-card-header super">
+                            <h3>
+                                <span>Super</span>
+                                (10K) & Ticket
+                            </h3>
+                            <span class="race-price-tag super"
+                                >135,00 € / persona</span
+                            >
+                        </div>
+                        <div class="race-card-body">
+                            <!-- Item 1: Distanza -->
+                            <div class="race-detail-item">
+                                <div class="race-detail-value">10 KM</div>
+                                <div class="race-detail-label-group">
+                                    <i class="fa-solid fa-route"></i>
+                                    <span>Distanza</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Ostacoli -->
+                            <div class="race-detail-item">
+                                <div class="race-detail-value">25</div>
+                                <div class="race-detail-label-group">
+                                    <i class="fa-solid fa-flag-checkered"></i>
+                                    <span>Ostacoli</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Location (Misano World Circuit) -->
+                            <div class="race-detail-item">
+                                <div class="race-detail-value">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div
+                                    class="race-detail-label-group"
+                                    style="
+                                        font-size: 1rem;
+                                        font-weight: bold;
+                                        color: #ffffff;
+                                    "
+                                >
+                                    <span>Misano Adriatico</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wave-section">
+                            <h4>
+                                <i class="fa-solid fa-stopwatch"></i> Orari
+                                Batterie SUPER (20/09)
+                            </h4>
+                            <div class="wave-times-grid">
+                                <div class="wave-time-slot selected">
+                                    <div class="wave-time">10:15</div>
+                                    <div class="wave-status">Batteria 1</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">10:45</div>
+                                    <div class="wave-status">Batteria 2</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">11:15</div>
+                                    <div class="wave-status">Batteria 3</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">11:30</div>
+                                    <div class="wave-status">Batteria 4</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">11:45</div>
+                                    <div class="wave-status">Batteria 5</div>
+                                </div>
+                                <div class="wave-time-slot">
+                                    <div class="wave-time">12:00</div>
+                                    <div class="wave-status">Batteria 6</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" style="margin-top: 20px">
+                            <!-- Box Coupon Sconto -->
+                            <div
+                                class="coupon-box"
+                                style="
+                                    background: rgba(255, 179, 0, 0.1);
+                                    border: 1px dashed var(--accent-gold);
+                                    padding: 8px 12px;
+                                    border-radius: 6px;
+                                    text-align: center;
+                                    margin-bottom: 10px;
+                                "
+                            >
+                                <span
+                                    style="
+                                        font-size: 0.8rem;
+                                        color: var(--text-muted);
+                                        display: block;
+                                    "
+                                    >Codice Sconto 25% da inserire al momento
+                                    dell'acquisto</span
+                                >
+                                <strong
+                                    style="
+                                        color: var(--accent-gold);
+                                        font-family: var(--font-title);
+                                        font-size: 1.2rem;
+                                        letter-spacing: 1px;
+                                    "
+                                >
+                                    <i class="fa-solid fa-ticket-simple"></i>
+                                    HARDWORK
+                                </strong>
+                            </div>
+
+                            <a
+                                href="https://it.spartan.com/it/races/misano-adriatico?index=1"
+                                target="_blank"
+                                class="btn btn-buy-super"
+                                style="width: 100%"
+                            >
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Acquista Biglietto Super
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square"
+                                ></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE CALCOLATORE -->
+        <section id="calcolatore">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">
+                        CALCOLATORE <span>SPESE</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Calcola la quota esatta per partecipante con tutti i
+                        costi inclusi
+                    </p>
+                </div>
+
+                <div class="calculator-full reveal">
+                    <div class="calculator-box">
                         <h3>Riepilogo Quota Personale</h3>
                         <p class="text-muted" style="margin-bottom: 15px">
                             Seleziona il numero di partecipanti per dividere i
@@ -300,9 +901,7 @@
                                                 color: var(--accent-gold);
                                                 font-size: 0.8rem;
                                             "
-                                            >(Relax in Misano (Fronte
-                                            Mare))</strong
-                                        >
+                                        ></strong>
                                         <a
                                             href="#alloggi"
                                             class="quick-link"
@@ -351,505 +950,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- DETTAGLI SPARTAN RACE -->
-        <section id="gara" class="spartan-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">SPARTAN <span>RACE</span></h2>
-                    <p class="section-subtitle">
-                        Domenica 20 Settembre 2026 • Misano Adriatico
-                    </p>
-                </div>
-
-                <!-- Selettore Formato Gara -->
-                <div class="race-selector-container reveal">
-                    <button
-                        type="button"
-                        class="race-tab-btn sprint active"
-                        data-race="sprint"
-                        data-price="108"
-                    >
-                        SPARTAN SPRINT (5K)
-                    </button>
-                    <button
-                        type="button"
-                        class="race-tab-btn super"
-                        data-race="super"
-                        data-price="135"
-                    >
-                        SPARTAN SUPER (10K)
-                    </button>
-                </div>
-
-                <!-- Card SPRINT -->
-                <div id="race-sprint-info" class="race-info-block reveal">
-                    <div class="single-race-card border-sprint">
-                        <div class="race-card-header sprint">
-                            <h3>
-                                <span>Sprint</span>
-                                (5K) & Ticket
-                            </h3>
-                            <span class="race-price-tag sprint"
-                                >108,00 € / persona</span
-                            >
-                        </div>
-                        <div class="race-card-body">
-                            <div class="race-detail-item">
-                                <strong
-                                    ><i
-                                        class="fa-solid fa-ruler-horizontal"
-                                    ></i>
-                                    Distanza:</strong
-                                >
-                                5 KM
-                            </div>
-                            <div class="race-detail-item">
-                                <strong
-                                    ><i class="fa-solid fa-mountain-sun"></i>
-                                    Ostacoli:</strong
-                                >
-                                20 Ostacoli
-                            </div>
-                            <div class="race-detail-item">
-                                <strong
-                                    ><i class="fa-solid fa-location-dot"></i>
-                                    Location:</strong
-                                >
-                                Misano World Circuit
-                            </div>
-                            <div class="race-detail-item full-width">
-                                <strong
-                                    ><i class="fa-solid fa-box-open"></i> Ticket
-                                    Incluso:</strong
-                                >
-                                T-shirt Finisher, Medaglia, Chip e
-                                Assicurazione.
-                            </div>
-                        </div>
-
-                        <div class="wave-section">
-                            <h4>
-                                <i class="fa-solid fa-stopwatch"></i> Orari
-                                Batterie SPRINT (20/09)
-                            </h4>
-                            <div class="wave-times-grid">
-                                <div class="wave-time-slot selected">
-                                    <div class="wave-time">13:45</div>
-                                    <div class="wave-status">Batteria 1</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">14:00</div>
-                                    <div class="wave-status">Batteria 2</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">14:15</div>
-                                    <div class="wave-status">Batteria 3</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">14:30</div>
-                                    <div class="wave-status">Batteria 4</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">14:45</div>
-                                    <div class="wave-status">Batteria 5</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer" style="margin-top: 20px">
-                        <!-- Box Coupon Sconto -->
-                        <div
-                            class="coupon-box"
-                            style="
-                                background: rgba(255, 179, 0, 0.1);
-                                border: 1px dashed var(--accent-gold);
-                                padding: 8px 12px;
-                                border-radius: 6px;
-                                text-align: center;
-                                margin-bottom: 10px;
-                            "
-                        >
-                            <span
-                                style="
-                                    font-size: 0.8rem;
-                                    color: var(--text-muted);
-                                    display: block;
-                                "
-                                >Codice Sconto 25% da inserire al momento
-                                dell'acquisto</span
-                            >
-                            <strong
-                                style="
-                                    color: var(--accent-gold);
-                                    font-family: var(--font-title);
-                                    font-size: 1.2rem;
-                                    letter-spacing: 1px;
-                                "
-                            >
-                                <i class="fa-solid fa-ticket-simple"></i>
-                                HARDWORK
-                            </strong>
-                        </div>
-
-                        <a
-                            href="https://it.spartan.com/it/races/misano-adriatico?index=0"
-                            target="_blank"
-                            class="btn btn-buy-sprint"
-                            style="width: 100%"
-                        >
-                            <i class="fa-solid fa-cart-shopping"></i> Acquista
-                            Biglietto Sprint
-                            <i
-                                class="fa-solid fa-arrow-up-right-from-square"
-                            ></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card SUPER -->
-                <div id="race-super-info" class="race-info-block hidden reveal">
-                    <div class="single-race-card border-super">
-                        <div class="race-card-header super">
-                            <h3>
-                                <span>Super</span>
-                                (10K) & Ticket
-                            </h3>
-                            <span class="race-price-tag super"
-                                >135,00 € / persona</span
-                            >
-                        </div>
-                        <div class="race-card-body">
-                            <div class="race-detail-item">
-                                <strong
-                                    ><i
-                                        class="fa-solid fa-ruler-horizontal"
-                                    ></i>
-                                    Distanza:</strong
-                                >
-                                10 KM
-                            </div>
-                            <div class="race-detail-item">
-                                <strong
-                                    ><i class="fa-solid fa-mountain-sun"></i>
-                                    Ostacoli:</strong
-                                >
-                                25 Ostacoli
-                            </div>
-                            <div class="race-detail-item">
-                                <strong
-                                    ><i class="fa-solid fa-location-dot"></i>
-                                    Location:</strong
-                                >
-                                Misano World Circuit
-                            </div>
-                            <div class="race-detail-item full-width">
-                                <strong
-                                    ><i class="fa-solid fa-box-open"></i> Ticket
-                                    Incluso:</strong
-                                >
-                                T-shirt Finisher, Medaglia, Chip e
-                                Assicurazione.
-                            </div>
-                        </div>
-
-                        <div class="wave-section">
-                            <h4>
-                                <i class="fa-solid fa-stopwatch"></i> Orari
-                                Batterie SUPER (20/09)
-                            </h4>
-                            <div class="wave-times-grid">
-                                <div class="wave-time-slot selected">
-                                    <div class="wave-time">10:15</div>
-                                    <div class="wave-status">Batteria 1</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">10:45</div>
-                                    <div class="wave-status">Batteria 2</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">11:15</div>
-                                    <div class="wave-status">Batteria 3</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">11:30</div>
-                                    <div class="wave-status">Batteria 4</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">11:45</div>
-                                    <div class="wave-status">Batteria 5</div>
-                                </div>
-                                <div class="wave-time-slot">
-                                    <div class="wave-time">12:00</div>
-                                    <div class="wave-status">Batteria 6</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer" style="margin-top: 20px">
-                        <!-- Box Coupon Sconto -->
-                        <div
-                            class="coupon-box"
-                            style="
-                                background: rgba(255, 179, 0, 0.1);
-                                border: 1px dashed var(--accent-gold);
-                                padding: 8px 12px;
-                                border-radius: 6px;
-                                text-align: center;
-                                margin-bottom: 10px;
-                            "
-                        >
-                            <span
-                                style="
-                                    font-size: 0.8rem;
-                                    color: var(--text-muted);
-                                    display: block;
-                                "
-                                >Codice Sconto 25% da inserire al momento
-                                dell'acquisto</span
-                            >
-                            <strong
-                                style="
-                                    color: var(--accent-gold);
-                                    font-family: var(--font-title);
-                                    font-size: 1.2rem;
-                                    letter-spacing: 1px;
-                                "
-                            >
-                                <i class="fa-solid fa-ticket-simple"></i>
-                                HARDWORK
-                            </strong>
-                        </div>
-
-                        <a
-                            href="https://it.spartan.com/it/races/misano-adriatico?index=1"
-                            target="_blank"
-                            class="btn btn-buy-super"
-                            style="width: 100%"
-                        >
-                            <i class="fa-solid fa-cart-shopping"></i> Acquista
-                            Biglietto Super
-                            <i
-                                class="fa-solid fa-arrow-up-right-from-square"
-                            ></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SEZIONE ALLOGGI -->
-        <section id="alloggi">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">
-                        ALLOGGI <span>DISPONIBILI</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        Mostrando alloggi idonei per
-                        <span
-                            id="capacityFilterCount"
-                            style="color: var(--accent-gold); font-weight: bold"
-                            >4</span
-                        >
-                        o più persone
-                    </p>
-                </div>
-
-                <div class="cards-grid" id="accommodationGrid">
-                    <!-- Airbnb Misano -->
-                    <div
-                        class="card accommodation-card selected-hotel reveal"
-                        data-capacity="4"
-                        data-price-night="150"
-                    >
-                        <span class="card-badge"
-                            ><i class="fa-solid fa-star"></i> Scelta
-                            Principale</span
-                        >
-                        <div class="card-content">
-                            <h3 class="card-title">
-                                <i class="fa-brands fa-airbnb"></i> Relax in
-                                Misano (Fronte Mare)
-                            </h3>
-                            <div class="card-capacity">
-                                <i class="fa-solid fa-user-group"></i> Capienza:
-                                fino a 4 persone
-                            </div>
-                            <div class="card-price">
-                                150 € <span>/ notte totale</span>
-                            </div>
-                            <p class="text-muted">
-                                Appartamento intero a 20m dalla spiaggia. Ideale
-                                per il gruppo con cucina e servizi inclusi.
-                            </p>
-
-                            <ul class="pro-contra-list">
-                                <li class="pro">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Vicinissimo al lungomare e al campo gara
-                                </li>
-                                <li class="pro">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Spazio intero e cucina a disposizione
-                                </li>
-                                <li class="contra">
-                                    <i class="fa-solid fa-circle-xmark"></i>
-                                    Richiede check-out la domenica mattina
-                                </li>
-                            </ul>
-
-                            <button
-                                class="btn btn-outline btn-select-hotel active"
-                                style="width: 100%; margin: 15px 0 10px 0"
-                            >
-                                <i class="fa-solid fa-check"></i> Selezionato
-                                per Calcolo
-                            </button>
-                            <div class="card-footer">
-                                <a
-                                    href="https://www.airbnb.it/rooms/1397817967441510033?adults=4&check_in=2026-09-19&check_out=2026-09-20"
-                                    target="_blank"
-                                    class="btn btn-primary"
-                                    style="width: 100%"
-                                >
-                                    Apri su Airbnb
-                                    <i
-                                        class="fa-solid fa-arrow-up-right-from-square"
-                                    ></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hotel Athlete -->
-                    <div
-                        class="card accommodation-card reveal"
-                        data-capacity="2"
-                        data-price-night="80"
-                    >
-                        <div class="card-content">
-                            <h3 class="card-title">
-                                <i class="fa-solid fa-hotel"></i> Hotel Athlete
-                                Friendly
-                            </h3>
-                            <div class="card-capacity">
-                                <i class="fa-solid fa-user-group"></i> Capienza:
-                                fino a 2 persone
-                            </div>
-                            <div class="card-price">
-                                80 € <span>/ notte camera doppia</span>
-                            </div>
-                            <p class="text-muted">
-                                Camera doppia hotel con colazione e servizi
-                                sportivi inclusi.
-                            </p>
-
-                            <ul class="pro-contra-list">
-                                <li class="pro">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Colazione abbondante inclusa
-                                </li>
-                                <li class="pro">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Check-out flessibile post gara
-                                </li>
-                                <li class="contra">
-                                    <i class="fa-solid fa-circle-xmark"></i>
-                                    Spazio limitato per grandi gruppi
-                                </li>
-                            </ul>
-
-                            <button
-                                class="btn btn-outline btn-select-hotel"
-                                style="width: 100%; margin: 15px 0 10px 0"
-                            >
-                                Seleziona per Calcolo
-                            </button>
-                            <div class="card-footer">
-                                <a
-                                    href="https://www.booking.com/searchresults.it.html?ss=Misano+Adriatico"
-                                    target="_blank"
-                                    class="btn btn-outline"
-                                    style="width: 100%"
-                                >
-                                    Cerca su Booking
-                                    <i
-                                        class="fa-solid fa-arrow-up-right-from-square"
-                                    ></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Villa Spartan Group -->
-                    <div
-                        class="card accommodation-card reveal"
-                        data-capacity="6"
-                        data-price-night="180"
-                    >
-                        <div class="card-content">
-                            <h3 class="card-title">
-                                <i class="fa-solid fa-house-user"></i> Villa
-                                Spartan Group
-                            </h3>
-                            <div class="card-capacity">
-                                <i class="fa-solid fa-user-group"></i> Capienza:
-                                fino a 6 persone
-                            </div>
-                            <div class="card-price">
-                                180 € <span>/ notte totale</span>
-                            </div>
-                            <p class="text-muted">
-                                Ampia villa indipendente ideale per gruppi
-                                numerosi di atleti.
-                            </p>
-
-                            <ul class="pro-contra-list">
-                                <li class="pro">
-                                    <i class="fa-solid fa-circle-check"></i> Può
-                                    ospitare fino a 6 persone
-                                </li>
-                                <li class="pro">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Giardino privato per riposo e attrezzatura
-                                </li>
-                                <li class="contra">
-                                    <i class="fa-solid fa-circle-xmark"></i>
-                                    Necessario breve spostamento in auto
-                                </li>
-                            </ul>
-
-                            <button
-                                class="btn btn-outline btn-select-hotel"
-                                style="width: 100%; margin: 15px 0 10px 0"
-                            >
-                                Seleziona per Calcolo
-                            </button>
-                            <div class="card-footer">
-                                <a
-                                    href="https://www.google.com/maps/search/hotels+misano+adriatico"
-                                    target="_blank"
-                                    class="btn btn-outline"
-                                    style="width: 100%"
-                                >
-                                    Cerca su Maps
-                                    <i
-                                        class="fa-solid fa-arrow-up-right-from-square"
-                                    ></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <p id="noAccommodationMsg" class="no-results-msg hidden">
-                    <i class="fa-solid fa-circle-exclamation"></i> Nessun
-                    alloggio attualmente salvato per gruppi superiori a questa
-                    capienza. Prova a ridurre il numero di persone.
-                </p>
             </div>
         </section>
 
