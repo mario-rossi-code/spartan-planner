@@ -131,6 +131,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnMinus = document.getElementById("btnMinus");
     const btnPlus = document.getElementById("btnPlus");
 
+    const COSTI_FISSI = {
+        fuel: 60.3,
+        toll: 34.1,
+        nights: 1,
+    };
+
+    const JOURNEY_RULES = {
+        andata: {
+            from: "Napoli Centrale",
+            to: "Misano Adriatico",
+        },
+        ritorno: {
+            from: "Misano Adriatico",
+            to: "Napoli Centrale",
+        },
+    };
+
+    let selectedTransport = "car";
+    let selectedTickets = {
+        andata: [],
+        ritorno: [],
+    };
+
+    let selectedHotel = {
+        name: "Hotel Onda Marina",
+        pricePerNight: 166,
+        capacity: 4,
+        basePriceMap: { 1: 72, 2: 102, 3: 135, 4: 166 },
+    };
+
+    let selectedRace = {
+        name: "Spartan Super",
+        price: 108,
+        type: "super",
+    };
+
     if (passengersInput && btnMinus && btnPlus) {
         function updatePassengers(delta) {
             let current = parseInt(passengersInput.value) || 1;
@@ -161,31 +197,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const COSTI_FISSI = {
-        fuel: 60.3,
-        toll: 34.1,
-        nights: 1,
-    };
-
-    let selectedTransport = "car";
-
-    let selectedTickets = {
-        andata: null,
-        ritorno: null,
-    };
-
-    let selectedHotel = {
-        name: "Hotel Onda Marina",
-        pricePerNight: 166,
-        capacity: 4,
-        basePriceMap: { 1: 72, 2: 102, 3: 135, 4: 166 },
-    };
-
-    let selectedRace = {
-        name: "Spartan Sprint",
-        price: 108,
-        type: "sprint",
-    };
+    document.querySelectorAll(".btn-clear-direction").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const direction = this.dataset.direction;
+            selectedTickets[direction] = [];
+            refreshTicketsUI(direction);
+        });
+    });
 
     const transportTabs = document.querySelectorAll(".transport-tab-btn");
     const carInfo = document.getElementById("transport-car-info");
@@ -214,144 +232,150 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    function updateCalculatorRows() {
-        const carRows = document.querySelectorAll(".transport-car-row");
-        const trainRows = document.querySelectorAll(".transport-train-row");
+    document.querySelectorAll(".btn-select-ticket").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-        if (selectedTransport === "car") {
-            carRows.forEach((r) => r.classList.remove("hidden"));
-            trainRows.forEach((r) => r.classList.add("hidden"));
-        } else {
-            carRows.forEach((r) => r.classList.add("hidden"));
-            trainRows.forEach((r) => r.classList.remove("hidden"));
-        }
+            const card = this.closest(".ticket-option-card");
+            if (!card) return;
+
+            const direction = card.dataset.direction;
+            const cardId = card.dataset.id;
+            const list = selectedTickets[direction];
+            const existingIndex = list.findIndex((t) => t.id === cardId);
+
+            if (existingIndex !== -1) {
+                list.splice(existingIndex, 1);
+                card.classList.remove("selected");
+                refreshTicketsUI(direction);
+                return;
+            }
+
+            const ticket = {
+                id: cardId,
+                price: parseFloat(card.dataset.price) || 0,
+                duration: card.dataset.duration || "",
+                changes: parseInt(card.dataset.changes) || 0,
+                departure: card.dataset.departure || "",
+                arrival: card.dataset.arrival || "",
+                from: card.dataset.from || "",
+                to: card.dataset.to || "",
+                legs: parseLegs(card.dataset.legs),
+            };
+
+            const check = canAddTicket(direction, ticket);
+            if (!check.ok) {
+                showValidation(direction, check.message, "error");
+                return;
+            }
+
+            list.push(ticket);
+            list.sort((a, b) => a.departure.localeCompare(b.departure));
+
+            refreshTicketsUI(direction);
+        });
+    });
+
+    document.querySelectorAll(".btn-select-hotel").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            const card = this.closest(".accommodation-card");
+            if (card) {
+                selectHotel(card);
+            }
+        });
+    });
+
+    const raceTabs = document.querySelectorAll(".race-tab-btn");
+    const sprintInfo = document.getElementById("race-sprint-info");
+    const superInfo = document.getElementById("race-super-info");
+
+    if (raceTabs.length > 0) {
+        raceTabs.forEach((tab) => {
+            tab.addEventListener("click", function () {
+                raceTabs.forEach((t) => t.classList.remove("active"));
+                this.classList.add("active");
+
+                const raceType = this.dataset.race;
+                const price = parseFloat(this.dataset.price) || 108;
+
+                if (raceType === "sprint") {
+                    if (sprintInfo) sprintInfo.classList.remove("hidden");
+                    if (superInfo) superInfo.classList.add("hidden");
+                    selectedRace = {
+                        name: "Spartan Sprint",
+                        price: price,
+                        type: "sprint",
+                    };
+                    document.documentElement.style.setProperty(
+                        "--primary-color",
+                        "var(--primary-red)",
+                    );
+                    document.documentElement.style.setProperty(
+                        "--primary-color-background",
+                        "var(--primary-red-background)",
+                    );
+                    document.documentElement.style.setProperty(
+                        "--primary-color-hover",
+                        "var(--primary-red-hover)",
+                    );
+                    document.documentElement.style.setProperty(
+                        "--primary-color-box-shadow",
+                        "var(--primary-red-box-shadow)",
+                    );
+                } else if (raceType === "super") {
+                    if (sprintInfo) sprintInfo.classList.add("hidden");
+                    if (superInfo) superInfo.classList.remove("hidden");
+                    selectedRace = {
+                        name: "Spartan Super",
+                        price: price,
+                        type: "super",
+                    };
+                    document.documentElement.style.setProperty(
+                        "--primary-color",
+                        "var(--primary-blue)",
+                    );
+                    document.documentElement.style.setProperty(
+                        "--primary-color-background",
+                        "var(--primary-blue-background)",
+                    );
+                    document.documentElement.style.setProperty(
+                        "--primary-color-hover",
+                        "var(--primary-blue-hover)",
+                    );
+                    document.documentElement.style.setProperty(
+                        "--primary-color-box-shadow",
+                        "var(--primary-blue-box-shadow)",
+                    );
+                }
+
+                calculateCosts();
+            });
+        });
     }
 
-    function getTrainTotal() {
-        const andata = selectedTickets.andata
-            ? selectedTickets.andata.price
-            : 0;
-        const ritorno = selectedTickets.ritorno
-            ? selectedTickets.ritorno.price
-            : 0;
-        return { andata, ritorno, totale: andata + ritorno };
-    }
+    document.querySelectorAll(".wave-time-slot").forEach((slot) => {
+        slot.addEventListener("click", function () {
+            const parent = this.closest(".wave-section");
+            if (parent) {
+                parent.querySelectorAll(".wave-time-slot").forEach((s) => {
+                    s.classList.remove("selected");
+                });
+                this.classList.add("selected");
+            }
+        });
+    });
 
-    function updateTrainSummaryUI() {
-        const summaryAndata = document.getElementById("summaryAndata");
-        const summaryRitorno = document.getElementById("summaryRitorno");
-        const summaryTotale = document.getElementById("summaryTotale");
-
-        const { andata, ritorno, totale } = getTrainTotal();
-
-        if (summaryAndata)
-            summaryAndata.textContent =
-                andata > 0 ? andata.toFixed(2) + " €" : "—";
-        if (summaryRitorno)
-            summaryRitorno.textContent =
-                ritorno > 0 ? ritorno.toFixed(2) + " €" : "—";
-        if (summaryTotale)
-            summaryTotale.textContent =
-                totale > 0 ? totale.toFixed(2) + " €" : "—";
-
-        const summaryCostAndata = document.getElementById("summaryCostAndata");
-        const summaryCostRitorno =
-            document.getElementById("summaryCostRitorno");
-        const summaryCostTotale = document.getElementById("summaryCostTotale");
-
-        if (summaryCostAndata)
-            summaryCostAndata.textContent =
-                andata > 0 ? andata.toFixed(2) + " €" : "—";
-        if (summaryCostRitorno)
-            summaryCostRitorno.textContent =
-                ritorno > 0 ? ritorno.toFixed(2) + " €" : "—";
-        if (summaryCostTotale)
-            summaryCostTotale.textContent =
-                totale > 0 ? totale.toFixed(2) + " €" : "—";
-
-        const selectedAndataSummary = document.getElementById(
-            "selectedAndataSummary",
-        );
-        const selectedRitornoSummary = document.getElementById(
-            "selectedRitornoSummary",
-        );
-
-        if (selectedAndataSummary) {
-            selectedAndataSummary.innerHTML = selectedTickets.andata
-                ? buildSelectedTicketHTML(selectedTickets.andata)
-                : `<div class="selected-ticket-empty"><i class="fa-solid fa-circle-info"></i> Nessun biglietto di andata selezionato. <a href="#biglietti-treno" class="quick-link">Vai alla selezione</a></div>`;
+    function parseLegs(raw) {
+        try {
+            return JSON.parse(raw || "[]").map((name) => ({
+                name: name,
+                class: getTrainTypeClass(name),
+            }));
+        } catch {
+            return [];
         }
-
-        if (selectedRitornoSummary) {
-            selectedRitornoSummary.innerHTML = selectedTickets.ritorno
-                ? buildSelectedTicketHTML(selectedTickets.ritorno)
-                : `<div class="selected-ticket-empty"><i class="fa-solid fa-circle-info"></i> Nessun biglietto di ritorno selezionato. <a href="#biglietti-treno" class="quick-link">Vai alla selezione</a></div>`;
-        }
-
-        const summaryDurationAndata = document.getElementById(
-            "summaryDurationAndata",
-        );
-        const summaryChangesAndata = document.getElementById(
-            "summaryChangesAndata",
-        );
-        const summaryDurationRitorno = document.getElementById(
-            "summaryDurationRitorno",
-        );
-        const summaryChangesRitorno = document.getElementById(
-            "summaryChangesRitorno",
-        );
-
-        if (summaryDurationAndata) {
-            summaryDurationAndata.textContent = selectedTickets.andata
-                ? selectedTickets.andata.duration
-                : "—";
-        }
-        if (summaryChangesAndata) {
-            summaryChangesAndata.textContent = selectedTickets.andata
-                ? String(selectedTickets.andata.changes)
-                : "—";
-        }
-        if (summaryDurationRitorno) {
-            summaryDurationRitorno.textContent = selectedTickets.ritorno
-                ? selectedTickets.ritorno.duration
-                : "—";
-        }
-        if (summaryChangesRitorno) {
-            summaryChangesRitorno.textContent = selectedTickets.ritorno
-                ? String(selectedTickets.ritorno.changes)
-                : "—";
-        }
-    }
-
-    function buildSelectedTicketHTML(ticket) {
-        const legsHTML = ticket.legs
-            .map(
-                (leg) =>
-                    `<span class="train-type ${leg.class}">${leg.name}</span>`,
-            )
-            .join("");
-
-        return `
-            <div class="selected-ticket-info">
-                <div class="selected-ticket-route">
-                    <div class="selected-ticket-station">
-                        <span class="selected-ticket-time">${ticket.departure}</span>
-                        <span class="selected-ticket-city">${ticket.fromCity}</span>
-                    </div>
-                    <div class="selected-ticket-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                    <div class="selected-ticket-station">
-                        <span class="selected-ticket-time">${ticket.arrival}</span>
-                        <span class="selected-ticket-city">${ticket.toCity}</span>
-                    </div>
-                </div>
-                <div class="selected-ticket-legs">${legsHTML}</div>
-                <div class="selected-ticket-meta">
-                    <span><i class="fa-solid fa-clock"></i> ${ticket.duration}</span>
-                    <span><i class="fa-solid fa-train-subway"></i> ${ticket.changes} cambi</span>
-                </div>
-                <div class="selected-ticket-price">${ticket.price.toFixed(2)} €</div>
-            </div>
-        `;
     }
 
     function getTrainTypeClass(typeName) {
@@ -365,62 +389,434 @@ document.addEventListener("DOMContentLoaded", function () {
         return map[typeName] || "regionale";
     }
 
-    document.querySelectorAll(".btn-select-ticket").forEach((btn) => {
-        btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+    function normalizeStation(name) {
+        return (name || "").trim().toLowerCase();
+    }
 
-            const card = this.closest(".ticket-option-card");
-            if (!card) return;
+    function stationsMatch(a, b) {
+        return normalizeStation(a) === normalizeStation(b);
+    }
 
-            const direction = card.dataset.direction;
-            const cardId = card.dataset.id;
+    function timeToMinutes(hhmm) {
+        if (!hhmm || !hhmm.includes(":")) return 0;
+        const [h, m] = hhmm.split(":").map((n) => parseInt(n, 10) || 0);
+        return h * 60 + m;
+    }
 
-            const isAlreadySelected =
-                selectedTickets[direction] &&
-                selectedTickets[direction].id === cardId;
+    function minutesBetween(arrival, nextDeparture) {
+        let diff = timeToMinutes(nextDeparture) - timeToMinutes(arrival);
+        if (diff < 0) diff += 24 * 60;
+        return diff;
+    }
 
-            document
-                .querySelectorAll(
-                    `.ticket-option-card[data-direction="${direction}"]`,
-                )
-                .forEach((c) => {
-                    c.classList.remove("selected");
-                    const b = c.querySelector(".btn-select-ticket");
-                    if (b)
-                        b.textContent = `Seleziona ${direction === "andata" ? "Andata" : "Ritorno"}`;
-                });
+    function formatWait(totalMin) {
+        if (totalMin < 60) return `${totalMin}m`;
+        const h = Math.floor(totalMin / 60);
+        const m = totalMin % 60;
+        return m > 0 ? `${h}h ${m}m` : `${h}h`;
+    }
 
-            if (isAlreadySelected) {
-                selectedTickets[direction] = null;
-            } else {
-                card.classList.add("selected");
-                this.textContent = "Selezionato ✓";
+    function formatTotalDuration(firstDeparture, lastArrival) {
+        const min = minutesBetween(firstDeparture, lastArrival);
+        if (min < 60) return `${min}m`;
+        const h = Math.floor(min / 60);
+        const m = min % 60;
+        return m > 0 ? `${h}h ${m}m` : `${h}h`;
+    }
 
-                const legsRaw = JSON.parse(card.dataset.legs || "[]");
-                const legs = legsRaw.map((name) => ({
-                    name: name,
-                    class: getTrainTypeClass(name),
-                }));
+    function canAddTicket(direction, ticket) {
+        const rule = JOURNEY_RULES[direction];
+        const list = selectedTickets[direction];
 
-                selectedTickets[direction] = {
-                    id: cardId,
-                    price: parseFloat(card.dataset.price) || 0,
-                    duration: card.dataset.duration || "",
-                    changes: parseInt(card.dataset.changes) || 0,
-                    departure: card.dataset.departure || "",
-                    arrival: card.dataset.arrival || "",
-                    fromCity:
-                        direction === "andata" ? "Napoli C." : "Misano A.",
-                    toCity: direction === "andata" ? "Misano A." : "Napoli C.",
-                    legs: legs,
+        if (list.length === 0) {
+            if (!stationsMatch(ticket.from, rule.from)) {
+                return {
+                    ok: false,
+                    message: `Il primo biglietto di ${
+                        direction === "andata" ? "andata" : "ritorno"
+                    } deve partire da <strong>${rule.from}</strong>.`,
                 };
             }
+            return { ok: true };
+        }
 
-            updateTrainSummaryUI();
-            calculateCosts();
+        const sorted = [...list].sort((a, b) =>
+            a.departure.localeCompare(b.departure),
+        );
+        const last = sorted[sorted.length - 1];
+
+        if (ticket.departure < last.arrival) {
+            return {
+                ok: false,
+                message: `Il biglietto selezionato parte alle <strong>${ticket.departure}</strong> ma il precedente arriva alle <strong>${last.arrival}</strong>. Scegli un biglietto con partenza successiva.`,
+            };
+        }
+
+        if (!stationsMatch(ticket.from, last.to)) {
+            return {
+                ok: false,
+                message: `Il biglietto deve partire da <strong>${last.to}</strong> (arrivo del precedente), non da <strong>${ticket.from}</strong>.`,
+            };
+        }
+
+        return { ok: true };
+    }
+
+    function validateJourney(direction) {
+        const rule = JOURNEY_RULES[direction];
+        const list = selectedTickets[direction];
+
+        if (list.length === 0) {
+            return {
+                valid: false,
+                message: `Nessun biglietto di ${
+                    direction === "andata" ? "andata" : "ritorno"
+                } selezionato.`,
+            };
+        }
+
+        const sorted = [...list].sort((a, b) =>
+            a.departure.localeCompare(b.departure),
+        );
+        const first = sorted[0];
+        const last = sorted[sorted.length - 1];
+
+        if (!stationsMatch(first.from, rule.from)) {
+            return {
+                valid: false,
+                message: `Il percorso di ${
+                    direction === "andata" ? "andata" : "ritorno"
+                } deve iniziare da <strong>${rule.from}</strong>.`,
+            };
+        }
+
+        if (!stationsMatch(last.to, rule.to)) {
+            return {
+                valid: false,
+                message: `Il percorso di ${
+                    direction === "andata" ? "andata" : "ritorno"
+                } deve terminare a <strong>${rule.to}</strong>.`,
+            };
+        }
+
+        for (let i = 0; i < sorted.length - 1; i++) {
+            if (!stationsMatch(sorted[i].to, sorted[i + 1].from)) {
+                return {
+                    valid: false,
+                    message: `Discontinuità tra <strong>${sorted[i].to}</strong> e <strong>${sorted[i + 1].from}</strong>.`,
+                };
+            }
+        }
+
+        return { valid: true, message: "Percorso completo e valido." };
+    }
+
+    function refreshTicketsUI(direction) {
+        document
+            .querySelectorAll(
+                `.ticket-option-card[data-direction="${direction}"]`,
+            )
+            .forEach((card) => {
+                const id = card.dataset.id;
+                const isSelected = selectedTickets[direction].some(
+                    (t) => t.id === id,
+                );
+                card.classList.toggle("selected", isSelected);
+                const btn = card.querySelector(".btn-select-ticket");
+                if (btn) {
+                    btn.textContent = isSelected
+                        ? "Selezionato"
+                        : direction === "andata"
+                          ? "Aggiungi Andata"
+                          : "Aggiungi Ritorno";
+                }
+            });
+
+        renderTimeline(direction);
+        renderValidation(direction);
+        updateTrainSummaryUI();
+        calculateCosts();
+    }
+
+    function renderTimeline(direction) {
+        const container = document.getElementById(`timeline-${direction}`);
+        const totalEl = document.getElementById(`total-${direction}`);
+        if (!container) return;
+
+        const list = [...selectedTickets[direction]].sort((a, b) =>
+            a.departure.localeCompare(b.departure),
+        );
+
+        if (list.length === 0) {
+            container.innerHTML =
+                '<p class="text-muted">Nessun biglietto selezionato.</p>';
+            if (totalEl) totalEl.textContent = "0,00 €";
+            return;
+        }
+
+        let html = "";
+        list.forEach((t, i) => {
+            html += `
+                <div class="journey-step">
+                    <div>
+                        <span class="step-time">${t.departure}</span>
+                        <span class="step-station">${t.from}</span>
+                    </div>
+                    <span class="step-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                    <div style="text-align:right">
+                        <span class="step-time">${t.arrival}</span>
+                        <span class="step-station">${t.to}</span>
+                    </div>
+                </div>
+            `;
+
+            if (i < list.length - 1) {
+                const next = list[i + 1];
+                const waitMin = minutesBetween(t.arrival, next.departure);
+                html += `
+                    <div class="journey-change">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                        <span>${formatWait(waitMin)} cambio a ${t.to}</span>
+                    </div>
+                `;
+            }
         });
-    });
+
+        container.innerHTML = html;
+
+        const total = list.reduce((sum, t) => sum + t.price, 0);
+        if (totalEl) totalEl.textContent = total.toFixed(2) + " €";
+    }
+
+    function renderValidation(direction) {
+        const el = document.getElementById(`validation-${direction}`);
+        if (!el) return;
+
+        const result = validateJourney(direction);
+        el.classList.remove("error", "success", "visible");
+
+        if (result.valid) {
+            el.classList.add("success", "visible");
+            el.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${result.message}`;
+        } else {
+            el.classList.add("error", "visible");
+            el.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${result.message}`;
+        }
+    }
+
+    function showValidation(direction, message, type) {
+        const el = document.getElementById(`validation-${direction}`);
+        if (!el) return;
+        el.classList.remove("error", "success");
+        el.classList.add(type, "visible");
+        el.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${message}`;
+    }
+
+    function getTrainTotal() {
+        const andata = selectedTickets.andata.reduce(
+            (sum, t) => sum + t.price,
+            0,
+        );
+        const ritorno = selectedTickets.ritorno.reduce(
+            (sum, t) => sum + t.price,
+            0,
+        );
+        return { andata, ritorno, totale: andata + ritorno };
+    }
+
+    function updateTrainSummaryUI() {
+        const { andata, ritorno, totale } = getTrainTotal();
+
+        const setText = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
+        };
+
+        setText(
+            "summaryCostAndata",
+            andata > 0 ? andata.toFixed(2) + " €" : "—",
+        );
+        setText(
+            "summaryCostRitorno",
+            ritorno > 0 ? ritorno.toFixed(2) + " €" : "—",
+        );
+        setText(
+            "summaryCostTotale",
+            totale > 0 ? totale.toFixed(2) + " €" : "—",
+        );
+
+        ["andata", "ritorno"].forEach((direction) => {
+            const suffix = direction === "andata" ? "Andata" : "Ritorno";
+            const list = [...selectedTickets[direction]].sort((a, b) =>
+                a.departure.localeCompare(b.departure),
+            );
+
+            const durationEl = document.getElementById(
+                `summaryDuration${suffix}`,
+            );
+            const changesEl = document.getElementById(
+                `summaryChanges${suffix}`,
+            );
+
+            if (list.length === 0) {
+                if (durationEl) durationEl.textContent = "—";
+                if (changesEl) changesEl.textContent = "—";
+                return;
+            }
+
+            const first = list[0];
+            const last = list[list.length - 1];
+
+            if (durationEl) {
+                durationEl.textContent = formatTotalDuration(
+                    first.departure,
+                    last.arrival,
+                );
+            }
+            if (changesEl) {
+                changesEl.textContent = String(list.length - 1);
+            }
+        });
+
+        renderDirectionSummary("andata");
+        renderDirectionSummary("ritorno");
+
+        const selectedAndataSummary = document.getElementById(
+            "selectedAndataSummary",
+        );
+        const selectedRitornoSummary = document.getElementById(
+            "selectedRitornoSummary",
+        );
+
+        if (selectedAndataSummary) {
+            selectedAndataSummary.innerHTML =
+                selectedTickets.andata.length > 0
+                    ? buildSelectedTicketsHTML(selectedTickets.andata)
+                    : `<div class="selected-ticket-empty"><div><i class="fa-solid fa-circle-info"></i> Nessun biglietto di andata selezionato.</div><a href="#biglietti-treno" class="quick-link">Vai alla selezione</a></div>`;
+        }
+
+        if (selectedRitornoSummary) {
+            selectedRitornoSummary.innerHTML =
+                selectedTickets.ritorno.length > 0
+                    ? buildSelectedTicketsHTML(selectedTickets.ritorno)
+                    : `<div class="selected-ticket-empty"><div><i class="fa-solid fa-circle-info"></i> Nessun biglietto di ritorno selezionato.</div><a href="#biglietti-treno" class="quick-link">Vai alla selezione</a></div>`;
+        }
+    }
+
+    function renderDirectionSummary(direction) {
+        const suffix = direction === "andata" ? "Andata" : "Ritorno";
+        const container = document.getElementById(`selected${suffix}Summary`);
+        if (!container) return;
+
+        const list = [...selectedTickets[direction]].sort((a, b) =>
+            a.departure.localeCompare(b.departure),
+        );
+
+        if (list.length === 0) {
+            container.innerHTML = `<div class="selected-ticket-empty"><i class="fa-solid fa-circle-info"></i> Nessun biglietto di ${
+                direction === "andata" ? "andata" : "ritorno"
+            } selezionato. <a href="#biglietti-treno" class="quick-link">Vai alla selezione</a></div>`;
+            return;
+        }
+
+        const first = list[0];
+        const last = list[list.length - 1];
+
+        container.innerHTML = `
+            <div class="selected-ticket-route">
+                <div class="selected-ticket-station">
+                    <span class="selected-ticket-time">${first.departure}</span>
+                    <span class="selected-ticket-city">${first.from}</span>
+                </div>
+                <div class="selected-ticket-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="selected-ticket-station">
+                    <span class="selected-ticket-time">${last.arrival}</span>
+                    <span class="selected-ticket-city">${last.to}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    function buildSelectedTicketsHTML(tickets) {
+        const sorted = [...tickets].sort((a, b) =>
+            a.departure.localeCompare(b.departure),
+        );
+
+        const total = sorted.reduce((sum, t) => sum + t.price, 0);
+
+        let html = '<div class="selected-tickets-list">';
+
+        sorted.forEach((t, i) => {
+            html += `
+            <div class="selected-ticket-info">
+                <div class="selected-ticket-head">
+                    <div class="selected-ticket-legs">
+                        ${t.legs
+                            .map(
+                                (l) =>
+                                    `<span class="train-type ${l.class}">${l.name}</span>`,
+                            )
+                            .join("")}
+                    </div>
+                    <div class="selected-ticket-price">${t.price.toFixed(2)} €</div>
+                </div>
+
+                <div class="selected-ticket-route">
+                    <div class="selected-ticket-station">
+                        <span class="selected-ticket-time">${t.departure}</span>
+                        <span class="selected-ticket-city">${t.from}</span>
+                    </div>
+                    <div class="selected-ticket-arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <div class="selected-ticket-station">
+                        <span class="selected-ticket-time">${t.arrival}</span>
+                        <span class="selected-ticket-city">${t.to}</span>
+                    </div>
+                </div>
+
+                <div class="selected-ticket-meta">
+                    <span><i class="fa-solid fa-clock"></i> ${t.duration}</span>
+                </div>
+            </div>
+        `;
+
+            if (i < sorted.length - 1) {
+                const next = sorted[i + 1];
+                const waitMin = minutesBetween(t.arrival, next.departure);
+                html += `
+                <div class="selected-ticket-change">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                    <span>${formatWait(waitMin)} cambio a ${t.to}</span>
+                </div>
+            `;
+            }
+        });
+
+        html += "</div>";
+
+        html += `
+        <div class="selected-tickets-total">
+            <span>Totale</span>
+            <strong>${total.toFixed(2)} €</strong>
+        </div>
+    `;
+
+        return html;
+    }
+
+    function updateCalculatorRows() {
+        const carRows = document.querySelectorAll(".transport-car-row");
+        const trainRows = document.querySelectorAll(".transport-train-row");
+
+        if (selectedTransport === "car") {
+            carRows.forEach((r) => r.classList.remove("hidden"));
+            trainRows.forEach((r) => r.classList.add("hidden"));
+        } else {
+            carRows.forEach((r) => r.classList.add("hidden"));
+            trainRows.forEach((r) => r.classList.remove("hidden"));
+        }
+    }
 
     function calculateCosts() {
         const passengers =
@@ -543,16 +939,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    document.querySelectorAll(".btn-select-hotel").forEach((btn) => {
-        btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            const card = this.closest(".accommodation-card");
-            if (card) {
-                selectHotel(card);
-            }
-        });
-    });
-
     function updateAccommodationFilter(capacity) {
         const cards = document.querySelectorAll(".accommodation-card");
         const noMsg = document.getElementById("noAccommodationMsg");
@@ -569,6 +955,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             card.style.display = isVisible ? "flex" : "none";
             if (isVisible) visibleCount++;
+
+            const priceSpan = card.querySelector(".dynamic-price");
+            if (priceSpan) {
+                let basePriceMap = {};
+                try {
+                    basePriceMap = JSON.parse(card.dataset.basePrice || "{}");
+                } catch (e) {}
+
+                const guests = Math.min(capacity, cardCapacity);
+                const key = String(guests);
+                if (basePriceMap[key] !== undefined) {
+                    priceSpan.textContent = basePriceMap[key] + " €";
+                }
+            }
         });
 
         if (noMsg) {
@@ -579,54 +979,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
-
-    const raceTabs = document.querySelectorAll(".race-tab-btn");
-    const sprintInfo = document.getElementById("race-sprint-info");
-    const superInfo = document.getElementById("race-super-info");
-
-    if (raceTabs.length > 0) {
-        raceTabs.forEach((tab) => {
-            tab.addEventListener("click", function () {
-                raceTabs.forEach((t) => t.classList.remove("active"));
-                this.classList.add("active");
-
-                const raceType = this.dataset.race;
-                const price = parseFloat(this.dataset.price) || 108;
-
-                if (raceType === "sprint") {
-                    if (sprintInfo) sprintInfo.classList.remove("hidden");
-                    if (superInfo) superInfo.classList.add("hidden");
-                    selectedRace = {
-                        name: "Spartan Sprint",
-                        price: price,
-                        type: "sprint",
-                    };
-                } else if (raceType === "super") {
-                    if (sprintInfo) sprintInfo.classList.add("hidden");
-                    if (superInfo) superInfo.classList.remove("hidden");
-                    selectedRace = {
-                        name: "Spartan Super",
-                        price: price,
-                        type: "super",
-                    };
-                }
-
-                calculateCosts();
-            });
-        });
-    }
-
-    document.querySelectorAll(".wave-time-slot").forEach((slot) => {
-        slot.addEventListener("click", function () {
-            const parent = this.closest(".wave-section");
-            if (parent) {
-                parent.querySelectorAll(".wave-time-slot").forEach((s) => {
-                    s.classList.remove("selected");
-                });
-                this.classList.add("selected");
-            }
-        });
-    });
 
     if ("IntersectionObserver" in window) {
         const revealElements = document.querySelectorAll(".reveal");
@@ -684,6 +1036,33 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCalculatorRows();
         updateTrainSummaryUI();
         calculateCosts();
+        refreshTicketsUI("andata");
+        refreshTicketsUI("ritorno");
+
+        document.documentElement.style.setProperty(
+            "--primary-color",
+            selectedRace.type === "super"
+                ? "var(--primary-blue)"
+                : "var(--primary-red)",
+        );
+        document.documentElement.style.setProperty(
+            "--primary-color-background",
+            selectedRace.type === "super"
+                ? "var(--primary-blue-background)"
+                : "var(--primary-red-background)",
+        );
+        document.documentElement.style.setProperty(
+            "--primary-color-hover",
+            selectedRace.type === "super"
+                ? "var(--primary-blue-hover)"
+                : "var(--primary-red-hover)",
+        );
+        document.documentElement.style.setProperty(
+            "--primary-color-box-shadow",
+            selectedRace.type === "super"
+                ? "var(--primary-blue-box-shadow)"
+                : "var(--primary-red-box-shadow)",
+        );
 
         document.querySelectorAll(".accommodation-card").forEach((card) => {
             const title = card.querySelector(".card-title");

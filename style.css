@@ -2,8 +2,18 @@
     --bg-main: #0c0d0e;
     --bg-card: #16181a;
     --bg-card-hover: #1f2226;
+    --primary-color: #0047bb;
+    --primary-color-hover: #003690;
+    --primary-color-box-shadow: rgba(0, 71, 187, 0.3);
+    --primary-color-background: rgba(0, 71, 187, 0.1);
+    --primary-blue: #0047bb;
+    --primary-blue-hover: #003690;
+    --primary-blue-box-shadow: rgba(0, 71, 187, 0.4);
+    --primary-blue-background: rgba(0, 71, 187, 0.2);
     --primary-red: #d32f2f;
     --primary-red-hover: #f44336;
+    --primary-red-box-shadow: rgba(211, 47, 47, 0.4);
+    --primary-red-background: rgba(211, 47, 47, 0.1);
     --accent-gold: #ffb300;
     --text-light: #f5f5f7;
     --text-muted: #9aa0a6;
@@ -12,7 +22,8 @@
     --font-body:
         system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Helvetica, Arial, sans-serif;
-    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); */
+    --transition-smooth: all 0.5s ease;
 }
 
 * {
@@ -58,6 +69,10 @@ h4 {
     line-height: 1.1;
 }
 
+h1 span {
+    color: var(--primary-color);
+}
+
 a {
     color: inherit;
     text-decoration: none;
@@ -96,7 +111,7 @@ section {
 }
 
 .section-title span {
-    color: var(--primary-red);
+    color: var(--primary-color);
 }
 
 .section-header {
@@ -106,7 +121,7 @@ section {
 
 .section-subtitle {
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .btn {
@@ -126,13 +141,13 @@ section {
 }
 
 .btn-primary {
-    background-color: var(--primary-red);
+    background-color: var(--primary-color);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+    box-shadow: 0 4px 15px var(--primary-blue-box-shadow);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-red-hover);
+    background-color: var(--primary-color-hover);
 }
 
 .btn-outline {
@@ -142,8 +157,8 @@ section {
 }
 
 .btn-outline:hover {
-    background: var(--text-light);
-    color: var(--bg-main);
+    border-color: var(--primary-color);
+    background: var(--primary-color-hover);
 }
 
 header {
@@ -206,7 +221,7 @@ header {
 }
 
 .logo span {
-    color: var(--primary-red);
+    color: var(--primary-color);
 }
 
 .navbar {
@@ -224,7 +239,7 @@ header {
 }
 
 .navbar .navbar-links a:hover {
-    color: var(--primary-red);
+    color: var(--primary-color);
     transition: color 0.3s ease;
 }
 
@@ -256,7 +271,7 @@ header {
 
 .menu-toggle.active .bar:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
-    background-color: var(--primary-red);
+    background-color: var(--primary-color);
 }
 
 .menu-toggle.active .bar:nth-child(2) {
@@ -265,7 +280,7 @@ header {
 
 .menu-toggle.active .bar:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
-    background-color: var(--primary-red);
+    background-color: var(--primary-color);
 }
 
 .nav-drawer {
@@ -338,12 +353,12 @@ header {
 }
 
 .nav-links a i {
-    color: var(--primary-red);
+    color: var(--primary-color);
     width: 20px;
 }
 
 .nav-links a:hover {
-    color: var(--accent-gold);
+    color: var(--primary-color-hover);
 }
 
 .hero {
@@ -357,9 +372,8 @@ header {
 }
 
 .hero-badge {
-    background: rgba(211, 47, 47, 0.15);
-    border: 1px solid var(--primary-red);
-    color: var(--accent-gold);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
     padding: 4px 12px;
     border-radius: 20px;
     font-weight: 700;
@@ -431,13 +445,13 @@ header {
 }
 
 .metric-card:hover {
-    border-color: rgba(255, 179, 0, 0.4);
+    border-color: var(--primary-color-hover);
 }
 
 .metric-icon {
     font-size: 1.2rem;
-    background: rgba(255, 179, 0, 0.1);
-    color: var(--accent-gold);
+    background: var(--primary-color-background);
+    color: var(--primary-color);
     width: 40px;
     height: 40px;
     display: flex;
@@ -509,16 +523,21 @@ header {
     text-align: center;
 }
 
+.transport-tab-btn:hover {
+    background-color: var(--primary-color-background);
+    transition: all 0.5s ease;
+}
+
 .transport-tab-btn.car,
 .transport-tab-btn.train {
-    color: var(--accent-gold);
+    color: var(--primary-color);
 }
 
 .transport-tab-btn.car.active,
 .transport-tab-btn.train.active {
-    background: var(--accent-gold);
-    color: var(--bg-main);
-    border-color: var(--accent-gold);
+    background: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
 }
 
 .route-header {
@@ -530,6 +549,10 @@ header {
     padding-bottom: 12px;
     margin-bottom: 15px;
     flex-wrap: wrap;
+}
+
+.route-header h3 {
+    margin-bottom: 0.5rem;
 }
 
 .route-info-card .metrics-grid {
@@ -577,7 +600,7 @@ header {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: var(--primary-red);
+    background: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -595,6 +618,10 @@ header {
 
 .costs-breakdown h4 {
     margin-bottom: 1rem;
+}
+
+.route-info-card a {
+    transition: all 0.5s ease;
 }
 
 .cost-row {
@@ -628,8 +655,8 @@ header {
 .btn-counter {
     width: 40px;
     height: 40px;
-    background: var(--accent-gold);
-    border: 1px solid var(--border-color);
+    background: var(--primary-color);
+    border: 2px solid var(--primary-color);
     color: var(--bg-card);
     border-radius: 6px;
     cursor: pointer;
@@ -641,8 +668,8 @@ header {
 }
 
 .btn-counter:hover {
-    background: var(--primary-red);
-    border-color: var(--primary-red);
+    background: var(--primary-color-background);
+    border-color: var(--primary-color);
     color: var(--text-light);
 }
 
@@ -650,7 +677,7 @@ header {
     width: 50px;
     background: transparent;
     border: none;
-    color: var(--accent-gold);
+    color: var(--primary-color);
     font-family: var(--font-title);
     font-size: 1.5rem;
     text-align: center;
@@ -669,7 +696,8 @@ header {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 12px;
-    margin: 15px 0;
+    margin: 0;
+    margin-bottom: 1rem;
     width: 100%;
 }
 
@@ -687,25 +715,30 @@ header {
     border-bottom: none;
 }
 
+.quota-row .price {
+    font-weight: bold;
+    color: var(--accent-gold);
+}
+
 .quick-link {
     display: block;
     color: var(--accent-gold);
     font-size: 0.72rem;
-    margin-left: 4px;
+    margin-top: 0.4rem;
     text-decoration: underline;
+    transition: all 0.5s ease;
 }
 
 .quick-link:hover {
-    color: #fff;
+    color: #ffffff;
 }
 
 .calc-result {
-    background: rgba(255, 179, 0, 0.05);
-    border: 1px solid var(--accent-gold);
+    background: var(--primary-color-background);
+    border: 2px solid var(--primary-color);
     padding: 15px;
     border-radius: 8px;
     text-align: center;
-    margin-top: 15px;
 }
 
 .calc-label {
@@ -746,7 +779,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 .calculator-full .counter-control {
@@ -763,8 +796,8 @@ header {
 .calculator-full .btn-counter {
     width: 40px;
     height: 40px;
-    background: var(--accent-gold);
-    border: 1px solid var(--border-color);
+    background: var(--primary-color);
+    border: 2px solid var(--primary-color);
     color: var(--bg-card);
     border-radius: 6px;
     cursor: pointer;
@@ -776,8 +809,8 @@ header {
 }
 
 .calculator-full .btn-counter:hover {
-    background: var(--primary-red);
-    border-color: var(--primary-red);
+    background: var(--primary-color-background);
+    border-color: var(--primary-color);
     color: var(--text-light);
 }
 
@@ -785,7 +818,7 @@ header {
     width: 50px;
     background: transparent;
     border: none;
-    color: var(--accent-gold);
+    color: var(--primary-color);
     font-family: var(--font-title);
     font-size: 1.5rem;
     text-align: center;
@@ -804,7 +837,8 @@ header {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 12px;
-    margin: 15px 0;
+    margin: 0;
+    margin-bottom: 1rem;
     width: 100%;
 }
 
@@ -826,7 +860,7 @@ header {
     display: block;
     color: var(--accent-gold);
     font-size: 0.72rem;
-    margin-left: 4px;
+    margin-top: 0.4rem;
     text-decoration: underline;
 }
 
@@ -835,12 +869,10 @@ header {
 }
 
 .calculator-full .calc-result {
-    background: rgba(255, 179, 0, 0.05);
-    border: 1px solid var(--accent-gold);
-    padding: 15px;
+    background: var(--primary-color-background);
+    border: 2px solid var(--primary-color);
     border-radius: 8px;
     text-align: center;
-    margin-top: 15px;
 }
 
 .calculator-full .calc-label {
@@ -873,7 +905,7 @@ header {
 .train-direction-title {
     text-align: center;
     margin-bottom: 15px;
-    color: var(--accent-gold);
+    color: var(--text-light);
     font-size: 1.1rem;
 }
 
@@ -896,7 +928,7 @@ header {
     color: #fff;
 }
 .train-type.intercity {
-    background: #0047bb;
+    background: var(--primary-blue);
     color: #fff;
 }
 .train-type.regionale {
@@ -904,22 +936,26 @@ header {
     color: #fff;
 }
 
-.round-trip-section {
-    margin-bottom: 1rem;
-}
-
 .round-trip-section,
 .return-trip-section {
     padding: 18px;
-    border: 2px solid var(--accent-gold);
+    border: 2px solid var(--primary-color);
     border-radius: 16px;
+}
+
+.round-trip-section {
+    margin-bottom: 1rem;
 }
 
 .ticket-options-title {
     text-align: center;
     margin-bottom: 18px;
-    color: var(--accent-gold);
+    color: var(--text-light);
     font-size: 1.2rem;
+}
+
+.ticket-options-title i {
+    font-size: 0.8rem;
 }
 
 .ticket-options-grid {
@@ -943,19 +979,25 @@ header {
 }
 
 .ticket-option-card:hover {
-    border-color: rgba(255, 179, 0, 0.5);
+    border-color: var(--primary-color-hover);
 }
 
 .ticket-option-card.selected {
-    border-color: var(--accent-gold);
-    background: rgba(255, 179, 0, 0.05);
-    box-shadow: 0 0 0 1px var(--accent-gold);
+    border-color: var(--primary-color);
+    background: var(--primary-color-background);
+    box-shadow: 0 0 0 1px var(--primary-blue-box-shadow);
 }
 
 .ticket-option-card.selected .btn-select-ticket {
-    background: var(--accent-gold);
-    color: var(--bg-main);
-    border-color: var(--accent-gold);
+    background: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
+}
+
+.ticket-option-card.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(0.6);
 }
 
 .ticket-option-header {
@@ -1008,7 +1050,7 @@ header {
 }
 
 .ticket-option-arrow {
-    color: var(--accent-gold);
+    color: var(--primary-color);
     font-size: 1rem;
 }
 
@@ -1031,7 +1073,7 @@ header {
 }
 
 .ticket-option-meta i {
-    color: var(--accent-gold);
+    color: var(--primary-color);
     margin-right: 3px;
 }
 
@@ -1040,101 +1082,369 @@ header {
     margin-top: auto;
 }
 
-.selected-ticket-summary {
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--border-color);
+.ticket-direction-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.ticket-direction-header .ticket-options-title {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.btn-clear-direction {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+}
+
+.ticket-validation {
+    display: none;
+    padding: 10px 14px;
     border-radius: 8px;
-    padding: 14px;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    border: 1px solid;
+}
+
+.ticket-validation.visible {
+    display: block;
+}
+
+.ticket-validation.error {
+    background: rgba(244, 67, 54, 0.1);
+    border-color: #f44336;
+    color: #ff8a80;
+}
+
+.ticket-validation.success {
+    background: rgba(76, 175, 80, 0.1);
+    border-color: #4caf50;
+    color: #a5d6a7;
+}
+
+.ticket-validation i {
+    margin-right: 6px;
+}
+
+.ticket-journey-summary {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.ticket-journey-summary h4 {
+    text-align: center;
+    margin-bottom: 12px;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.journey-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.journey-step {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+}
+
+.journey-step > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.journey-step .step-time {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--text-light);
+    letter-spacing: 1px;
+}
+
+.journey-step .step-station {
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+    font-weight: 600;
+}
+
+.journey-step .step-arrow {
+    font-size: 0.95rem;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: 0 auto;
+}
+
+.journey-change {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 4px 10px 4px 20px;
+    font-size: 0.8rem;
+    color: var(--accent-gold);
+}
+
+.journey-change i {
+    font-size: 0.75rem;
+}
+
+.journey-total {
+    text-align: right;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-top: 1px dashed var(--border-color);
+    padding-top: 10px;
+}
+
+.journey-total strong {
+    color: var(--accent-gold);
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    margin-left: 5px;
+}
+
+.selected-ticket-summary {
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.02) 0%,
+        rgba(0, 0, 0, 0.25) 100%
+    );
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: 120px;
 }
 
 .selected-ticket-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     color: var(--text-muted);
     font-size: 0.85rem;
-    padding: 10px 0;
+    padding: 14px 8px;
+    line-height: 1.5;
 }
 
 .selected-ticket-empty i {
-    color: var(--accent-gold);
+    color: var(--primary-color);
     margin-right: 6px;
 }
 
 .selected-ticket-empty .quick-link {
     display: inline;
     margin-left: 4px;
+    color: var(--accent-gold);
+    text-decoration: underline;
+    transition: all 0.5 ease;
 }
 
+.selected-ticket-empty .quick-link:hover {
+    color: #fff;
+}
+
+/* Lista biglietti */
+.selected-tickets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
+/* Singolo biglietto */
 .selected-ticket-info {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px;
+    transition: var(--transition-smooth);
 }
 
-.selected-ticket-route {
+.selected-ticket-info:hover {
+    border-color: rgba(255, 179, 0, 0.35);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Header: tipo treno + prezzo */
+.selected-ticket-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
-}
-
-.selected-ticket-station {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex: 1;
-}
-
-.selected-ticket-time {
-    font-family: var(--font-title);
-    font-size: 1.2rem;
-    color: var(--text-light);
-    line-height: 1;
-}
-
-.selected-ticket-city {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-}
-
-.selected-ticket-arrow {
-    color: var(--accent-gold);
-    font-size: 1rem;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border-color);
 }
 
 .selected-ticket-legs {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    justify-content: center;
-    padding: 8px 0;
-    border-top: 1px dashed var(--border-color);
-    border-bottom: 1px dashed var(--border-color);
+    justify-content: flex-start;
 }
 
+/* Corpo: partenza → arrivo */
+.selected-ticket-route {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.selected-ticket-station {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+}
+
+.selected-ticket-station:last-child {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.selected-ticket-time {
+    font-family: var(--font-title);
+    font-size: 1.35rem;
+    color: var(--text-light);
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+.selected-ticket-city {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.selected-ticket-arrow {
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+    background: rgba(255, 179, 0, 0.1);
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Footer: durata + prezzo */
 .selected-ticket-meta {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 0.78rem;
     color: var(--text-muted);
     gap: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color);
 }
 
 .selected-ticket-meta i {
     color: var(--accent-gold);
-    margin-right: 3px;
+    margin-right: 4px;
 }
 
 .selected-ticket-price {
-    text-align: right;
     font-family: var(--font-title);
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     color: var(--accent-gold);
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+/* Pillola cambio */
+.selected-ticket-change {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    margin: 5px auto;
+    border-radius: 20px;
+    width: fit-content;
+    max-width: 100%;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+.selected-ticket-change i {
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* Totale */
+.selected-tickets-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 179, 0, 0.06);
+    border: 1px solid var(--accent-gold);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: auto;
+}
+
+.selected-tickets-total span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.selected-tickets-total strong {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    letter-spacing: 1px;
+    line-height: 1;
 }
 
 .btn-buy-andata {
@@ -1143,6 +1453,7 @@ header {
     width: 100%;
     box-shadow: 0 4px 15px rgba(255, 179, 0, 0.3);
 }
+
 .btn-buy-andata:hover {
     background-color: #ffc233;
 }
@@ -1184,20 +1495,20 @@ header {
 }
 
 .race-tab-btn.super {
-    color: #3b82f6;
+    color: var(--primary-blue);
 }
 .race-tab-btn.sprint {
     color: #ef4444;
 }
 
 .race-tab-btn.super.active {
-    background: #0047bb;
+    background: var(--primary-blue);
     color: #fff;
-    border-color: #0047bb;
+    border-color: var(--primary-blue);
 }
 
 .race-tab-btn.sprint.active {
-    background: var(--primary-red);
+    background: var(--primary-color);
     color: #fff;
     border-color: var(--primary-red);
 }
@@ -1214,7 +1525,7 @@ header {
     border: 2px solid var(--primary-red);
 }
 .single-race-card.border-super {
-    border: 2px solid #0047bb;
+    border: 2px solid var(--primary-blue);
 }
 
 .race-card-header {
@@ -1232,7 +1543,7 @@ header {
     color: var(--primary-red);
 }
 .race-card-header.super span {
-    color: #3b82f6;
+    color: var(--primary-blue);
 }
 
 .race-price-tag {
@@ -1248,7 +1559,7 @@ header {
     border-color: var(--primary-red);
 }
 .race-price-tag.super {
-    border-color: #0047bb;
+    border-color: var(--primary-blue);
 }
 
 .race-card-body {
@@ -1277,7 +1588,7 @@ header {
 }
 
 .race-card-body.super .race-detail-item {
-    border-color: #0047bb;
+    border-color: var(--primary-blue);
 }
 
 .race-detail-value {
@@ -1288,7 +1599,7 @@ header {
 }
 
 .race-card-body.super .race-detail-value {
-    color: #0047bb;
+    color: var(--primary-blue);
 }
 
 .race-card-body.sprint .race-detail-value {
@@ -1299,7 +1610,7 @@ header {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #ffffff;
 }
 
@@ -1333,13 +1644,13 @@ header {
     min-width: 80px;
 }
 
-.wave-times-grid.sprint .wave-time-slot {
+.wave-times-grid.sprint .wave-time-slot.selected {
     border-color: var(--primary-red);
     background: rgba(211, 47, 47, 0.2);
 }
 
-.wave-times-grid.super .wave-time-slot {
-    border-color: #0047bb;
+.wave-times-grid.super .wave-time-slot.selected {
+    border-color: var(--primary-blue);
     background: rgba(0, 71, 187, 0.2);
 }
 
@@ -1358,7 +1669,7 @@ header {
     background-color: var(--primary-red) !important;
     color: #fff !important;
     border: none;
-    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+    box-shadow: 0 4px 15px var(--primary-red-box-shadow);
 }
 
 .btn-buy-sprint:hover {
@@ -1366,14 +1677,14 @@ header {
 }
 
 .btn-buy-super {
-    background-color: #0047bb !important;
+    background-color: var(--primary-blue) !important;
     color: #fff !important;
     border: none;
-    box-shadow: 0 4px 15px rgba(0, 71, 187, 0.4);
+    box-shadow: 0 4px 15px var(--primary-blue-box-shadow);
 }
 
 .btn-buy-super:hover {
-    background-color: #003690 !important;
+    background-color: var(--primary-blue-hover) !important;
 }
 
 .cards-grid {
@@ -1385,11 +1696,15 @@ header {
 
 .card {
     background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    border: 3px solid var(--border-color);
     border-radius: 10px;
     overflow: hidden;
     position: relative;
     transition: var(--transition-smooth);
+}
+
+.card:hover {
+    border-color: var(--primary-color-hover);
 }
 
 .card.accommodation-card {
@@ -1399,7 +1714,7 @@ header {
 }
 
 .card.selected-hotel {
-    border-color: var(--accent-gold);
+    border-color: var(--primary-color);
 }
 
 .card-content {
@@ -1448,8 +1763,12 @@ header {
     gap: 8px;
 }
 
+.pro-contra-list li {
+    color: var(--text-muted);
+}
+
 .pro-contra-list li span {
-    color: var(--primary-red);
+    color: var(--text-light);
 }
 
 .pro-contra-list .pro i {
@@ -1460,9 +1779,9 @@ header {
 }
 
 .btn-select-hotel.active {
-    background: rgba(255, 179, 0, 0.15);
-    color: var(--accent-gold);
-    border-color: var(--accent-gold);
+    background: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
 }
 
 .no-results-msg {
@@ -1476,6 +1795,11 @@ header {
     margin-top: 10px;
 }
 
+.card-footer a:hover {
+    background-color: var(--text-light);
+    color: var(--bg-main);
+}
+
 footer {
     padding: 25px 0;
     text-align: center;
@@ -1485,7 +1809,7 @@ footer {
 }
 
 footer span {
-    color: var(--primary-red);
+    color: var(--primary-color);
 }
 
 .reveal {
@@ -1513,6 +1837,7 @@ footer span {
     .selected-ticket-route {
         gap: 6px;
     }
+
     .transport-tab-btn {
         flex: 1 1 100%;
         max-width: 100%;
@@ -1541,6 +1866,52 @@ footer span {
 
     .race-card-body {
         flex-direction: column;
+    }
+
+    .ticket-direction-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .selected-ticket-summary {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .selected-ticket-info {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .selected-ticket-time {
+        font-size: 1.15rem;
+    }
+
+    .selected-ticket-city {
+        font-size: 0.7rem;
+    }
+
+    .selected-ticket-price {
+        font-size: 1.1rem;
+    }
+
+    .selected-ticket-arrow {
+        width: 22px;
+        height: 22px;
+        font-size: 0.8rem;
+    }
+
+    .selected-ticket-change {
+        font-size: 0.72rem;
+        padding: 6px 10px;
+    }
+
+    .selected-tickets-total {
+        padding: 10px 12px;
+    }
+
+    .selected-tickets-total strong {
+        font-size: 1.25rem;
     }
 }
 
@@ -1577,6 +1948,10 @@ footer span {
         flex: 1 1 calc(50% - 9px);
         display: flex;
         flex-direction: column;
+    }
+
+    .train-journeys-wrapper .train-journey-section .selected-ticket-summary {
+        flex: 1;
     }
 
     .race-card-header {
