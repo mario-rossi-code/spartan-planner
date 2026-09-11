@@ -39,18 +39,10 @@
 
                 <nav class="navbar" id="navBar">
                     <ul class="navbar-links">
-                        <li>
-                            <a href="#itinerario">Viaggio</a>
-                        </li>
-                        <li>
-                            <a href="#alloggi">Alloggi</a>
-                        </li>
-                        <li>
-                            <a href="#gara">Spartan Race</a>
-                        </li>
-                        <li>
-                            <a href="#calcolatore">Calcolatore</a>
-                        </li>
+                        <li><a href="#itinerario">Viaggio</a></li>
+                        <li><a href="#alloggi">Alloggi</a></li>
+                        <li><a href="#gara">Spartan Race</a></li>
+                        <li><a href="#calcolatore">Calcolatore</a></li>
                     </ul>
                 </nav>
 
@@ -145,7 +137,24 @@
                     </p>
                 </div>
 
-                <div class="route-layout">
+                <div class="transport-selector reveal">
+                    <button
+                        type="button"
+                        class="transport-tab-btn car active"
+                        data-transport="car"
+                    >
+                        <i class="fa-solid fa-car-side"></i> Auto
+                    </button>
+                    <button
+                        type="button"
+                        class="transport-tab-btn train"
+                        data-transport="train"
+                    >
+                        <i class="fa-solid fa-train"></i> Treno
+                    </button>
+                </div>
+
+                <div id="transport-car-info" class="route-layout">
                     <div class="route-info-card reveal">
                         <div class="route-header">
                             <h3>
@@ -165,7 +174,6 @@
                                     <p>Distanza</p>
                                 </div>
                             </div>
-
                             <div class="metric-card">
                                 <div class="metric-icon">
                                     <i class="fa-solid fa-clock"></i>
@@ -175,7 +183,6 @@
                                     <p>Tempo Stimato</p>
                                 </div>
                             </div>
-
                             <div class="metric-card">
                                 <div class="metric-icon">
                                     <i class="fa-solid fa-gas-pump"></i>
@@ -185,7 +192,6 @@
                                     <p>Carburante</p>
                                 </div>
                             </div>
-
                             <div class="metric-card">
                                 <div class="metric-icon">
                                     <i class="fa-solid fa-road"></i>
@@ -252,6 +258,1671 @@
                         </a>
                     </div>
                 </div>
+
+                <div id="transport-train-info" class="route-layout hidden">
+                    <div class="route-info-card reveal">
+                        <div class="route-header">
+                            <h3>
+                                <i class="fa-solid fa-train"></i> Dettagli
+                                Tragitto
+                            </h3>
+                        </div>
+
+                        <div class="metrics-grid reveal">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div class="metric-data">
+                                    <h4 id="summaryDurationAndata">—</h4>
+                                    <p>Durata Andata</p>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fa-solid fa-right-left"></i>
+                                </div>
+                                <div class="metric-data">
+                                    <h4 id="summaryChangesAndata">—</h4>
+                                    <p>Cambi Andata</p>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div class="metric-data">
+                                    <h4 id="summaryDurationRitorno">—</h4>
+                                    <p>Durata Ritorno</p>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fa-solid fa-right-left"></i>
+                                </div>
+                                <div class="metric-data">
+                                    <h4 id="summaryChangesRitorno">—</h4>
+                                    <p>Cambi Ritorno</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="train-journeys-wrapper">
+                            <div class="train-journey-section">
+                                <h4 class="train-direction-title">
+                                    Napoli - Misano Adriatico 19/09
+                                </h4>
+                                <div
+                                    class="selected-ticket-summary"
+                                    id="selectedAndataSummary"
+                                >
+                                    <div class="selected-ticket-empty">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        Nessun biglietto di andata selezionato.
+                                        <a
+                                            href="#biglietti-treno"
+                                            class="quick-link"
+                                            >Vai alla selezione</a
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="train-journey-section">
+                                <h4 class="train-direction-title">
+                                    Misano Adriatico - Napoli 20/09
+                                </h4>
+                                <div
+                                    class="selected-ticket-summary"
+                                    id="selectedRitornoSummary"
+                                >
+                                    <div class="selected-ticket-empty">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        Nessun biglietto di ritorno selezionato.
+                                        <a
+                                            href="#biglietti-treno"
+                                            class="quick-link"
+                                            >Vai alla selezione</a
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="costs-breakdown">
+                            <h4>
+                                <i class="fa-solid fa-receipt"></i> Riepilogo
+                                Costi Biglietti
+                            </h4>
+                            <div class="cost-row">
+                                <span
+                                    ><i class="fa-solid fa-ticket"></i>
+                                    Biglietto Andata</span
+                                >
+                                <span id="summaryCostAndata">—</span>
+                            </div>
+                            <div class="cost-row">
+                                <span
+                                    ><i class="fa-solid fa-ticket"></i>
+                                    Biglietto Ritorno</span
+                                >
+                                <span id="summaryCostRitorno">—</span>
+                            </div>
+                            <div class="cost-row total">
+                                <span>Totale Biglietti Treno</span>
+                                <span id="summaryCostTotale">—</span>
+                            </div>
+                        </div>
+
+                        <a
+                            href="#biglietti-treno"
+                            class="btn btn-outline"
+                            style="width: 100%; margin-top: 20px"
+                        >
+                            <i class="fa-solid fa-ticket"></i> Modifica
+                            Biglietti Treno
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="biglietti-treno" class="hidden">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">BIGLIETTI <span>TRENO</span></h2>
+                    <p class="section-subtitle">
+                        Seleziona il biglietto di andata e quello di ritorno
+                    </p>
+                </div>
+
+                <div class="round-trip-section">
+                    <h3 class="ticket-options-title">
+                        Seleziona l'Andata — 19/09
+                    </h3>
+                    <div class="ticket-options-grid" id="andataOptions">
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0619"
+                            data-price="44.15"
+                            data-duration="8h 29m"
+                            data-changes="2"
+                            data-departure="06:19"
+                            data-arrival="14:48"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">44,15 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >06:19</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >14:48</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 8h
+                                    29m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0631"
+                            data-price="46.95"
+                            data-duration="8h 17m"
+                            data-changes="2"
+                            data-departure="06:31"
+                            data-arrival="14:48"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">46,95 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >06:31</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >14:48</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 8h
+                                    17m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0725"
+                            data-price="75.20"
+                            data-duration="6h 10m"
+                            data-changes="1"
+                            data-departure="07:25"
+                            data-arrival="13:35"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Meno cambi</span
+                                >
+                                <span class="ticket-option-price">75,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >07:25</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >13:35</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 6h
+                                    10m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0726"
+                            data-price="85.80"
+                            data-duration="9h 50m"
+                            data-changes="2"
+                            data-departure="07:26"
+                            data-arrival="17:16"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">85,80 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >07:26</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >17:16</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 9h
+                                    50m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0740"
+                            data-price="81.40"
+                            data-duration="5h 55m"
+                            data-changes="2"
+                            data-departure="07:40"
+                            data-arrival="13:35"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">81,40 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >07:40</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >13:35</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 5h
+                                    55m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0755"
+                            data-price="85.20"
+                            data-duration="6h 22m"
+                            data-changes="1"
+                            data-departure="07:55"
+                            data-arrival="14:17"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">85,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >07:55</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >14:17</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 6h
+                                    22m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0820"
+                            data-price="44.15"
+                            data-duration="11h 01m"
+                            data-changes="2"
+                            data-departure="08:20"
+                            data-arrival="19:21"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">44,15 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >08:20</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >19:21</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 11h
+                                    01m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0835"
+                            data-price="85.10"
+                            data-duration="5h 42m"
+                            data-changes="2"
+                            data-departure="08:35"
+                            data-arrival="14:17"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Più veloce</span
+                                >
+                                <span class="ticket-option-price">85,10 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >08:35</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >14:17</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 5h
+                                    42m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0850"
+                            data-price="75.20"
+                            data-duration="6h 24m"
+                            data-changes="1"
+                            data-departure="08:50"
+                            data-arrival="15:14"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Meno cambi</span
+                                >
+                                <span class="ticket-option-price">75,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >08:50</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >15:14</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 6h
+                                    24m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0904"
+                            data-price="57.40"
+                            data-duration="9h 33m"
+                            data-changes="3"
+                            data-departure="09:04"
+                            data-arrival="18:37"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">57,40 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >09:04</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >18:37</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 9h
+                                    33m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 3
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0915a"
+                            data-price="47.90"
+                            data-duration="10h 06m"
+                            data-changes="3"
+                            data-departure="09:15"
+                            data-arrival="19:21"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">47,90 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >09:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >19:21</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 10h
+                                    06m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 3
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-0915b"
+                            data-price="39.20"
+                            data-duration="11h 00m"
+                            data-changes="1"
+                            data-departure="09:15"
+                            data-arrival="20:15"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">39,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >09:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 11h
+                                    00m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1035"
+                            data-price="21.29"
+                            data-duration="9h 40m"
+                            data-changes="1"
+                            data-departure="10:35"
+                            data-arrival="20:15"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Meno caro</span
+                                >
+                                <span class="ticket-option-price">21,29 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >10:35</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 9h
+                                    40m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1100"
+                            data-price="33.48"
+                            data-duration="9h 15m"
+                            data-changes="3"
+                            data-departure="11:00"
+                            data-arrival="20:15"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">33,48 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >11:00</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 9h
+                                    15m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 3
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1120"
+                            data-price="75.20"
+                            data-duration="5h 56m"
+                            data-changes="1"
+                            data-departure="11:20"
+                            data-arrival="17:16"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">75,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >11:20</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >17:16</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 5h
+                                    56m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1125"
+                            data-price="64.20"
+                            data-duration="5h 51m"
+                            data-changes="1"
+                            data-departure="11:25"
+                            data-arrival="17:16"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Meno cambi</span
+                                >
+                                <span class="ticket-option-price">64,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >11:25</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >17:16</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 5h
+                                    51m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1155a"
+                            data-price="52.19"
+                            data-duration="8h 20m"
+                            data-changes="2"
+                            data-departure="11:55"
+                            data-arrival="20:15"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">52,19 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >11:55</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 8h
+                                    20m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1155b"
+                            data-price="35.04"
+                            data-duration="8h 54m"
+                            data-changes="2"
+                            data-departure="11:55"
+                            data-arrival="20:49"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">35,04 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >11:55</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:49</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 8h
+                                    54m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1220"
+                            data-price="44.15"
+                            data-duration="8h 29m"
+                            data-changes="2"
+                            data-departure="12:20"
+                            data-arrival="20:49"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">44,15 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >12:20</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:49</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 8h
+                                    29m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1233"
+                            data-price="48.90"
+                            data-duration="7h 42m"
+                            data-changes="3"
+                            data-departure="12:33"
+                            data-arrival="20:15"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">48,90 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >12:33</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 7h
+                                    42m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 3
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1235a"
+                            data-price="67.20"
+                            data-duration="6h 02m"
+                            data-changes="2"
+                            data-departure="12:35"
+                            data-arrival="18:37"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">67,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >12:35</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >18:37</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 6h
+                                    02m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1235b"
+                            data-price="65.20"
+                            data-duration="6h 38m"
+                            data-changes="1"
+                            data-departure="12:35"
+                            data-arrival="19:13"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Meno cambi</span
+                                >
+                                <span class="ticket-option-price">65,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >12:35</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >19:13</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 6h
+                                    38m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1325a"
+                            data-price="59.20"
+                            data-duration="5h 48m"
+                            data-changes="1"
+                            data-departure="13:25"
+                            data-arrival="19:13"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Consigliato</span
+                                >
+                                <span class="ticket-option-price">59,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >13:25</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >19:13</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 5h
+                                    48m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1325b"
+                            data-price="44.90"
+                            data-duration="6h 50m"
+                            data-changes="3"
+                            data-departure="13:25"
+                            data-arrival="20:15"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">44,90 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >13:25</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 6h
+                                    50m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 3
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1326"
+                            data-price="49.95"
+                            data-duration="7h 23m"
+                            data-changes="2"
+                            data-departure="13:26"
+                            data-arrival="20:49"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">49,95 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >13:26</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:49</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 7h
+                                    23m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1415"
+                            data-price="59.20"
+                            data-duration="6h 00m"
+                            data-changes="1"
+                            data-departure="14:15"
+                            data-arrival="20:15"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Meno cambi</span
+                                >
+                                <span class="ticket-option-price">59,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >14:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 6h
+                                    00m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 1
+                                    cambio</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-1425"
+                            data-price="61.20"
+                            data-duration="5h 50m"
+                            data-changes="2"
+                            data-departure="14:25"
+                            data-arrival="20:15"
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">61,20 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >14:25</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:15</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 5h
+                                    50m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Seleziona Andata
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="return-trip-section">
+                    <h3 class="ticket-options-title" style="margin-top: 40px">
+                        Seleziona il Ritorno — 20/09s
+                    </h3>
+                    <div class="ticket-options-grid" id="ritornoOptions">
+                        <div
+                            class="ticket-option-card"
+                            data-direction="ritorno"
+                            data-id="ritorno-1"
+                            data-price="59.90"
+                            data-duration="5h 10m"
+                            data-changes="2"
+                            data-departure="17:00"
+                            data-arrival="22:10"
+                            data-legs='["Regionale","Regionale Veloce","Frecciarossa"]'
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"></span>
+                                <span class="ticket-option-price">59,90 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >17:00</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >22:10</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-legs">
+                                <span class="train-type regionale"
+                                    >Regionale</span
+                                >
+                                <span class="train-type regionale"
+                                    >Regionale Veloce</span
+                                >
+                                <span class="train-type frecciarossa"
+                                    >Frecciarossa</span
+                                >
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 5h
+                                    10m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 2
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="ritorno"
+                            >
+                                Seleziona Ritorno
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -292,7 +1963,7 @@
                                 <input
                                     type="number"
                                     id="passengers"
-                                    value="4"
+                                    value="1"
                                     min="1"
                                     max="8"
                                     readonly
@@ -310,19 +1981,37 @@
 
                         <div class="quota-breakdown-wrapper">
                             <div class="quota-breakdown">
-                                <div class="quota-row">
+                                <div class="quota-row transport-car-row">
                                     <span
                                         ><i class="fa-solid fa-gas-pump"></i>
                                         Quota Carburante (A/R)</span
                                     >
                                     <span id="calcFuel">30,15 €</span>
                                 </div>
-                                <div class="quota-row">
+                                <div class="quota-row transport-car-row">
                                     <span
                                         ><i class="fa-solid fa-road"></i> Quota
                                         Pedaggio (A/R)</span
                                     >
                                     <span id="calcToll">17,05 €</span>
+                                </div>
+                                <div
+                                    class="quota-row transport-train-row hidden"
+                                >
+                                    <span
+                                        ><i class="fa-solid fa-ticket"></i>
+                                        Biglietto Andata</span
+                                    >
+                                    <span id="calcTrainAndata">—</span>
+                                </div>
+                                <div
+                                    class="quota-row transport-train-row hidden"
+                                >
+                                    <span
+                                        ><i class="fa-solid fa-ticket"></i>
+                                        Biglietto Ritorno</span
+                                    >
+                                    <span id="calcTrainRitorno">—</span>
                                 </div>
                                 <div class="quota-row">
                                     <span>

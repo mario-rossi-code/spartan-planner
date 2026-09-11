@@ -464,9 +464,6 @@ header {
     margin-top: 2px;
 }
 
-.route-layout {
-}
-
 .route-info-card,
 .calculator-box {
     background: var(--bg-card);
@@ -483,6 +480,45 @@ header {
 .calculator-box h3,
 .calculator-box p {
     text-align: center;
+}
+
+.transport-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.transport-tab-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: var(--font-title);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1 1 180px;
+    max-width: 280px;
+    text-align: center;
+}
+
+.transport-tab-btn.car,
+.transport-tab-btn.train {
+    color: var(--accent-gold);
+}
+
+.transport-tab-btn.car.active,
+.transport-tab-btn.train.active {
+    background: var(--accent-gold);
+    color: var(--bg-main);
+    border-color: var(--accent-gold);
 }
 
 .route-header {
@@ -818,28 +854,297 @@ header {
     color: var(--accent-gold);
 }
 
-.calculator-box-link {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
+.train-journeys-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.train-journeys-wrapper .train-journey-section {
+    flex: 1 1 100%;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 18px;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.train-direction-title {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+}
+
+.train-type {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    padding: 2px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+}
+
+.train-type.frecciarossa {
+    background: #d32f2f;
+    color: #fff;
+}
+.train-type.italo {
+    background: #e30613;
+    color: #fff;
+}
+.train-type.intercity {
+    background: #0047bb;
+    color: #fff;
+}
+.train-type.regionale {
+    background: #4a9eff;
+    color: #fff;
+}
+
+.round-trip-section {
+    margin-bottom: 1rem;
+}
+
+.round-trip-section,
+.return-trip-section {
     padding: 18px;
+    border: 2px solid var(--accent-gold);
+    border-radius: 16px;
+}
+
+.ticket-options-title {
+    text-align: center;
+    margin-bottom: 18px;
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+}
+
+.ticket-options-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.ticket-option-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.ticket-option-card:hover {
+    border-color: rgba(255, 179, 0, 0.5);
+}
+
+.ticket-option-card.selected {
+    border-color: var(--accent-gold);
+    background: rgba(255, 179, 0, 0.05);
+    box-shadow: 0 0 0 1px var(--accent-gold);
+}
+
+.ticket-option-card.selected .btn-select-ticket {
+    background: var(--accent-gold);
+    color: var(--bg-main);
+    border-color: var(--accent-gold);
+}
+
+.ticket-option-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-option-badge {
+    height: 100%;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.ticket-option-price {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+}
+
+.ticket-option-route {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.ticket-option-station {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
-    min-height: 200px;
+    flex: 1;
 }
 
-.calculator-box-link .icon-large {
-    font-size: 3rem;
+.ticket-option-time {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    color: var(--text-light);
+    line-height: 1;
+}
+
+.ticket-option-city {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.ticket-option-arrow {
     color: var(--accent-gold);
-    margin-bottom: 15px;
+    font-size: 1rem;
 }
 
-.calculator-box-link .btn {
+.ticket-option-legs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    padding: 8px 0;
+    border-top: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.ticket-option-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    gap: 10px;
+}
+
+.ticket-option-meta i {
+    color: var(--accent-gold);
+    margin-right: 3px;
+}
+
+.btn-select-ticket {
     width: 100%;
-    max-width: 250px;
+    margin-top: auto;
+}
+
+.selected-ticket-summary {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.selected-ticket-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 10px 0;
+}
+
+.selected-ticket-empty i {
+    color: var(--accent-gold);
+    margin-right: 6px;
+}
+
+.selected-ticket-empty .quick-link {
+    display: inline;
+    margin-left: 4px;
+}
+
+.selected-ticket-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.selected-ticket-route {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.selected-ticket-station {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+}
+
+.selected-ticket-time {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    color: var(--text-light);
+    line-height: 1;
+}
+
+.selected-ticket-city {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.selected-ticket-arrow {
+    color: var(--accent-gold);
+    font-size: 1rem;
+}
+
+.selected-ticket-legs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    padding: 8px 0;
+    border-top: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.selected-ticket-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    gap: 10px;
+}
+
+.selected-ticket-meta i {
+    color: var(--accent-gold);
+    margin-right: 3px;
+}
+
+.selected-ticket-price {
+    text-align: right;
+    font-family: var(--font-title);
+    font-size: 1.3rem;
+    color: var(--accent-gold);
+}
+
+.btn-buy-andata {
+    background-color: var(--accent-gold);
+    color: var(--bg-main);
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.3);
+}
+.btn-buy-andata:hover {
+    background-color: #ffc233;
 }
 
 .spartan-section {
@@ -1097,20 +1402,6 @@ header {
     border-color: var(--accent-gold);
 }
 
-.card-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--primary-red);
-    color: white;
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-size: 0.65rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    display: none;
-}
-
 .card-content {
     display: flex;
     flex-direction: column;
@@ -1185,11 +1476,6 @@ header {
     margin-top: 10px;
 }
 
-.card-bottom-actions {
-    margin-top: auto;
-    width: 100%;
-}
-
 footer {
     padding: 25px 0;
     text-align: center;
@@ -1223,6 +1509,15 @@ footer span {
         display: flex;
     }
 
+    .ticket-option-route,
+    .selected-ticket-route {
+        gap: 6px;
+    }
+    .transport-tab-btn {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
     .single-race-card,
     .route-info-card,
     .calculator-box,
@@ -1242,14 +1537,6 @@ footer span {
     .card-title {
         padding-right: 0;
         margin-top: 15px;
-    }
-
-    .card-badge {
-        position: relative;
-        top: 0;
-        right: 0;
-        display: inline-block;
-        margin-bottom: 8px;
     }
 
     .race-card-body {
@@ -1273,6 +1560,23 @@ footer span {
 
     .metric-card {
         flex-direction: row;
+    }
+
+    .transport-tab-btn {
+        flex: 0 1 auto;
+    }
+
+    .train-journeys-wrapper {
+        flex-wrap: nowrap;
+        flex-direction: row;
+        align-items: stretch;
+        gap: 18px;
+    }
+
+    .train-journeys-wrapper .train-journey-section {
+        flex: 1 1 calc(50% - 9px);
+        display: flex;
+        flex-direction: column;
     }
 
     .race-card-header {

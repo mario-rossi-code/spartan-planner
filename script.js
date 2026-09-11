@@ -167,6 +167,13 @@ document.addEventListener("DOMContentLoaded", function () {
         nights: 1,
     };
 
+    let selectedTransport = "car";
+
+    let selectedTickets = {
+        andata: null,
+        ritorno: null,
+    };
+
     let selectedHotel = {
         name: "Hotel Onda Marina",
         pricePerNight: 166,
@@ -180,15 +187,261 @@ document.addEventListener("DOMContentLoaded", function () {
         type: "sprint",
     };
 
+    const transportTabs = document.querySelectorAll(".transport-tab-btn");
+    const carInfo = document.getElementById("transport-car-info");
+    const trainInfo = document.getElementById("transport-train-info");
+    const ticketsSection = document.getElementById("biglietti-treno");
+
+    transportTabs.forEach((tab) => {
+        tab.addEventListener("click", function () {
+            transportTabs.forEach((t) => t.classList.remove("active"));
+            this.classList.add("active");
+
+            selectedTransport = this.dataset.transport;
+
+            if (selectedTransport === "car") {
+                if (carInfo) carInfo.classList.remove("hidden");
+                if (trainInfo) trainInfo.classList.add("hidden");
+                if (ticketsSection) ticketsSection.classList.add("hidden");
+            } else {
+                if (carInfo) carInfo.classList.add("hidden");
+                if (trainInfo) trainInfo.classList.remove("hidden");
+                if (ticketsSection) ticketsSection.classList.remove("hidden");
+            }
+
+            updateCalculatorRows();
+            calculateCosts();
+        });
+    });
+
+    function updateCalculatorRows() {
+        const carRows = document.querySelectorAll(".transport-car-row");
+        const trainRows = document.querySelectorAll(".transport-train-row");
+
+        if (selectedTransport === "car") {
+            carRows.forEach((r) => r.classList.remove("hidden"));
+            trainRows.forEach((r) => r.classList.add("hidden"));
+        } else {
+            carRows.forEach((r) => r.classList.add("hidden"));
+            trainRows.forEach((r) => r.classList.remove("hidden"));
+        }
+    }
+
+    function getTrainTotal() {
+        const andata = selectedTickets.andata
+            ? selectedTickets.andata.price
+            : 0;
+        const ritorno = selectedTickets.ritorno
+            ? selectedTickets.ritorno.price
+            : 0;
+        return { andata, ritorno, totale: andata + ritorno };
+    }
+
+    function updateTrainSummaryUI() {
+        const summaryAndata = document.getElementById("summaryAndata");
+        const summaryRitorno = document.getElementById("summaryRitorno");
+        const summaryTotale = document.getElementById("summaryTotale");
+
+        const { andata, ritorno, totale } = getTrainTotal();
+
+        if (summaryAndata)
+            summaryAndata.textContent =
+                andata > 0 ? andata.toFixed(2) + " €" : "—";
+        if (summaryRitorno)
+            summaryRitorno.textContent =
+                ritorno > 0 ? ritorno.toFixed(2) + " €" : "—";
+        if (summaryTotale)
+            summaryTotale.textContent =
+                totale > 0 ? totale.toFixed(2) + " €" : "—";
+
+        const summaryCostAndata = document.getElementById("summaryCostAndata");
+        const summaryCostRitorno =
+            document.getElementById("summaryCostRitorno");
+        const summaryCostTotale = document.getElementById("summaryCostTotale");
+
+        if (summaryCostAndata)
+            summaryCostAndata.textContent =
+                andata > 0 ? andata.toFixed(2) + " €" : "—";
+        if (summaryCostRitorno)
+            summaryCostRitorno.textContent =
+                ritorno > 0 ? ritorno.toFixed(2) + " €" : "—";
+        if (summaryCostTotale)
+            summaryCostTotale.textContent =
+                totale > 0 ? totale.toFixed(2) + " €" : "—";
+
+        const selectedAndataSummary = document.getElementById(
+            "selectedAndataSummary",
+        );
+        const selectedRitornoSummary = document.getElementById(
+            "selectedRitornoSummary",
+        );
+
+        if (selectedAndataSummary) {
+            selectedAndataSummary.innerHTML = selectedTickets.andata
+                ? buildSelectedTicketHTML(selectedTickets.andata)
+                : `<div class="selected-ticket-empty"><i class="fa-solid fa-circle-info"></i> Nessun biglietto di andata selezionato. <a href="#biglietti-treno" class="quick-link">Vai alla selezione</a></div>`;
+        }
+
+        if (selectedRitornoSummary) {
+            selectedRitornoSummary.innerHTML = selectedTickets.ritorno
+                ? buildSelectedTicketHTML(selectedTickets.ritorno)
+                : `<div class="selected-ticket-empty"><i class="fa-solid fa-circle-info"></i> Nessun biglietto di ritorno selezionato. <a href="#biglietti-treno" class="quick-link">Vai alla selezione</a></div>`;
+        }
+
+        const summaryDurationAndata = document.getElementById(
+            "summaryDurationAndata",
+        );
+        const summaryChangesAndata = document.getElementById(
+            "summaryChangesAndata",
+        );
+        const summaryDurationRitorno = document.getElementById(
+            "summaryDurationRitorno",
+        );
+        const summaryChangesRitorno = document.getElementById(
+            "summaryChangesRitorno",
+        );
+
+        if (summaryDurationAndata) {
+            summaryDurationAndata.textContent = selectedTickets.andata
+                ? selectedTickets.andata.duration
+                : "—";
+        }
+        if (summaryChangesAndata) {
+            summaryChangesAndata.textContent = selectedTickets.andata
+                ? String(selectedTickets.andata.changes)
+                : "—";
+        }
+        if (summaryDurationRitorno) {
+            summaryDurationRitorno.textContent = selectedTickets.ritorno
+                ? selectedTickets.ritorno.duration
+                : "—";
+        }
+        if (summaryChangesRitorno) {
+            summaryChangesRitorno.textContent = selectedTickets.ritorno
+                ? String(selectedTickets.ritorno.changes)
+                : "—";
+        }
+    }
+
+    function buildSelectedTicketHTML(ticket) {
+        const legsHTML = ticket.legs
+            .map(
+                (leg) =>
+                    `<span class="train-type ${leg.class}">${leg.name}</span>`,
+            )
+            .join("");
+
+        return `
+            <div class="selected-ticket-info">
+                <div class="selected-ticket-route">
+                    <div class="selected-ticket-station">
+                        <span class="selected-ticket-time">${ticket.departure}</span>
+                        <span class="selected-ticket-city">${ticket.fromCity}</span>
+                    </div>
+                    <div class="selected-ticket-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="selected-ticket-station">
+                        <span class="selected-ticket-time">${ticket.arrival}</span>
+                        <span class="selected-ticket-city">${ticket.toCity}</span>
+                    </div>
+                </div>
+                <div class="selected-ticket-legs">${legsHTML}</div>
+                <div class="selected-ticket-meta">
+                    <span><i class="fa-solid fa-clock"></i> ${ticket.duration}</span>
+                    <span><i class="fa-solid fa-train-subway"></i> ${ticket.changes} cambi</span>
+                </div>
+                <div class="selected-ticket-price">${ticket.price.toFixed(2)} €</div>
+            </div>
+        `;
+    }
+
+    function getTrainTypeClass(typeName) {
+        const map = {
+            Frecciarossa: "frecciarossa",
+            Italo: "italo",
+            Intercity: "intercity",
+            Regionale: "regionale",
+            "Regionale Veloce": "regionale",
+        };
+        return map[typeName] || "regionale";
+    }
+
+    document.querySelectorAll(".btn-select-ticket").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const card = this.closest(".ticket-option-card");
+            if (!card) return;
+
+            const direction = card.dataset.direction;
+            const cardId = card.dataset.id;
+
+            const isAlreadySelected =
+                selectedTickets[direction] &&
+                selectedTickets[direction].id === cardId;
+
+            document
+                .querySelectorAll(
+                    `.ticket-option-card[data-direction="${direction}"]`,
+                )
+                .forEach((c) => {
+                    c.classList.remove("selected");
+                    const b = c.querySelector(".btn-select-ticket");
+                    if (b)
+                        b.textContent = `Seleziona ${direction === "andata" ? "Andata" : "Ritorno"}`;
+                });
+
+            if (isAlreadySelected) {
+                selectedTickets[direction] = null;
+            } else {
+                card.classList.add("selected");
+                this.textContent = "Selezionato ✓";
+
+                const legsRaw = JSON.parse(card.dataset.legs || "[]");
+                const legs = legsRaw.map((name) => ({
+                    name: name,
+                    class: getTrainTypeClass(name),
+                }));
+
+                selectedTickets[direction] = {
+                    id: cardId,
+                    price: parseFloat(card.dataset.price) || 0,
+                    duration: card.dataset.duration || "",
+                    changes: parseInt(card.dataset.changes) || 0,
+                    departure: card.dataset.departure || "",
+                    arrival: card.dataset.arrival || "",
+                    fromCity:
+                        direction === "andata" ? "Napoli C." : "Misano A.",
+                    toCity: direction === "andata" ? "Misano A." : "Napoli C.",
+                    legs: legs,
+                };
+            }
+
+            updateTrainSummaryUI();
+            calculateCosts();
+        });
+    });
+
     function calculateCosts() {
         const passengers =
             parseInt(passengersInput ? passengersInput.value : 4) || 4;
 
-        const fuelTotal = COSTI_FISSI.fuel * 2;
-        const tollTotal = COSTI_FISSI.toll * 2;
+        let fuelPerPerson = 0;
+        let tollPerPerson = 0;
+        let trainAndataPerPerson = 0;
+        let trainRitornoPerPerson = 0;
+        let transportPerPerson = 0;
 
-        const fuelPerPerson = fuelTotal / passengers;
-        const tollPerPerson = tollTotal / passengers;
+        if (selectedTransport === "car") {
+            fuelPerPerson = (COSTI_FISSI.fuel * 2) / passengers;
+            tollPerPerson = (COSTI_FISSI.toll * 2) / passengers;
+            transportPerPerson = fuelPerPerson + tollPerPerson;
+        } else {
+            const { andata, ritorno } = getTrainTotal();
+            trainAndataPerPerson = andata;
+            trainRitornoPerPerson = ritorno;
+            transportPerPerson = andata + ritorno;
+        }
 
         let hotelPerPerson = 0;
         if (selectedHotel && selectedHotel.basePriceMap) {
@@ -207,23 +460,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const racePerPerson = selectedRace.price || 108;
         const totalPerPerson =
-            fuelPerPerson + tollPerPerson + hotelPerPerson + racePerPerson;
+            transportPerPerson + hotelPerPerson + racePerPerson;
 
-        const calcFuel = document.getElementById("calcFuel");
-        const calcToll = document.getElementById("calcToll");
-        const calcHotel = document.getElementById("calcHotel");
-        const calcRace = document.getElementById("calcRace");
-        const perPersonCost = document.getElementById("perPersonCost");
+        const setText = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
+        };
+
+        setText("calcFuel", fuelPerPerson.toFixed(2) + " €");
+        setText("calcToll", tollPerPerson.toFixed(2) + " €");
+        setText(
+            "calcTrainAndata",
+            trainAndataPerPerson > 0
+                ? trainAndataPerPerson.toFixed(2) + " €"
+                : "—",
+        );
+        setText(
+            "calcTrainRitorno",
+            trainRitornoPerPerson > 0
+                ? trainRitornoPerPerson.toFixed(2) + " €"
+                : "—",
+        );
+        setText("calcHotel", hotelPerPerson.toFixed(2) + " €");
+        setText("calcRace", racePerPerson.toFixed(2) + " €");
+        setText("perPersonCost", totalPerPerson.toFixed(2) + " €");
+
         const selectedHotelLabel =
             document.getElementById("selectedHotelLabel");
         const selectedRaceLabel = document.getElementById("selectedRaceLabel");
-
-        if (calcFuel) calcFuel.textContent = fuelPerPerson.toFixed(2) + " €";
-        if (calcToll) calcToll.textContent = tollPerPerson.toFixed(2) + " €";
-        if (calcHotel) calcHotel.textContent = hotelPerPerson.toFixed(2) + " €";
-        if (calcRace) calcRace.textContent = racePerPerson.toFixed(2) + " €";
-        if (perPersonCost)
-            perPersonCost.textContent = totalPerPerson.toFixed(2) + " €";
 
         if (selectedHotelLabel && selectedHotel) {
             selectedHotelLabel.textContent = `(${selectedHotel.name})`;
@@ -417,7 +681,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const passengers =
             parseInt(passengersInput ? passengersInput.value : 4) || 4;
         updateAccommodationFilter(passengers);
-
+        updateCalculatorRows();
+        updateTrainSummaryUI();
         calculateCosts();
 
         document.querySelectorAll(".accommodation-card").forEach((card) => {
