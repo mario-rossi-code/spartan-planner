@@ -39,18 +39,10 @@
 
                 <nav class="navbar" id="navBar">
                     <ul class="navbar-links">
-                        <li>
-                            <a href="#itinerario">Viaggio</a>
-                        </li>
-                        <li>
-                            <a href="#alloggi">Alloggi</a>
-                        </li>
-                        <li>
-                            <a href="#gara">Spartan Race</a>
-                        </li>
-                        <li>
-                            <a href="#calcolatore">Calcolatore</a>
-                        </li>
+                        <li><a href="#itinerario">Viaggio</a></li>
+                        <li><a href="#alloggi">Alloggi</a></li>
+                        <li><a href="#gara">Spartan Race</a></li>
+                        <li><a href="#calcolatore">Calcolatore</a></li>
                     </ul>
                 </nav>
 
@@ -104,7 +96,7 @@
                     ><i class="fa-regular fa-calendar-days"></i> 19-20 Settembre
                     2026</span
                 >
-                <h1>SPARTAN<br />MISANO 2026</h1>
+                <h1>SPARTAN<br /><span>MISANO 2026</span></h1>
                 <p>
                     Pianificazione strategica per la trasferta. <br />
                     Viaggio A/R, alloggi e dettagli gara.
@@ -145,7 +137,24 @@
                     </p>
                 </div>
 
-                <div class="route-layout">
+                <div class="transport-selector reveal">
+                    <button
+                        type="button"
+                        class="transport-tab-btn car active"
+                        data-transport="car"
+                    >
+                        <i class="fa-solid fa-car-side"></i> Auto
+                    </button>
+                    <button
+                        type="button"
+                        class="transport-tab-btn train"
+                        data-transport="train"
+                    >
+                        <i class="fa-solid fa-train"></i> Treno
+                    </button>
+                </div>
+
+                <div id="transport-car-info" class="route-layout">
                     <div class="route-info-card reveal">
                         <div class="route-header">
                             <h3>
@@ -165,7 +174,6 @@
                                     <p>Distanza</p>
                                 </div>
                             </div>
-
                             <div class="metric-card">
                                 <div class="metric-icon">
                                     <i class="fa-solid fa-clock"></i>
@@ -175,7 +183,6 @@
                                     <p>Tempo Stimato</p>
                                 </div>
                             </div>
-
                             <div class="metric-card">
                                 <div class="metric-icon">
                                     <i class="fa-solid fa-gas-pump"></i>
@@ -185,7 +192,6 @@
                                     <p>Carburante</p>
                                 </div>
                             </div>
-
                             <div class="metric-card">
                                 <div class="metric-icon">
                                     <i class="fa-solid fa-road"></i>
@@ -252,6 +258,555 @@
                         </a>
                     </div>
                 </div>
+
+                <div id="transport-train-info" class="route-layout hidden">
+                    <div class="route-info-card reveal">
+                        <div class="route-header">
+                            <h3>
+                                <i class="fa-solid fa-train"></i> Dettagli
+                                Tragitto
+                            </h3>
+                        </div>
+
+                        <div class="metrics-grid reveal">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div class="metric-data">
+                                    <h4 id="summaryDurationAndata">—</h4>
+                                    <p>Durata Andata</p>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fa-solid fa-right-left"></i>
+                                </div>
+                                <div class="metric-data">
+                                    <h4 id="summaryChangesAndata">—</h4>
+                                    <p>Cambi Andata</p>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div class="metric-data">
+                                    <h4 id="summaryDurationRitorno">—</h4>
+                                    <p>Durata Ritorno</p>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fa-solid fa-right-left"></i>
+                                </div>
+                                <div class="metric-data">
+                                    <h4 id="summaryChangesRitorno">—</h4>
+                                    <p>Cambi Ritorno</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="train-journeys-wrapper">
+                            <div class="train-journey-section">
+                                <h4 class="train-direction-title">
+                                    Napoli - Misano Adriatico 19/09
+                                </h4>
+                                <div
+                                    class="selected-ticket-summary"
+                                    id="selectedAndataSummary"
+                                >
+                                    <div class="selected-ticket-empty">
+                                        <div>
+                                            <i
+                                                class="fa-solid fa-circle-info"
+                                            ></i>
+                                            Nessun biglietto di andata
+                                            selezionato.
+                                        </div>
+                                        <a
+                                            href="#biglietti-treno"
+                                            class="quick-link"
+                                            >Vai alla selezione</a
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="train-journey-section">
+                                <h4 class="train-direction-title">
+                                    Misano Adriatico - Napoli 20/09
+                                </h4>
+                                <div
+                                    class="selected-ticket-summary"
+                                    id="selectedRitornoSummary"
+                                >
+                                    <div class="selected-ticket-empty">
+                                        <div>
+                                            <i
+                                                class="fa-solid fa-circle-info"
+                                            ></i>
+                                            Nessun biglietto di ritorno
+                                            selezionato.
+                                        </div>
+                                        <a
+                                            href="#biglietti-treno"
+                                            class="quick-link"
+                                            >Vai alla selezione</a
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="costs-breakdown">
+                            <h4>
+                                <i class="fa-solid fa-receipt"></i> Riepilogo
+                                Costi Biglietti
+                            </h4>
+                            <div class="cost-row">
+                                <span
+                                    ><i class="fa-solid fa-ticket"></i>
+                                    Biglietto Andata</span
+                                >
+                                <span id="summaryCostAndata">—</span>
+                            </div>
+                            <div class="cost-row">
+                                <span
+                                    ><i class="fa-solid fa-ticket"></i>
+                                    Biglietto Ritorno</span
+                                >
+                                <span id="summaryCostRitorno">—</span>
+                            </div>
+                            <div class="cost-row total">
+                                <span>Totale Biglietti Treno</span>
+                                <span id="summaryCostTotale">—</span>
+                            </div>
+                        </div>
+
+                        <a
+                            href="#biglietti-treno"
+                            class="btn btn-outline"
+                            style="width: 100%; margin-top: 20px"
+                        >
+                            <i class="fa-solid fa-ticket"></i> Modifica
+                            Biglietti Treno
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="biglietti-treno" class="hidden">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">BIGLIETTI <span>TRENO</span></h2>
+                    <p class="section-subtitle">
+                        Seleziona i biglietti nell'ordine corretto: ogni
+                        biglietto deve partire dalla stazione di arrivo del
+                        precedente.
+                    </p>
+                </div>
+
+                <!-- ANDATA -->
+                <div class="round-trip-section">
+                    <div class="ticket-direction-header">
+                        <h3 class="ticket-options-title">
+                            Andata 19/09 — Napoli Centrale
+                            <i class="fa-solid fa-arrow-right"></i> Misano
+                            Adriatico
+                        </h3>
+                        <button
+                            type="button"
+                            class="btn btn-outline btn-clear-direction"
+                            data-direction="andata"
+                        >
+                            <i class="fa-solid fa-rotate-left"></i> Deseleziona
+                            Andata
+                        </button>
+                    </div>
+
+                    <div class="ticket-validation" id="validation-andata"></div>
+
+                    <div class="ticket-options-grid" id="andataOptions">
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-italo-1125"
+                            data-price="52.90"
+                            data-duration="3h 43m"
+                            data-changes="0"
+                            data-departure="11:25"
+                            data-arrival="15:08"
+                            data-from="Napoli Centrale"
+                            data-to="Bologna Centrale"
+                            data-legs='["Italo"]'
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge">Italo</span>
+                                <span class="ticket-option-price">52,90 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >11:25</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >15:08</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Bologna C.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-legs">
+                                <span class="train-type italo">Italo</span>
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 3h
+                                    43m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 0
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Aggiungi Andata
+                            </button>
+                        </div>
+
+                        <div
+                            class="ticket-option-card"
+                            data-direction="andata"
+                            data-id="andata-regionale-1534"
+                            data-price="11.30"
+                            data-duration="1h 42m"
+                            data-changes="0"
+                            data-departure="15:34"
+                            data-arrival="17:16"
+                            data-from="Bologna Centrale"
+                            data-to="Misano Adriatico"
+                            data-legs='["Regionale"]'
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Regionale</span
+                                >
+                                <span class="ticket-option-price">11,30 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >15:34</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Bologna C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >17:16</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-legs">
+                                <span class="train-type regionale"
+                                    >Regionale</span
+                                >
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 1h
+                                    42m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 0
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="andata"
+                            >
+                                Aggiungi Andata
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        class="ticket-journey-summary"
+                        id="journey-summary-andata"
+                    >
+                        <h4>
+                            <i class="fa-solid fa-route"></i> Percorso Andata
+                        </h4>
+                        <div class="journey-timeline" id="timeline-andata">
+                            <p class="text-muted">
+                                Nessun biglietto selezionato.
+                            </p>
+                        </div>
+                        <div class="journey-total">
+                            Totale:
+                            <strong id="total-andata">0,00 €</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RITORNO -->
+                <div class="return-trip-section">
+                    <div class="ticket-direction-header">
+                        <h3 class="ticket-options-title">
+                            Ritorno 20/09 — Misano Adriatico
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Napoli Centrale
+                        </h3>
+                        <button
+                            type="button"
+                            class="btn btn-outline btn-clear-direction"
+                            data-direction="ritorno"
+                        >
+                            <i class="fa-solid fa-rotate-left"></i> Deseleziona
+                            Ritorno
+                        </button>
+                    </div>
+
+                    <div
+                        class="ticket-validation"
+                        id="validation-ritorno"
+                    ></div>
+
+                    <div class="ticket-options-grid" id="ritornoOptions">
+                        <div
+                            class="ticket-option-card"
+                            data-direction="ritorno"
+                            data-id="ritorno-regionale-1534"
+                            data-price="2.40"
+                            data-duration="3m"
+                            data-changes="0"
+                            data-departure="15:34"
+                            data-arrival="15:37"
+                            data-from="Misano Adriatico"
+                            data-to="Cattolica-SanGiovanni-Gabicce"
+                            data-legs='["Regionale"]'
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Regionale</span
+                                >
+                                <span class="ticket-option-price">2,40 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >15:34</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Misano A.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >15:37</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Cattolica</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-legs">
+                                <span class="train-type regionale"
+                                    >Regionale</span
+                                >
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 3m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 0
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="ritorno"
+                            >
+                                Aggiungi Ritorno
+                            </button>
+                        </div>
+
+                        <div
+                            class="ticket-option-card"
+                            data-direction="ritorno"
+                            data-id="ritorno-regionale-1708"
+                            data-price="17.00"
+                            data-duration="1h 32m"
+                            data-changes="0"
+                            data-departure="17:08"
+                            data-arrival="18:40"
+                            data-from="Cattolica-SanGiovanni-Gabicce"
+                            data-to="Bologna Centrale"
+                            data-legs='["Regionale"]'
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Regionale</span
+                                >
+                                <span class="ticket-option-price">17,00 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >17:08</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Cattolica</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >18:40</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Bologna C.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-legs">
+                                <span class="train-type regionale"
+                                    >Regionale</span
+                                >
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 1h
+                                    32m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 0
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="ritorno"
+                            >
+                                Aggiungi Ritorno
+                            </button>
+                        </div>
+
+                        <div
+                            class="ticket-option-card"
+                            data-direction="ritorno"
+                            data-id="ritorno-frecciarossa-2007"
+                            data-price="39.90"
+                            data-duration="3h 36m"
+                            data-changes="0"
+                            data-departure="20:07"
+                            data-arrival="23:43"
+                            data-from="Bologna Centrale"
+                            data-to="Napoli Centrale"
+                            data-legs='["Frecciarossa"]'
+                        >
+                            <div class="ticket-option-header">
+                                <span class="ticket-option-badge"
+                                    >Frecciarossa</span
+                                >
+                                <span class="ticket-option-price">39,90 €</span>
+                            </div>
+                            <div class="ticket-option-route">
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >20:07</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Bologna C.</span
+                                    >
+                                </div>
+                                <div class="ticket-option-arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="ticket-option-station">
+                                    <span class="ticket-option-time"
+                                        >23:43</span
+                                    >
+                                    <span class="ticket-option-city"
+                                        >Napoli C.</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="ticket-option-legs">
+                                <span class="train-type frecciarossa"
+                                    >Frecciarossa</span
+                                >
+                            </div>
+                            <div class="ticket-option-meta">
+                                <span
+                                    ><i class="fa-solid fa-clock"></i> 3h
+                                    36m</span
+                                >
+                                <span
+                                    ><i class="fa-solid fa-train-subway"></i> 0
+                                    cambi</span
+                                >
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-outline btn-select-ticket"
+                                data-direction="ritorno"
+                            >
+                                Aggiungi Ritorno
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        class="ticket-journey-summary"
+                        id="journey-summary-ritorno"
+                    >
+                        <h4>
+                            <i class="fa-solid fa-route"></i> Percorso Ritorno
+                        </h4>
+                        <div class="journey-timeline" id="timeline-ritorno">
+                            <p class="text-muted">
+                                Nessun biglietto selezionato.
+                            </p>
+                        </div>
+                        <div class="journey-total">
+                            Totale:
+                            <strong id="total-ritorno">0,00 €</strong>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -292,7 +847,7 @@
                                 <input
                                     type="number"
                                     id="passengers"
-                                    value="4"
+                                    value="1"
                                     min="1"
                                     max="8"
                                     readonly
@@ -310,19 +865,45 @@
 
                         <div class="quota-breakdown-wrapper">
                             <div class="quota-breakdown">
-                                <div class="quota-row">
+                                <div class="quota-row transport-car-row">
                                     <span
                                         ><i class="fa-solid fa-gas-pump"></i>
                                         Quota Carburante (A/R)</span
                                     >
-                                    <span id="calcFuel">30,15 €</span>
+                                    <span class="price" id="calcFuel"
+                                        >30,15 €</span
+                                    >
                                 </div>
-                                <div class="quota-row">
+                                <div class="quota-row transport-car-row">
                                     <span
                                         ><i class="fa-solid fa-road"></i> Quota
                                         Pedaggio (A/R)</span
                                     >
-                                    <span id="calcToll">17,05 €</span>
+                                    <span class="price" id="calcToll"
+                                        >17,05 €</span
+                                    >
+                                </div>
+                                <div
+                                    class="quota-row transport-train-row hidden"
+                                >
+                                    <span
+                                        ><i class="fa-solid fa-ticket"></i>
+                                        Biglietto Andata</span
+                                    >
+                                    <span class="price" id="calcTrainAndata"
+                                        >—</span
+                                    >
+                                </div>
+                                <div
+                                    class="quota-row transport-train-row hidden"
+                                >
+                                    <span
+                                        ><i class="fa-solid fa-ticket"></i>
+                                        Biglietto Ritorno</span
+                                    >
+                                    <span class="price" id="calcTrainRitorno"
+                                        >—</span
+                                    >
                                 </div>
                                 <div class="quota-row">
                                     <span>
@@ -331,7 +912,7 @@
                                         <strong
                                             id="selectedHotelLabel"
                                             style="
-                                                color: var(--accent-gold);
+                                                color: var(--primary-color);
                                                 font-size: 0.8rem;
                                             "
                                         ></strong>
@@ -340,13 +921,12 @@
                                             class="quick-link"
                                             title="Cambia Alloggio"
                                         >
-                                            <i
-                                                class="fa-solid fa-arrow-right-to-bracket"
-                                            ></i>
                                             Cambia
                                         </a>
                                     </span>
-                                    <span id="calcHotel">37,50 €</span>
+                                    <span class="price" id="calcHotel"
+                                        >37,50 €</span
+                                    >
                                 </div>
                                 <div class="quota-row">
                                     <span>
@@ -354,7 +934,10 @@
                                         Biglietto Gara
                                         <strong
                                             id="selectedRaceLabel"
-                                            style="font-size: 0.8rem"
+                                            style="
+                                                font-size: 0.8rem;
+                                                color: var(--primary-color);
+                                            "
                                             >(Spartan Sprint)</strong
                                         >
                                         <a
@@ -362,13 +945,12 @@
                                             class="quick-link"
                                             title="Cambia Gara"
                                         >
-                                            <i
-                                                class="fa-solid fa-arrow-right-to-bracket"
-                                            ></i>
                                             Cambia
                                         </a>
                                     </span>
-                                    <span id="calcRace">108,00 €</span>
+                                    <span class="price" id="calcRace"
+                                        >108,00 €</span
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -396,7 +978,10 @@
                         Mostrando alloggi idonei per
                         <span
                             id="capacityFilterCount"
-                            style="color: var(--accent-gold); font-weight: bold"
+                            style="
+                                color: var(--primary-color);
+                                font-weight: bold;
+                            "
                             >4</span
                         >
                         o più persone
@@ -404,66 +989,6 @@
                 </div>
 
                 <div class="cards-grid" id="accommodationGrid">
-                    <div
-                        class="card accommodation-card reveal"
-                        data-capacity="2"
-                        data-base-price='{"1": 66, "2": 66}'
-                    >
-                        <div class="card-content">
-                            <h3 class="card-title">
-                                <i class="fa-solid fa-hotel"></i> HoY VILLAGE
-                            </h3>
-                            <div class="card-capacity">
-                                <i class="fa-solid fa-user-group"></i> Capienza:
-                                fino a 2 persone
-                            </div>
-                            <div class="card-price">
-                                <span class="dynamic-price">66 €</span>
-                                <span></span>
-                            </div>
-
-                            <ul class="pro-contra-list">
-                                <li class="pro">
-                                    • <span>Colazione</span> inclusa
-                                </li>
-                                <li class="pro">
-                                    • <span>Parcheggio:</span> pubblico 5€ al
-                                    giorno
-                                </li>
-                                <li class="pro">
-                                    • <span>Cancellazione gratuita:</span> Si
-                                </li>
-                                <li class="pro">
-                                    • <span>Pagamento:</span> in struttura
-                                </li>
-                                <li class="pro">
-                                    • <span>Distanza:</span> 950 m dal campo
-                                    gara
-                                </li>
-                            </ul>
-
-                            <button
-                                class="btn btn-outline btn-select-hotel"
-                                style="width: 100%; margin: 15px 0 10px 0"
-                            >
-                                Seleziona per Calcolo
-                            </button>
-                            <div class="card-footer">
-                                <a
-                                    href="https://www.booking.com/Share-ouWHbH"
-                                    target="_blank"
-                                    class="btn btn-outline"
-                                    style="width: 100%"
-                                >
-                                    Apri su Booking
-                                    <i
-                                        class="fa-solid fa-arrow-up-right-from-square"
-                                    ></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
                     <div
                         class="card accommodation-card reveal"
                         data-capacity="4"
@@ -484,7 +1009,7 @@
 
                             <ul class="pro-contra-list">
                                 <li class="pro">
-                                    • <span>Colazione</span> inclusa
+                                    • <span>Colazione</span>inclusa
                                 </li>
                                 <li class="pro">
                                     • <span>Parcheggio:</span> privato gratuito
@@ -526,6 +1051,66 @@
                     <div
                         class="card accommodation-card reveal"
                         data-capacity="2"
+                        data-base-price='{"1": 66, "2": 66}'
+                    >
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <i class="fa-solid fa-hotel"></i> HoY VILLAGE
+                            </h3>
+                            <div class="card-capacity">
+                                <i class="fa-solid fa-user-group"></i> Capienza:
+                                fino a 2 persone
+                            </div>
+                            <div class="card-price">
+                                <span class="dynamic-price">66 €</span>
+                                <span></span>
+                            </div>
+
+                            <ul class="pro-contra-list">
+                                <li class="pro">
+                                    • <span>Colazione</span>inclusa
+                                </li>
+                                <li class="pro">
+                                    • <span>Parcheggio:</span> pubblico 5€ al
+                                    giorno
+                                </li>
+                                <li class="pro">
+                                    • <span>Cancellazione gratuita:</span> Si
+                                </li>
+                                <li class="pro">
+                                    • <span>Pagamento:</span> in struttura
+                                </li>
+                                <li class="pro">
+                                    • <span>Distanza:</span> 950 m dal campo
+                                    gara
+                                </li>
+                            </ul>
+
+                            <button
+                                class="btn btn-outline btn-select-hotel"
+                                style="width: 100%; margin: 15px 0 10px 0"
+                            >
+                                Seleziona per Calcolo
+                            </button>
+                            <div class="card-footer">
+                                <a
+                                    href="https://www.booking.com/Share-ouWHbH"
+                                    target="_blank"
+                                    class="btn btn-outline"
+                                    style="width: 100%"
+                                >
+                                    Apri su Booking
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"
+                                    ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="card accommodation-card reveal"
+                        data-capacity="2"
                         data-base-price='{"1": 117, "2": 108}'
                     >
                         <div class="card-content">
@@ -544,9 +1129,9 @@
 
                             <ul class="pro-contra-list">
                                 <li class="pro">
-                                    • <span>Colazione</span> inclusa
+                                    • <span>Colazione</span>inclusa
                                 </li>
-                                <li class="pro">• Piscina</li>
+                                <li class="pro">• <span>Piscina</span></li>
                                 <li class="pro">
                                     • <span>Parcheggio:</span> privato 5€ al
                                     giorno
@@ -668,7 +1253,7 @@
                 <div class="race-selector-container reveal">
                     <button
                         type="button"
-                        class="race-tab-btn sprint active"
+                        class="race-tab-btn sprint"
                         data-race="sprint"
                         data-price="108"
                     >
@@ -676,7 +1261,7 @@
                     </button>
                     <button
                         type="button"
-                        class="race-tab-btn super"
+                        class="race-tab-btn super active"
                         data-race="super"
                         data-price="135"
                     >
@@ -684,7 +1269,10 @@
                     </button>
                 </div>
 
-                <div id="race-sprint-info" class="race-info-block reveal">
+                <div
+                    id="race-sprint-info"
+                    class="race-info-block hidden reveal"
+                >
                     <div class="single-race-card border-sprint">
                         <div class="race-card-header sprint">
                             <h3>
@@ -807,7 +1395,7 @@
                     </div>
                 </div>
 
-                <div id="race-super-info" class="race-info-block hidden reveal">
+                <div id="race-super-info" class="race-info-block reveal">
                     <div class="single-race-card border-super">
                         <div class="race-card-header super">
                             <h3>
