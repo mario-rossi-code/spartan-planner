@@ -898,12 +898,18 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".accommodation-card").forEach((c) => {
             c.classList.remove("selected-hotel");
             const btn = c.querySelector(".btn-select-hotel");
-            if (btn) btn.classList.remove("active");
+            if (btn) {
+                btn.classList.remove("active");
+                btn.textContent = "Seleziona per Calcolo";
+            }
         });
 
         card.classList.add("selected-hotel");
         const btn = card.querySelector(".btn-select-hotel");
-        if (btn) btn.classList.add("active");
+        if (btn) {
+            btn.classList.add("active");
+            btn.textContent = "Selezionato";
+        }
 
         const title = card.querySelector(".card-title");
         const priceSpan = card.querySelector(".dynamic-price");
@@ -1038,6 +1044,9 @@ document.addEventListener("DOMContentLoaded", function () {
         calculateCosts();
         refreshTicketsUI("andata");
         refreshTicketsUI("ritorno");
+        document
+            .querySelectorAll(".btn-select-ticket")
+            .forEach((btn) => btn.click());
 
         document.documentElement.style.setProperty(
             "--primary-color",
@@ -1074,7 +1083,10 @@ document.addEventListener("DOMContentLoaded", function () {
             ) {
                 card.classList.add("selected-hotel");
                 const btn = card.querySelector(".btn-select-hotel");
-                if (btn) btn.classList.add("active");
+                if (btn) {
+                    btn.classList.add("active");
+                    btn.textContent = "Selezionato";
+                }
             }
         });
     }

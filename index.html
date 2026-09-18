@@ -140,21 +140,21 @@
                 <div class="transport-selector reveal">
                     <button
                         type="button"
-                        class="transport-tab-btn car active"
+                        class="transport-tab-btn car"
                         data-transport="car"
                     >
                         <i class="fa-solid fa-car-side"></i> Auto
                     </button>
                     <button
                         type="button"
-                        class="transport-tab-btn train"
+                        class="transport-tab-btn train active"
                         data-transport="train"
                     >
                         <i class="fa-solid fa-train"></i> Treno
                     </button>
                 </div>
 
-                <div id="transport-car-info" class="route-layout">
+                <div id="transport-car-info" class="route-layout hidden">
                     <div class="route-info-card reveal">
                         <div class="route-header">
                             <h3>
@@ -259,7 +259,7 @@
                     </div>
                 </div>
 
-                <div id="transport-train-info" class="route-layout hidden">
+                <div id="transport-train-info" class="route-layout">
                     <div class="route-info-card reveal">
                         <div class="route-header">
                             <h3>
@@ -397,7 +397,7 @@
             </div>
         </section>
 
-        <section id="biglietti-treno" class="hidden">
+        <section id="biglietti-treno">
             <div class="container">
                 <div class="section-header reveal">
                     <h2 class="section-title">BIGLIETTI <span>TRENO</span></h2>
@@ -430,7 +430,7 @@
 
                     <div class="ticket-options-grid" id="andataOptions">
                         <div
-                            class="ticket-option-card"
+                            class="ticket-option-card selected"
                             data-direction="andata"
                             data-id="andata-italo-1125"
                             data-price="52.90"
@@ -1030,7 +1030,7 @@
                                 class="btn btn-outline btn-select-hotel"
                                 style="width: 100%; margin: 15px 0 10px 0"
                             >
-                                Seleziona per Calcolo
+                                Selezionato
                             </button>
                             <div class="card-footer">
                                 <a
